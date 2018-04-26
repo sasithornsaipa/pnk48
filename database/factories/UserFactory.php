@@ -18,9 +18,9 @@ $factory->define(App\User::class, function (Faker $faker) {
       'username' => $faker->unique()->userName,
       'email' => $faker->unique()->safeEmail,
       'password' => bcrypt('password'),
-      'remember_token' => null,
+      'verified' => $faker->boolean(90),
       'status' => $faker->randomElement(['normal', 'warn', 'banned']),
       'user_level' => $faker->randomElement(['admin', 'member']),
-      'is_enabled' => $faker->boolean(90)
+      'remember_token' => null
   ];
 });

@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         $admin = new App\User;
         $admin->username = 'admin';
-        $admin->username = 'sasithorn.sai@ku.th';
+        $admin->email = 'sasithorn.sai@ku.th';
         $admin->password = bcrypt('admin');
         $admin->verified = true;
         $admin->status = 'normal';

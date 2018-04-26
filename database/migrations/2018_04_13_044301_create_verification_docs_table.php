@@ -15,7 +15,7 @@ class CreateVerificationDocsTable extends Migration
     {
         Schema::create('verification_docs', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
-            $table->string('document');
+            $table->string('document')->nullable();
             $table->timestamps();
 
             $table->primary('user_id');
