@@ -36,6 +36,12 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
+        Schema::enableForeignKeyConstraints();
+        Schema::table('reports', function (Blueprint $table){
+          $table->dropForeign(['reportor_id']);
+            $table->dropForeign(['reported_id']);
+        });
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('reports');
     }
 }

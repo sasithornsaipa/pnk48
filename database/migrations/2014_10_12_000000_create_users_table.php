@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username')->uniqid();
+            $table->string('email')->uniqid();
             $table->string('password');
             $table->boolean('verified');
             $table->enum('status', ['normal', 'warn', 'banned']);

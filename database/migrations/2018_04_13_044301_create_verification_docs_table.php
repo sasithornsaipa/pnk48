@@ -33,6 +33,11 @@ class CreateVerificationDocsTable extends Migration
      */
     public function down()
     {
+        Schema::enableForeignKeyConstraints();
+        Schema::table('verification_docs', function (Blueprint $table){
+            $table->dropForeign(['user_id']);
+        });
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('verification_docs');
     }
 }

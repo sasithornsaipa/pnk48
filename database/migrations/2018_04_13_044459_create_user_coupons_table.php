@@ -36,6 +36,12 @@ class CreateUserCouponsTable extends Migration
      */
     public function down()
     {
+        Schema::enableForeignKeyConstraints();
+        Schema::table('user_coupons', function (Blueprint $table){
+          $table->dropForeign(['user_id']);
+            $table->dropForeign(['coupon_id']);
+        });
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('user_coupons');
     }
 }

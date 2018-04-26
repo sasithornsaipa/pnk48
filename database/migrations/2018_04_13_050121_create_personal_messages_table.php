@@ -37,6 +37,12 @@ class CreatePersonalMessagesTable extends Migration
      */
     public function down()
     {
+        Schema::enableForeignKeyConstraints();
+        Schema::table('inboxes', function (Blueprint $table){
+            $table->dropForeign(['sender_id']);
+            $table->dropForeign(['reciever_id']);
+        });
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('personal_messages');
     }
 }

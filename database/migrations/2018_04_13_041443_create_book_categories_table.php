@@ -35,6 +35,11 @@ class CreateBookCategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::enableForeignKeyConstraints();
+        Schema::table('book_categories', function (Blueprint $table){
+            $table->dropForeign(['book_id']);
+        });
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('book_categories');
     }
 }

@@ -33,6 +33,11 @@ class CreateLogsTable extends Migration
      */
     public function down()
     {
+        Schema::enableForeignKeyConstraints();
+        Schema::table('inboxes', function (Blueprint $table){
+            $table->dropForeign(['user_id']);
+        });
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('logs');
     }
 }

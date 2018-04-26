@@ -36,6 +36,12 @@ class CreateShelvesTable extends Migration
      */
     public function down()
     {
+        Schema::enableForeignKeyConstraints();
+        Schema::table('shelves', function (Blueprint $table){
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['book_id']);
+        });
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('shelves');
     }
 }

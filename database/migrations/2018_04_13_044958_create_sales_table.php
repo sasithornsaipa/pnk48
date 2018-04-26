@@ -46,6 +46,13 @@ class CreateSalesTable extends Migration
      */
     public function down()
     {
+        Schema::enableForeignKeyConstraints();
+        Schema::table('sales', function (Blueprint $table){
+          $table->dropForeign(['seller_id']);
+          $table->dropForeign(['buyer_id']);
+            $table->dropForeign(['book_id']);
+        });
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('sales');
     }
 }
