@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('home.index');
 });
+
+Route::get('/admin', 'AdminsController@index');
+// Route::get('/events/create', function () {
+//     return view('events.index');
+// });
+
+Route::resource('/events', 'EventsController');

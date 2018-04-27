@@ -23,6 +23,7 @@ class CreateProfilesTable extends Migration
             $table->string('tel');
             $table->text('address');
             $table->unsignedInteger('coin');
+            $table->string('image_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -17,13 +17,14 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->enum('reward', ['coupon', 'coin']);
-            $table->text('decription');
+            $table->text('description');
             $table->string('start_time');
             $table->string('end_time');
             $table->enum('mission_type', ['normal', 'rcgame', 'htGame']); //rc = random card, ht = head or tails
+            $table->string('image_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
+
         });
     }
 
