@@ -16,7 +16,7 @@
 @section('content')
 <div class="container">
       <div class="py-5 text-center">
-        <h2>Create Events</h2>
+        <h2>Create Event</h2>
         <p class="lead"></p>
       </div>
 
@@ -72,11 +72,11 @@
 
                 </div>
               </div>
-
+              
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="start_time">Start Time</label>
-                  <input class="date form-control" type="date" name="start_time" min="2018-04-27" required>
+                  <input class="date form-control" type="date" name="start_time" min="{{$today}}" required>
 
                   @if($errors->has('start_time'))
                   <div class="text-danger">
@@ -88,7 +88,7 @@
 
                 <div class="col-md-6 mb-3">
                   <label for="end_time">End Time</label>
-                  <input class="date form-control" type="date" name="end_time" min="2018-04-27" required>
+                  <input class="date form-control" type="date" name="end_time" min="{{$today}}" required>
 
                   @if($errors->has('end_time'))
                     <div class="text-danger">
@@ -176,27 +176,6 @@
     <script src="../../../../dist/js/bootstrap.min.js"></script>
     <script src="../../../../assets/js/vendor/holder.min.js"></script>
     <script>
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      // (function() {
-      //   'use strict';
-      //
-      //   window.addEventListener('load', function() {
-      //     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      //     var forms = document.getElementsByClassName('needs-validation');
-      //
-      //     // Loop over them and prevent submission
-      //     var validation = Array.prototype.filter.call(forms, function(form) {
-      //       form.addEventListener('submit', function(event) {
-      //         if (form.checkValidity() === false) {
-      //           event.preventDefault();
-      //           event.stopPropagation();
-      //         }
-      //         form.classList.add('was-validated');
-      //       }, false);
-      //     });
-      //   }, false);
-      // })();
-
 
       $("input[type=file]").change(function () {
       var fieldVal = $(this).val();
