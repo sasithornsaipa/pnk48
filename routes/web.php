@@ -16,3 +16,5 @@
 // });
 
 Route::resource('/events', 'EventsController');
+
+Route::resource('/index', 'HomesController');
