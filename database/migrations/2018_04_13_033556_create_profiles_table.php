@@ -24,6 +24,7 @@ class CreateProfilesTable extends Migration
             $table->text('address');
             $table->unsignedInteger('coin');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')
                   ->references('id')

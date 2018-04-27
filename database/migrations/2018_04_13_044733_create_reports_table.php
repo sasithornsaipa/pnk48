@@ -19,6 +19,8 @@ class CreateReportsTable extends Migration
             $table->unsignedInteger('reported_id');
             $table->text('description');
             $table->timestamps();
+            $table->softDeletes();
+
 
             $table->foreign('reportor_id')
                   ->references('id')
@@ -38,7 +40,7 @@ class CreateReportsTable extends Migration
     {
         Schema::enableForeignKeyConstraints();
         Schema::table('reports', function (Blueprint $table){
-          $table->dropForeign(['reportor_id']);
+            $table->dropForeign(['reportor_id']);
             $table->dropForeign(['reported_id']);
         });
         Schema::disableForeignKeyConstraints();

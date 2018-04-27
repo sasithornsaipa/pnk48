@@ -21,6 +21,8 @@ class CreateBookCategoriesTable extends Migration
                          'dictionaries', 'comics', 'art', 'cookbooks', 'diaries', 'journals', 'prayerbooks', 'series', 'trilogy',
                          'biographies', 'autobiographies', 'fantasy']);
             $table->timestamps();
+            $table->softDeletes();
+            
 
             $table->foreign('book_id')
                   ->references('id')

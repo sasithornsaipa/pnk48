@@ -20,6 +20,8 @@ class CreatePersonalMessagesTable extends Migration
             $table->string('message');
             $table->string('time');
             $table->timestamps();
+            $table->softDeletes();
+            
 
             $table->foreign('sender_id')
                   ->references('id')

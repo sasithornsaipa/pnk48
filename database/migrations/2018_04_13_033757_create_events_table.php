@@ -22,6 +22,8 @@ class CreateEventsTable extends Migration
             $table->string('end_time');
             $table->enum('mission_type', ['normal', 'rcgame', 'htGame']); //rc = random card, ht = head or tails
             $table->timestamps();
+            $table->softDeletes();
+            
         });
     }
 

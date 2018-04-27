@@ -17,6 +17,8 @@ class CreateVerificationDocsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('document')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            
 
             $table->primary('user_id');
 

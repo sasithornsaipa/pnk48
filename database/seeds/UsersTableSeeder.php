@@ -20,6 +20,14 @@ class UsersTableSeeder extends Seeder
         $admin->user_level = 'admin';
         $admin->save();
 
-        factory(App\User::class, 5)->create();
+        $member = new App\User;
+        $member->username = 'meawsasiz';
+        $member->email = 'meawsasiz@hotmail.com';
+        $member->password = bcrypt('123456');
+        $member->verified = true;
+        $member->status = 'normal';
+        $member->user_level = 'member';
+        $member->save();
+
     }
 }

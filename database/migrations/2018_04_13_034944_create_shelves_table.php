@@ -17,6 +17,8 @@ class CreateShelvesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('book_id');
             $table->timestamps();
+            $table->softDeletes();
+            
 
             $table->primary(array('user_id', 'book_id'));
 

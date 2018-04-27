@@ -26,6 +26,8 @@ class CreateSalesTable extends Migration
             $table->string('end_time')->nullable();
             $table->string('tracking_num')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            
 
             $table->foreign('seller_id')
                   ->references('id')

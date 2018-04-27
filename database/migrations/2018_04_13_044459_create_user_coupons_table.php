@@ -17,6 +17,8 @@ class CreateUserCouponsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('coupon_id');
             $table->timestamps();
+            $table->softDeletes();
+
 
             $table->primary(array('user_id', 'coupon_id'));
 
@@ -39,7 +41,7 @@ class CreateUserCouponsTable extends Migration
         Schema::enableForeignKeyConstraints();
         Schema::table('user_coupons', function (Blueprint $table){
           $table->dropForeign(['user_id']);
-            $table->dropForeign(['coupon_id']);
+          $table->dropForeign(['coupon_id']);
         });
         Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('user_coupons');

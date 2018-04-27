@@ -19,6 +19,8 @@ class CreateCouponsTable extends Migration
             $table->string('exp');
             $table->string('code');
             $table->timestamps();
+            $table->softDeletes();
+            
         });
     }
 

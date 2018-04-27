@@ -19,6 +19,8 @@ class CreateLogsTable extends Migration
             $table->string('description');
             $table->string('time');
             $table->timestamps();
+            $table->softDeletes();
+            
 
             $table->foreign('user_id')
                   ->references('id')

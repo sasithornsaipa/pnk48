@@ -22,6 +22,8 @@ class CreateInboxesTable extends Migration
             $table->unsignedInteger('event_id')->nuallable();
             $table->boolean('is_recieved');
             $table->timestamps();
+            $table->softDeletes();
+
 
             $table->foreign('sender_id')
                   ->references('id')
