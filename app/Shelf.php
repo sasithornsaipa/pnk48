@@ -15,4 +15,8 @@ class Shelf extends Model
          * @var array
          */
         protected $dates = ['deleted_at'];
+
+        public function user(){
+          return $this.belongsTo('App\User', 'user_id');
+        }
 }
