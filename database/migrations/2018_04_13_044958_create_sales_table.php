@@ -21,13 +21,14 @@ class CreateSalesTable extends Migration
             $table->unsignedInteger('base_price');
             $table->unsignedInteger('total_price')->nullable();
             $table->enum('sale_type', ['retail', 'bid']);
-            $table->enum('status', ['processing', 'deliverd', 'recieved']);
+            $table->enum('status', ['processing', 'delivered', 'recieved']);
             $table->string('start_time')->nullable();
             $table->string('end_time')->nullable();
             $table->string('tracking_num')->nullable();
+            $table->text('payment');
             $table->timestamps();
             $table->softDeletes();
-            
+
 
             $table->foreign('seller_id')
                   ->references('id')
