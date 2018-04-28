@@ -2,8 +2,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
     crossorigin="anonymous"> 
 @endpush 
-@section('content')
-{{-- Tab Header --}}
+@section('content') {{-- Tab Header --}}
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#dashboard">Dashboard</a>
@@ -11,7 +10,8 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#users">Users List</a>
     </li>
-    {{-- <li class="nav-item">
+    {{--
+    <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#events">Events List</a>
     </li> --}}
     <li class="nav-item dropdown">
@@ -21,6 +21,9 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">New Event...</a>
         </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#reports">Reports List</a>
     </li>
 </ul>
 {{-- Tab Content --}}
@@ -79,6 +82,7 @@
                         <th scope="col">Description</th>
                         <th scope="col">Mission Type</th>
                         <th scope="col">Reward</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="table-striped table-hover">
@@ -95,6 +99,35 @@
                         <td>{{ $event->description }}</td>
                         <td>{{ $event->mission_type }}</td>
                         <td>{{ $event->reward }}</td>
+                        <td><a href="#" class="btn btn-success">Detail</a></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="reports">
+        <div class="container-fluid">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Reported</th>
+                        <th scope="col">Reporter</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Reported Date</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="table-striped table-hover">
+                    @foreach($reports as $report)
+                    <tr>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $report->reported->username }}</td>
+                        <td>{{ $report->reportor->username }}</td>
+                        <td>{{ $report->description }}</td>
+                        <td>{{ $report->created_at }}</td>
+                        <td><a href="#" class="btn btn-success">Detail</a></td>
                     </tr>
                     @endforeach
                 </tbody>

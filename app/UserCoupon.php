@@ -20,6 +20,6 @@ class UserCoupon extends Model
 			return $this->belongsTo('App\User', 'user_id');
 		}
         public function coupon(){
-			return $this->belongsTo('App\Coupon', 'coupon_id')
+			return $this->belongsTo('App\Coupon', 'coupon_id');
 		}
 }

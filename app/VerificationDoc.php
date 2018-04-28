@@ -17,6 +17,6 @@ class VerificationDoc extends Model
         protected $dates = ['deleted_at'];
 
 		public function user(){
-			return $this->belongsTo('App\User', 'user_id')
+			return $this->belongsTo('App\User', 'user_id');
 		}
 }

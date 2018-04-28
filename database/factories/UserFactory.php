@@ -21,6 +21,5 @@ $factory->define(App\User::class, function (Faker $faker) {
       'verified' => $faker->boolean(90),
       'status' => $faker->randomElement(['normal', 'warn', 'banned']),
       'user_level' => $faker->randomElement(['admin', 'member']),
-      'remember_token' => null
   ];
 });

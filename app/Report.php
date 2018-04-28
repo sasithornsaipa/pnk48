@@ -16,11 +16,11 @@ class Report extends Model
          */
         protected $dates = ['deleted_at'];
 
-        public function reporter(){
-			return $this->belongsTo('App\User', 'reporter_id')
+        public function reportor(){
+			return $this->belongsTo('App\User', 'reportor_id');
 		}
 
         public function reported(){
-			return $this->belongsTo('App\User', 'reported_id')
+			return $this->belongsTo('App\User', 'reported_id');
 		}
 }

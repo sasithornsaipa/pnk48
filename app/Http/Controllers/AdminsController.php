@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Admin;
 use App\User;
 use App\Event;
+use App\Report;
 
 class AdminsController extends Controller
 {
@@ -18,7 +19,8 @@ class AdminsController extends Controller
     {
         $usernames = User::orderBy('username', 'ASC')->get();
         $events = Event::orderBy('name', 'ASC')->get();
-        return view('admin.index', ['usernames'=>$usernames, 'events'=>$events]);
+        $reports = Report::orderBy('created_at', 'DESC')->get();
+        return view('admin.index', ['usernames'=>$usernames, 'events'=>$events, 'reports'=>$reports]);
     }
 
     /**
