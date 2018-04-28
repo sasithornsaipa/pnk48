@@ -41,6 +41,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">User Level</th>
                         <th scope="col">Verified ?</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody class="table-striped table-hover">
@@ -55,12 +56,13 @@
                                         @endif
                                         ">
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td><a href="{{ url('/users/' . $user->id) }}">{{ $user->username }}</a></td>
+                        <td>{{ $user->username }}</td>
                         <td>{{ $user->status }}</td>
                         <td>{{ $user->user_level }}</td>
                         <td>{!! $user->verified ? '
-                            <i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>' !!}
+                            <i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>' !!}
                         </td>
+                        <td><a href="#" class="btn btn-success">Detail</a></td>
                     </tr>
                     @endforeach
                 </tbody>

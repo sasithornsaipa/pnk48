@@ -15,10 +15,12 @@ Route::get('/', function () {
     return view('home.index');
 });
 
-Route::get('/admin', 'AdminsController@index');
+// Route::get('/admin', 'AdminsController@index');
 // Route::get('/events/create', function () {
 //     return view('events.index');
 // });
+
+Route::resource('/admin', 'AdminsController');
 
 Route::resource('/events', 'EventsController');
 Route::get('/test', function(){
