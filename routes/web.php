@@ -23,4 +23,4 @@ Route::get('/admin', 'AdminsController@index');
 Route::resource('/events', 'EventsController');
 Route::resource('/sales', 'SalesController');
 
- Route::resource('/index', 'HomesController');
+Route::resource('/index', 'HomesController');
