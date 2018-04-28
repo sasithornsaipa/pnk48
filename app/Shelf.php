@@ -17,6 +17,10 @@ class Shelf extends Model
         protected $dates = ['deleted_at'];
 
         public function user(){
-          return $this.belongsTo('App\User', 'user_id');
+          return $this->belongsTo('App\User', 'user_id');
         }
+
+		public function books(){
+			return $this->hasMany('App\Book', 'id');
+		}
 }

@@ -15,4 +15,12 @@ class Report extends Model
          * @var array
          */
         protected $dates = ['deleted_at'];
+
+        public function reporter(){
+			return $this->belongsTo('App\User', 'reporter_id')
+		}
+
+        public function reported(){
+			return $this->belongsTo('App\User', 'reported_id')
+		}
 }

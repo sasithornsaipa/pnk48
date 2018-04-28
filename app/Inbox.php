@@ -15,4 +15,19 @@ class Inbox extends Model
          * @var array
          */
         protected $dates = ['deleted_at'];
+
+		public function sender(){
+			return $this->belongsTo('\App\User', 'sender_id');
+		}
+		public function reciever(){
+			return $this->belongsTo('\App\User', 'reciever_id');
+		}
+
+		public function event(){
+			return $this->belongsTo('App\Event', 'event_id');
+		}
+
+		public function coupon(){
+			return $this->hasMany('App\Coupon', 'coupon_id');
+		}
 }

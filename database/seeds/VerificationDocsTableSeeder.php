@@ -11,6 +11,6 @@ class VerificationDocsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+
     }
 }

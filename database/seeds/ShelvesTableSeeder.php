@@ -11,6 +11,9 @@ class ShelvesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('shelves')->insert([
+            'user_id' => \App\User::all()->first()->id,
+            'book_id' => \App\Book::all()->first()->id,
+        ]);
     }
 }

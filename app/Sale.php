@@ -15,4 +15,16 @@ class Sale extends Model
          * @var array
          */
         protected $dates = ['deleted_at'];
+
+        public function seller(){
+			return $this->belongsTo('App\User', 'seller_id');
+		}
+
+        public function buyer(){
+			return $this->belongsTo('App\User', 'buyer_id');
+		}
+
+		public function books(){
+			return $this->belongsTo('App\Book', 'book_id');
+		}
 }

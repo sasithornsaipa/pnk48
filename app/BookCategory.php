@@ -15,4 +15,8 @@ class BookCategory extends Model
          * @var array
          */
         protected $dates = ['deleted_at'];
+
+		public function books(){
+			return $this->hasMany('App\Book', 'book_id');
+		}
 }
