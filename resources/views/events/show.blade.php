@@ -35,6 +35,14 @@
   .list-inline-item a{
     color: rgb(233, 236, 238);
   }
+  .vl{
+    border-left: 0.5px solid rgba(0,0,0,.1);
+    height: 700px;
+    position: absolute;
+    left: 69%;
+    margin-left: -3px;
+    top: 28%;
+  }
 @endpush
 
 @section('content')
@@ -51,16 +59,18 @@
             <p class="font-weight-light">Posted by PMK48 ADMIN on {{$created_date}}</p>
             <hr>
             <!-- Preview Image -->
-            <img class="img-fluid rounded" src="{{$event->image_path}}" alt="" width="90%">
-            <hr>
+            <img class="img-fluid rounded" src="{{$event->image_path}}" alt="" width="90%" style="margin-bottom: 4%">
+
             <!-- Post Content -->
             <p class="lead font-weight-bold">How To Get Reward</p>
+            <hr>
             <blockquote class="blockquote">
               <p class="mb-0 font-weight-normal">{{$event->description}}</p>
               <p class="mb-0 font-weight-light">{{$event->start_time}} to {{$event->end_time}} </p>
             </blockquote>
-            <hr>
+
         </div>
+        <div class="vl"></div>
 
         <div class="col-md-3">
           <p class="font-weight-normal">Recommended Events</p>

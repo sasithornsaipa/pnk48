@@ -63,9 +63,9 @@ class EventsController extends Controller
       $images=array();
       if($files=$request->file('images')){
           foreach($files as $file){
-              $name=$file->getClientOriginalName();
-              $upload = $file->move(public_path().'/event_images/',$name);
-              $event->image_path = '/event_images' . '/' . $name;
+              $name=$file->getClientOriginalExtension();
+              $upload = $file->move(public_path() . '/event_images' . '/', $request->input('name') . '.' . $name);
+              $event->image_path = '/event_images' . '/'. $request->input('name') . '.' . $name;
           }
       }
 
@@ -137,9 +137,9 @@ class EventsController extends Controller
       $images=array();
       if($files=$request->file('images')){
           foreach($files as $file){
-              $name=$file->getClientOriginalName();
-              $upload = $file->move(public_path().'/event_images/',$name);
-              $event->image_path = '/event_images' . '/' . $name;
+            $name=$file->getClientOriginalExtension();
+            $upload = $file->move(public_path() . '/event_images' . '/', $request->input('name') . '.' . $name);
+            $event->image_path = '/event_images' . '/'. $request->input('name') . '.' . $name;
           }
       }
 
