@@ -64,8 +64,8 @@ class EventsController extends Controller
       if($files=$request->file('images')){
           foreach($files as $file){
               $name=$file->getClientOriginalName();
-              $upload = $file->storeAs('public/event_images/',$name);
-              $event->image_path = 'public/event_images' . '/' . $name;
+              $upload = $file->move(public_path().'/event_images/',$name);
+              $event->image_path = '/event_images' . '/' . $name;
           }
       }
 
@@ -82,7 +82,8 @@ class EventsController extends Controller
      */
     public function show(Event $event)
     {
-      $event_all = Event::all();
+      $today = date("Y-m-d");
+      $event_all = Event::where('end_time', '>=', $today)->paginate(4);
       $m = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       $data = $event->created_at;
       $dnt = explode(' ', $data);
@@ -137,8 +138,8 @@ class EventsController extends Controller
       if($files=$request->file('images')){
           foreach($files as $file){
               $name=$file->getClientOriginalName();
-              $upload = $file->storeAs('public/event_images/',$name);
-              $event->image_path = 'public/event_images' . '/' . $name;
+              $upload = $file->move(public_path().'/event_images/',$name);
+              $event->image_path = '/event_images' . '/' . $name;
           }
       }
 
