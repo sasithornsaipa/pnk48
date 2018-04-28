@@ -15,7 +15,7 @@ class EventsController extends Controller
     public function index()
     {
       // $events = Event::all();
-      // return view('events.index', compact('projects'));
+      // return view('events.index', compact('events'));
     }
 
     /**
@@ -27,8 +27,9 @@ class EventsController extends Controller
     {
       $reward = ['coupon', 'coin'];
       $mission_type = ['normal' => 'Normal', 'rcgame' => 'Random Card Game', 'htgame' => 'Head or Tail Game'];
-
-      return view('events.create', ['reward' => $reward, 'mission_type' => $mission_type]);
+      date_default_timezone_set("Asia/Bangkok");
+      $today = date("Y-m-d");
+      return view('events.create', ['reward' => $reward, 'mission_type' => $mission_type, 'today' => $today]);
 
     }
 
@@ -81,7 +82,13 @@ class EventsController extends Controller
      */
     public function show(Event $event)
     {
-      return view('events.show', ['event' => $event]);
+      $event_all = Event::all();
+      $m = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      $data = $event->created_at;
+      $dnt = explode(' ', $data);
+      $d = explode('-', $dnt[0]);
+      $created_date = $d[2] ." ". $m[(int)$d[1]] .", ". $d[0];
+      return view('events.show', ['event' => $event, 'created_date' => $created_date, 'event_all' => $event_all]);
     }
 
     /**
@@ -94,8 +101,9 @@ class EventsController extends Controller
     {
       $reward = ['coupon', 'coin'];
       $mission_type = ['normal' => 'Normal', 'rcgame' => 'Random Card Game', 'htgame' => 'Head or Tail Game'];
-
-      return view('events.edit', ['event' => $event, 'reward' => $reward, 'mission_type' => $mission_type]);
+      date_default_timezone_set("Asia/Bangkok");
+      $today = date("Y-m-d");
+      return view('events.edit', ['event' => $event, 'reward' => $reward, 'mission_type' => $mission_type, 'today' => $today]);
     }
 
     /**
@@ -114,7 +122,7 @@ class EventsController extends Controller
         'start_time' => 'required',
         'end_time' => 'required',
         'mission_type' => 'required',
-        'images.*' => 'image|mimes:jpeg,bmp,png|max:2048'
+        'images.[]' => 'image|mimes:jpeg,bmp,png|max:2048'
       ]);
 
       $event->name = $request->input('name');
@@ -123,6 +131,17 @@ class EventsController extends Controller
       $event->start_time = $request->input('start_time');
       $event->end_time = $request->input('end_time');
       $event->mission_type = $request->input('mission_type');
+
+      $input=$request->all();
+      $images=array();
+      if($files=$request->file('images')){
+          foreach($files as $file){
+              $name=$file->getClientOriginalName();
+              $upload = $file->storeAs('public/event_images/',$name);
+              $event->image_path = 'public/event_images' . '/' . $name;
+          }
+      }
+
       $event->save();
 
       return redirect('/events/' . $event->id);
