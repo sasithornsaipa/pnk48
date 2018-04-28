@@ -21,10 +21,5 @@ Route::get('/admin', 'AdminsController@index');
 // });
 
 Route::resource('/events', 'EventsController');
-Route::get('/test', function(){
-    return \App\User::all()->first()->shelf;
-});
-
-Route::resource('/sales', 'SalesController');
 
 Route::resource('/index', 'HomesController');
