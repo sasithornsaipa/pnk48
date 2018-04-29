@@ -49,7 +49,7 @@ class AdminsController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show(User $admin)
     {
         //
     }
@@ -65,7 +65,7 @@ class AdminsController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit(User $admin)
     {
         //
     }
@@ -77,7 +77,7 @@ class AdminsController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, User $admin)
     {
         //
     }
@@ -88,9 +88,13 @@ class AdminsController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(User $admin)
     {
         $admin->delete();
         redirect('/admin');
+    }
+
+    public function isAdmin() {
+        return $this->user_level=='admin';
     }
 }
