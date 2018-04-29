@@ -17,8 +17,6 @@ Route::get('/', function () {
 
 
 Route::get('/admin', 'AdminsController@index');
-Route::get('/admin/show/user/{user}', 'AdminsController@showUser');
-
 // Route::get('/events/create', function () {
 //     return view('events.index');
 // });
@@ -27,12 +25,13 @@ Route::resource('/events', 'EventsController');
 Route::resource('/sales', 'SalesController');
 
 Route::resource('/index', 'HomesController');
-Route::resource('personal_message', 'PersonalMessagesController');
 
-Route::get('/buying', function(){return view('buying.create');});
 
 Route::get('/profile/{profile}', 'ProfilesController@edit')->where('profile', '[0-9]+');
 Route::put('/profile/{profile}', 'ProfilesController@update')->where('profile', '[0-9]+');
+
+Route::get('/profile/{profile}/sell', 'ProfilesController@showSell')->where('profile', '[0-9]+');
+Route::get('/profile/{profile}/buy', 'ProfilesController@showBuy')->where('profile', '[0-9]+');
 
 Route::get('/shelfbook', 'ShelvesController@index');
 Route::get('/shelfbook/{book}', 'ShelvesController@showBook')->where('book','[0-9]+');
@@ -44,3 +43,9 @@ Route::resource('/personal_message', 'PersonalMessagesController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/buying', function(){return view('buying.create');});

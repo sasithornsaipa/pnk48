@@ -4,10 +4,29 @@
 Profile Detail
 @endsection
 
+
 @section('right-content')
+
+<style>
+    .input{
+        padding: 10px;
+        border-radius: 50%;
+    }
+    h1{
+        margin: 10px;
+    }
+    input[type=text], select {
+        /* width: 100%; */
+        padding: 5px 10px;
+        /* margin: 8px 0; */
+        /* display: inline-block; */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        /* box-sizing: border-box; */
+    }
+</style>
 <form action="/profile/{{ $profile->id }}" method="post">
-<!-- Auth::user()->id -->
-    
+
     @csrf
     @method('PUT')
     <!-- CSRF Cross-Site Request Forgery -->
@@ -24,22 +43,22 @@ Profile Detail
             {{ $errors->first('username') }}
 
             <br>
-            <label>email: </label>
+            <label>Email: </label>
             <input type="text" name="email" value="{{ old('email') ?? $userprodetail->email }}">
             {{ $errors->first('email') }}
             
             <br>
-            <label>password: </label>
+            <label>Password: </label>
             <input type="password" name="password" value="{{ old('password') ?? $userprodetail->password }}">
             {{ $errors->first('password') }}
 
             <br>
-            <label>fname: </label>
+            <label>Firstname: </label>
             <input type="text" name="fname" value="{{ old('fname') ?? $profile->fname }}">
             {{ $errors->first('fname') }}
 
             <br>
-            <label>lname: </label>
+            <label>Lastname: </label>
             <input type="text" name="lname" value="{{ old('lname') ?? $profile->lname }}">
             {{ $errors->first('lname') }}
 
@@ -63,6 +82,6 @@ Profile Detail
     </div>
 
     <br>
-    <button type="submit">Submit</button>
+    <button class="btn btn-success btn-lg btn-block" type="submit">Submit</button>
 </form>
 @endsection
