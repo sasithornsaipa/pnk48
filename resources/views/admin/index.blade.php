@@ -7,8 +7,13 @@
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#dashboard">Dashboard</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#users">Users List</a>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">User</a>
+        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+            <a class="dropdown-item" data-toggle="tab" href="#users">Users List</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">New Admin</a>
+        </div>
     </li>
     {{--
     <li class="nav-item">
@@ -79,9 +84,9 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Event Name</th>
-                        <th scope="col">Description</th>
                         <th scope="col">Mission Type</th>
                         <th scope="col">Reward</th>
+                        <th scope="col">Description</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -96,9 +101,9 @@
                         ">
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $event->name }}</td>
-                        <td>{{ $event->description }}</td>
                         <td>{{ $event->mission_type }}</td>
                         <td>{{ $event->reward }}</td>
+                        <td>{{ $event->description }}</td>
                         <td><a href="#" class="btn btn-success">Detail</a></td>
                     </tr>
                     @endforeach

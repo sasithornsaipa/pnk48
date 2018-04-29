@@ -9,7 +9,7 @@
         <p>[ <i class="fa fa-user-circle"></i> {{ $user->user_level }} ]</p>
     </div>
     <ul class="list-group">
-        <li class="list-group-item">Name: {{ \App\Profile::where('user_id', $user->id)->get() }}</li>
+        <li class="list-group-item">Name: {{ $user->profile->fname }} {{ $user->profile->lname}}</li>
         <li class="list-group-item">Email: {{ $user->email }}</li>
         <li class="list-group-item">
             Enabled? {!! $user->verified ? '
@@ -18,8 +18,11 @@
         <li class="list-group-item">
             Joining Date: {{ $user->created_at }}
         </li>
+        <li class="list-group-item">
+            Status: {{ $user->status }}
+        </li>
     </ul>
-    {{-- @if(Auth::user()->can('update', $user)) --}} @can('update', $user)
+    {{-- @can('update', $user) --}}
     <a class="btn btn-success" href="{{ url('/users/' . $user->id . '/edit') }}">Edit</a>
     <div class="form-group row">
         <form action="/users/{{ $user->id }}" method="POST">
@@ -52,6 +55,6 @@
             </div>
         </form>
     </div>
-    {{-- @endif --}} @endcan
+    {{-- @endcan --}}
 </div>
 @endsection

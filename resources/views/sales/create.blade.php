@@ -105,12 +105,12 @@
                   <label for="book_id">Book Name</label>
                   <select class="custom-select d-block w-100" name="book_id" required>
 
-                    @foreach ($shelf as $book)
-                    @if(old('$book->book_id') == $book->book_id)
-                    <option value="{{ $book->book_id }}" selected>{{ $book->book_id }}</option>
-                    @else
-                    <option value="{{ $book->book_id }}">{{ $book->book_id }}</option>
-                    @endif
+                    @foreach ($books as $book)
+                      @if(old('$book[0]->id') == $book[0]->id)
+                        <option value="{{ $book[0]->id }}" selected>{{ $book[0]->name }}</option>
+                      @else
+                        <option value="{{ $book[0]->id }}">{{ $book[0]->name }}</option>
+                      @endif
                     @endforeach;
                   </select>
 
@@ -143,7 +143,7 @@
                 </div>
 
                 <div class="col-md-4 mb-3">
-                  <label for="base_price">Price</label>
+                  <label for="base_price" id="price">Price</label>
                   <input type="text" class="form-control" name="base_price" placeholder="" value="{{old('base_price')}}" required>
 
                   @if($errors->has('base_price'))
@@ -200,7 +200,7 @@
 
               <div class="mb-3 slidecontainer">
                 <label for="customRange1">Book Condition:&nbsp;&nbsp;</label><span id="demo"></span><br>
-                <input type="range" min="1" max="100" value="{{old('book_condition')}}" class="slider" id="myRange" name="book_condition" required>
+                <input type="range" min="0" max="100" value="{{old('book_condition')}}" class="slider" id="myRange" name="book_condition" required>
 
                 @if($errors->has('book_condition'))
                 <div class="text-danger">
@@ -303,6 +303,7 @@
         console.log(e.target.value);
         if (e.target.value == 'bid') {
           $('#bid').show();
+          document.getElementById('price').innerHTML = 'Base Price';
         }else {
           $('#bid').hide();
         }

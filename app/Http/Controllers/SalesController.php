@@ -25,9 +25,13 @@ class SalesController extends Controller
     public function create()
     {
       $shelf = \App\Shelf::where('user_id', '=', '2')->get();
+      $books = [];
+      foreach ($shelf as $book) {
+        $books[] = \App\Book::where('id', '=', $book->book_id )->get();
+      }
       $sale_type = ['retail', 'bid'];
       $today = date("Y-m-d");
-      return view('sales.create', ['sale_type' => $sale_type, 'shelf' => $shelf, 'status' => 'processing', 'today' => $today]);
+      return view('sales.create', ['sale_type' => $sale_type, 'shelf' => $shelf, 'status' => 'processing', 'today' => $today, 'books' => $books]);
     }
 
     /**
@@ -60,9 +64,9 @@ class SalesController extends Controller
         $sale->start_time = $request->input('start_time');
         $sale->end_time = $request->input('end_time');
       }
-      $sale->payment = $request->input('bank_name') . ' ' .
-                       $request->input('branch') . ' ' .
-                       $request->input('account_num') . ' ' .
+      $sale->payment = $request->input('bank_name') . '/' .
+                       $request->input('branch') . '/' .
+                       $request->input('account_num') . '/' .
                        $request->input('holder');
       $sale->book_condition = $request->input('book_condition');
 
@@ -76,12 +80,13 @@ class SalesController extends Controller
         $count = 0;
           foreach($files as $file){
               $name=$file->getClientOriginalExtension();
-              $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->seller_id . $count . '.' . $name);
-              $img->path = '/sale_images' . '/' . 'sale_images' . $sale->seller_id . $count . '.' . $name;
+              $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name);
+              $img->path = '/sale_images' . '/' . 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name;
+              $img->save();
               $count++;
           }
       }
-      $img->save();
+
 
       return redirect('/sales/' . $sale->id);
 
@@ -102,7 +107,8 @@ class SalesController extends Controller
       $d = explode('-', $dnt[0]);
       $created_date = $d[2] ." ". $m[(int)$d[1]] .", ". $d[0];
       $img = \App\Image::where('sale_id', '=', $sale->id)->get();
-      return view('sales.show', ['sale' => $sale, 'created_date' => $created_date, 'img'=>$img]);
+      $info = explode('/', $sale->payment);
+      return view('sales.show', ['sale' => $sale, 'created_date' => $created_date, 'img'=>$img, 'info'=>$info]);
     }
 
     /**
@@ -165,12 +171,12 @@ class SalesController extends Controller
         $count = 0;
           foreach($files as $file){
               $name=$file->getClientOriginalExtension();
-              $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->seller_id . $count . '.' . $name);
-              $img->path = '/sale_images' . '/' . 'sale_images' . $sale->seller_id . $count . '.' . $name;
+              $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name);
+              $img->path = '/sale_images' . '/' . 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name;
+              $img->save();
               $count++;
           }
       }
-      $img->save();
 
       return redirect('/sales/' . $sale->id);
     }
