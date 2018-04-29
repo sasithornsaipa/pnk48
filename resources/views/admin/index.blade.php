@@ -3,7 +3,6 @@
     crossorigin="anonymous"> 
 @endpush 
 @section('content') {{-- Tab Header --}}
-@can('show', App\User::class)
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#dashboard">Dashboard</a>
@@ -141,5 +140,4 @@
         </div>
     </div>
 </div>
-@endcan
 @endsection
