@@ -41,21 +41,3 @@ Route::post('/shelfbook', 'ShelvesController@store');
 
 Route::resource('/personal_message', 'PersonalMessagesController');
 Auth::routes();
-
-<<<<<<< HEAD
-Route::resource('personal_message', 'PersonalMessagesController');
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-=======
-Route::get('/home', 'HomeController@index')->name('home');
-<<<<<<< HEAD
->>>>>>> 82eb9b43c749387ad84216a91da499a582bc7f37
-=======
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
->>>>>>> 6285887eddfecfb97d93dab5e6dd2e215ba850ae
