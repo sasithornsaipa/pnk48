@@ -10,6 +10,10 @@
         * {
             box-sizing: border-box;
         }
+        body{
+            background-color: #d9d2b1;
+            
+        }
         /* Create two unequal columns that floats next to each other */
         .column {
             float: left;
@@ -17,10 +21,11 @@
             height: 300px; /* Should be removed. Only for demonstration */
         }
         .left {
-        width: 25%;
+            width: 25%;
+            
         }
         .right {
-        width: 75%;
+            width: 75%;
         }
         /* Clear floats after the columns */
         .row:after {
@@ -28,6 +33,17 @@
             display: table;
             clear: both;
         }
+        .all-right{
+            margin-right: 30px;
+            padding: 30px;
+            border-radius: 18px;
+            background-color: #c9d874;
+        }
+        /* input{
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+        } */
     </style>
   
   </head>
@@ -47,7 +63,7 @@
         <div class="column left">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="/profile/2"><span class="col 3" style="font-weight: bold">ข้อมูลของฉัน</span></a>
+                    <a href="/profile/2"><span class="col 3" style="font-weight: bold">My profile</span></a>
                 </li>
                 <li class="list-group-item">
                     <a href="/profile/2/buy"><span class="col 3" style="font-weight: bold">ประวัติการซื้อของฉัน</span></a>
@@ -58,7 +74,9 @@
             </ul>
         </div>
         <div class="column right">
-            @yield('right-content')
+            <div class="all-right">
+                @yield('right-content')
+            </div>
         </div>
     </div>
 

@@ -4,15 +4,20 @@
 Shelf book
 @endsection
 
+@push('style')
+  body{
+    background-color: #ce7f50;
+  }
+  
+@endpush
+
 @section('content')
     <div>
         <h1>Shelves my books</h1>
         <br>
     </div>
 
-    
     <a class="btn btn-success" href="/shelfbook/create">CREATE</a>
-    
 
     <div style="margin: 0px 50px 0px 50px; text-align: center;">   
         <table class="table">

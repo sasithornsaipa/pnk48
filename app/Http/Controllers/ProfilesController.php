@@ -16,8 +16,8 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        $profiles = Profile::all();
-        return view('Profile/index', ['profiles' => $profiles]);
+        // $profiles = Profile::all();
+        // return view('Profile/index', ['profiles' => $profiles]);
     }
 
     /**
@@ -27,7 +27,7 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        return view('profile.create');
+        // return view('profile.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class ProfilesController extends Controller
     {
         $profile = new Profile;
 
-        $profile->user_id = 37;
+        $profile->user_id = \Auth::user()->id;
         $profile->fname = $request->input('fname');
         $profile->lname = $request->input('lname');
         $profile->save();
@@ -118,22 +118,23 @@ class ProfilesController extends Controller
 
     public function showBuy(Profile $profile)
     {
-        $sale = \App\Sale::all()->where('buyer_id',$profile->id)->first();
-        $book = \App\Book::find($sale->book_id);
-        return view('profile/buy', ['sale' => $sale, 'book' => $book]);
+        $sale = \App\Sale::where('buyer_id', $profile->id)->get();
+        $books = [];
+        foreach ($sale as $book) {
+            $books[] = \App\Book::where('id', '=', $book->book_id )->get();
+        }
+        return view('profile/buy', ['sale' => $sale, 'books' => $books]);
     }
     
 
     public function showSell(Profile $profile)
     {
-        $sale = \App\Sale::all()->where('seller_id',$profile->id)->first();
-        // $sale = App\Sale::where('buyer_id', $profile->id)->get()->pluck('book_id');
-        $book = \App\Book::find($sale->book_id);
-        return view('profile/sell', ['sale' => $sale, 'book' => $book]);
+        $sale = \App\Sale::where('seller_id',$profile->id)->get();
+        $books = [];
+        foreach ($sale as $book) {
+            $books[] = \App\Book::where('id', '=', $book->book_id )->get();
+        }
+        return view('profile/sell', ['sale' => $sale, 'books' => $books]);
     }
     
-    // public function indexSell(){
-    //     $profiles = Profile::all();
-    //     return view('Profile/sell', ['profiles' => $profiles]);
-    // }
 }
