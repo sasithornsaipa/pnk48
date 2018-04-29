@@ -65,7 +65,7 @@
                         <td>{!! $user->verified ? '
                             <i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>' !!}
                         </td>
-                        <td><a href="#" class="btn btn-success">Detail</a></td>
+                        <td><a href="{{ url('/admin/show/user/'.$user->id) }}" class="btn btn-success">Detail</a></td>
                     </tr>
                     @endforeach
                 </tbody>
