@@ -25,3 +25,5 @@ Route::resource('/admin', 'AdminsController');
 Route::resource('/events', 'EventsController');
 
 Route::resource('/index', 'HomesController');
+
+Route::resource('personal_message', 'PersonalMessagesController');

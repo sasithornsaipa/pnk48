@@ -14,7 +14,8 @@ class PersonalMessagesController extends Controller
      */
     public function index()
     {
-		$all_message = \App\PersonalMessage::where('reciever_id', '=', 2)->get();
+		$all_rec = \App\PersonalMessage::where('reciever_id', '=', 2)->get();
+
 		//return $all_message;
         return view('personal_message.index', ['messages' => $all_message]);
     }
@@ -48,8 +49,17 @@ class PersonalMessagesController extends Controller
      */
     public function show($sender)
     {
-		$all_message = \App\PersonalMessage::where('sender_id', '=', $sender)->where('reciever_id', '=', 2)->get();
-        return view('personal_message.show', ['sender' => $all_message[0]->sender, 'reciever' => $all_message[0]->reciever, 'all_message' => $all_message]);
+		$all_sen = \App\PersonalMessage::where('sender_id', '=', 2)->where('reciever_id', '=', 1)->get(); 
+		$all_rec = \App\PersonalMessage::where('sender_id', '=', 1)->where('reciever_id', '=', 2)->get(); 
+		if (empty($all_rec->toArray())){
+			return view('personal_message.show', ['all_message' => $all_sen]);
+		}else if(empty($all_sen->toArray())){
+			return view('personal_message.show', ['all_message' => $all_rec]);
+		}else{
+			$all_message = array_merge($all_sen->toArray(), $all_rec->toArray());
+			return view('personal_message.show', ['all_message' => $all_message]);
+		}
+
     }
 
     /**
