@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Profile;
+use App\Sale;
 use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
@@ -14,7 +16,8 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        //
+        $profiles = Profile::all();
+        return view('Profile/index', ['profiles' => $profiles]);
     }
 
     /**
@@ -24,7 +27,7 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        //
+        return view('profile.create');
     }
 
     /**
@@ -35,7 +38,14 @@ class ProfilesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $profile = new Profile;
+
+        $profile->user_id = 37;
+        $profile->fname = $request->input('fname');
+        $profile->lname = $request->input('lname');
+        $profile->save();
+        return redirect('/profile/' . $profile->id);
+
     }
 
     /**
@@ -46,7 +56,9 @@ class ProfilesController extends Controller
      */
     public function show(Profile $profile)
     {
-        //
+        $userprofile = $profile->user_id;
+        $userprodetail = User::find($userprofile);
+        return view('profile/show', ['profile' => $profile, 'userprodetail' => $userprodetail]);
     }
 
     /**
@@ -57,7 +69,14 @@ class ProfilesController extends Controller
      */
     public function edit(Profile $profile)
     {
-        //
+        $userprofile = $profile->user_id;
+        $userprodetail = User::find($userprofile);
+
+        $sex = [
+            'famale' => 'famale', 
+            'male' => 'male', 
+        ];
+        return view('profile.edit', ['profile' => $profile, 'userprodetail' => $userprodetail, 'sex' => $sex]);
     }
 
     /**
@@ -69,7 +88,21 @@ class ProfilesController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+        // usernameemailpassword
+        $userprofile = $profile->user_id;
+        $userprodetail = User::find($userprofile);
+        $userprodetail->username = $request->input('username');
+        $userprodetail->email = $request->input('email');
+        $userprodetail->password = $request->input('password');
+        $userprodetail->save();
+
+        $profile->fname = $request->input('fname');
+        $profile->lname = $request->input('lname');
+        $profile->sex = $request->input('sex');
+        $profile->birthday = $request->input('birthday');
+        $profile->save();
+        return redirect('/profile/' . $profile->id);
+
     }
 
     /**
@@ -80,6 +113,16 @@ class ProfilesController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        //
+        //ำ
     }
+
+    public function showBuy(Profile $profile)
+    {
+        
+        // $saledetail = Sale::all()->where('buyer_id', 2);
+        // $userprodetail = User::find($userprofile);
+        // return view('profile/buy', ['sale' => $saledetail]);
+        return view('profile/buy');
+    }
+    
 }
