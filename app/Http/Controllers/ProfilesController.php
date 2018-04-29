@@ -118,11 +118,22 @@ class ProfilesController extends Controller
 
     public function showBuy(Profile $profile)
     {
-        
-        // $saledetail = Sale::all()->where('buyer_id', 2);
-        // $userprodetail = User::find($userprofile);
-        // return view('profile/buy', ['sale' => $saledetail]);
-        return view('profile/buy');
+        $sale = \App\Sale::all()->where('buyer_id',$profile->id)->first();
+        $book = \App\Book::find($sale->book_id);
+        return view('profile/buy', ['sale' => $sale, 'book' => $book]);
     }
     
+
+    public function showSell(Profile $profile)
+    {
+        $sale = \App\Sale::all()->where('seller_id',$profile->id)->first();
+        // $sale = App\Sale::where('buyer_id', $profile->id)->get()->pluck('book_id');
+        $book = \App\Book::find($sale->book_id);
+        return view('profile/sell', ['sale' => $sale, 'book' => $book]);
+    }
+    
+    // public function indexSell(){
+    //     $profiles = Profile::all();
+    //     return view('Profile/sell', ['profiles' => $profiles]);
+    // }
 }

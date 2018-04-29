@@ -6,6 +6,30 @@
     <meta charset="utf-8">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        /* Create two unequal columns that floats next to each other */
+        .column {
+            float: left;
+            padding: 10px;
+            height: 300px; /* Should be removed. Only for demonstration */
+        }
+        .left {
+        width: 25%;
+        }
+        .right {
+        width: 75%;
+        }
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+  
   </head>
   <body>
 
@@ -19,21 +43,25 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
     </nav>
 
-    <div class="left-menu">
-        <ul class="list-group">
-            <li class="list-group-item">
-                <a href="/profile/2"><span class="col 3" style="font-weight: bold">ข้อมูลของฉัน</span></a>
-            </li>
-            <li class="list-group-item">
-                <a href="/profile/2/buy"><span class="col 3" style="font-weight: bold">ประวัติการซื้อของฉัน</span></a>
-            </li>
-            <li class="list-group-item">
-                <a href="/profile/2/sell"><span class="col 3" style="font-weight: bold">ประวัติการขายของฉัน</span></a>
-            </li>
-        </ul>
+    <div class="row">
+        <div class="column left">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="/profile/2"><span class="col 3" style="font-weight: bold">ข้อมูลของฉัน</span></a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/profile/2/buy"><span class="col 3" style="font-weight: bold">ประวัติการซื้อของฉัน</span></a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/profile/2/sell"><span class="col 3" style="font-weight: bold">ประวัติการขายของฉัน</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="column right">
+            @yield('right-content')
+        </div>
     </div>
-    <div class="left-menu" style="background-color:pink;">@yield('right-content')</div>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
