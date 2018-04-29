@@ -70,7 +70,7 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="name">Event Name</label>
-                  <input type="text" class="form-control" name="name" placeholder="" value="" required>
+                  <input type="text" class="form-control" name="name" placeholder="" value="{{old('name')}}" required>
                   @if($errors->has('name'))
                   <div class="text-danger">
                     {{$errors->first('name')}}
@@ -102,7 +102,7 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="start_time">Start Time</label>
-                  <input class="date form-control" type="date" name="start_time" min="{{$today}}" required>
+                  <input class="date form-control" type="date" name="start_time" min="{{$today}}" value="{{old('start_time')}}" required>
 
                   @if($errors->has('start_time'))
                   <div class="text-danger">
@@ -114,7 +114,7 @@
 
                 <div class="col-md-6 mb-3">
                   <label for="end_time">End Time</label>
-                  <input class="date form-control" type="date" name="end_time" min="{{$today}}" required>
+                  <input class="date form-control" type="date" name="end_time" min="{{$today}}" value="{{old('end_time')}}" required>
 
                   @if($errors->has('end_time'))
                   <div class="text-danger">
@@ -146,7 +146,7 @@
               <div class="mb-3">
                 <label for="description">Description</label>
                 <div class="d-block my-3">
-                  <textarea class="form-control" name="description" rows="8" required></textarea>
+                  <textarea class="form-control" name="description" rows="8" value="{{old('description')}}"  required></textarea>
 
                   @if($errors->has('description'))
                   <div class="text-danger">

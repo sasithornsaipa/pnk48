@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin;
 use Illuminate\Http\Request;
+use App\Admin;
 use App\User;
 use App\Event;
 
@@ -84,6 +84,7 @@ class AdminsController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        //
+        $admin->delete();
+        redirect('/admin');
     }
 }
