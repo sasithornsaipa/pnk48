@@ -87,7 +87,9 @@ class AdminsController extends Controller
      */
     public function editUser(User $user)
     {
-        //
+        $sex = ["male"=>"Male", "female"=>"Female"];
+        $status = ["normal"=>"Normal", "warn"=>"Warn", "banned"=>"Banned"];
+        return view('admin.editUser', ['user'=>$user, 'sex'=>$sex, 'status'=>$status]);
     }
 
     /**
@@ -97,9 +99,27 @@ class AdminsController extends Controller
      * @param  \App\User  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $admin)
+    public function updateUser(Request $request, User $admin)
     {
-        //
+        try {
+            $profile = \App\User::find($request->user_id)->profile;
+            $profile->user_id = $request->input('user_id');
+            $profile->fname = $request->input('fname');
+            $profile->lname = $request->input('lname');
+            $profile->tel = $request->input('tel');
+            $profile->address = $request->input('address');
+
+            $user = \App\User::find($request->user_id);
+            $user->email = $request->input('email');
+            $user->status = $request->input('status');
+
+            $profile->save();
+            $user->save();
+
+            return redirect('/admin/'.$user->id);
+        } catch(Exception $e) {
+            return back()->withInput();
+        }
     }
 
     /**
