@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-
+  {{ucfirst($sale->books->name)}}
 @endsection
 
 @push('style')
@@ -142,10 +142,11 @@
   /* Number text (1/3 etc) */
   .numbertext {
     color: #f2f2f2;
-    font-size: 20px;
+    font-size: 16px;
     padding: 8px 12px;
     position: absolute;
-    top: 0;
+    top: -2%;
+    margin-left: 7%;
   }
 
   img {
@@ -186,20 +187,21 @@
     <!-- Post Content Column -->
         <div class="col-lg-8">
             <!-- Title -->
-            <h1 class="mt-4">{{$sale->book_id}} </h1>
+            <h1 class="mt-4"> <i class="fa fa-bullhorn"></i> {{ucfirst($sale->books->name)}} </h1>
             <!-- Date/Time -->
-            <p class="font-weight-light">Posted by {{$sale->seller_id}} on {{$created_date}}</p>
+            <p class="font-weight-light">Posted by {{ucfirst($sale->seller->username)}} on {{$created_date}}</p>
             <hr>
             <!-- Preview Image -->
 
-            <div class="row" id="images" style="margin-left: 4%; margin-bottom: 2%;">
+            <div class="row text-center" id="images" style="margin-left: 4%; margin-bottom: 2%;">
               @php
                 $count_img = 1;
               @endphp
               @foreach($img as $i)
                 <!-- <img class="img-fluid rounded" src="{{$i->path}}" alt="preview" style="margin-bottom: 4%; width:200px;  height: auto;"> -->
-                <div class="column" style="margin-right: 4%;">
-                  <img src="{{$i->path}}" style="width:200px; margin-right: 4%;" onclick="openModal();currentSlide({{$count_img}})" class="hover-shadow cursor">
+                <div class="col-sm" style="margin-right: 2%;">
+                  <img class="hover-shadow cursor img-thumbnail rounded" src="{{$i->path}}" style="width:200px; margin-right: 2%;"
+                       onclick="openModal();currentSlide({{$count_img}})">
                 </div>
                 @php
                   $count_img++;
@@ -233,31 +235,69 @@
               </div>
             </div>
 
-              <div class="text-right d-inline" >
-                <p class="lead font-weight-bold" style="margin-top:5%;">
-                  {{$sale->base_price}}<i class="fa fa-btc"></i>
-                  <button type="submit" class="btn btn-success"><i class="fa fa-shopping-basket">BUY</i></button>
-                </p>
-              </div>
 
+              @if($sale->sale_type == 'bid')
+                <form class="" enctype="multipart/form-data" action="/sales" method="post" >
+                  <div class="text-right d-inline" id="forbid">
+                    <p class="lead font-weight-bold" style="margin-top:5%;">
+                      Starting Price&nbsp;&nbsp;{{$sale->base_price}}<i class="fa fa-btc"></i>&nbsp;&nbsp;
+                      <button type="submit" class="btn btn-success"><i class="fa fa-hand-o-right">&nbsp;&nbsp;JOIN the auction</i></button>
+                    </p>
+                  </div>
+                </form>
+              @else
+                <form class="" enctype="multipart/form-data" action="/sales" method="post" >
+                  <div class="text-right d-inline" >
+                    <p class="lead font-weight-bold" style="margin-top:5%;">
+                      {{$sale->base_price}}<i class="fa fa-btc"></i>&nbsp;&nbsp;
+                      <button type="submit" class="btn btn-success"><i class="fa fa-shopping-basket">&nbsp;&nbsp;BUY</i></button>
+                    </p>
+                  </div>
+                </form>
+              @endif
 
             <!-- Post Content -->
-            <p class="lead font-weight-bold">Detail</p>
+            <p class="lead font-weight-bold">Book Detail</p>
+            <hr>
+            <blockquote class="blockquote text-left">
+              <p class="mb-0 font-weight-normal">{{ucfirst($sale->books->name)}}</p>
+              <p class="mb-0 font-weight-normal">
+                Author:&nbsp;&nbsp;
+                <span class="mb-0 font-weight-light">{{ucfirst($sale->books->author)}}</span>
+              </p>
+              <p class="mb-0 font-weight-normal">
+                Synopsis:&nbsp;&nbsp;
+                <span class="mb-0 font-weight-light">{{ucfirst($sale->books->description)}}</span>
+              </p><br>
+            </blockquote>
+
+            <p class="lead font-weight-bold">Book Condition</p>
             <hr>
             <blockquote class="blockquote text-center">
-              <p class="mb-0 font-weight-normal">book name</p>
-              <p class="mb-0 font-weight-light">author</p>
-              <p class="mb-0 font-weight-light">description</p>
-              <p class="mb-0 font-weight-light">book condition</p>
+              <div class="condition">
+                @if($sale->book_condition > 90 )
+                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-smile-o" ></i>&nbsp;As New</p>
+                @elseif($sale->book_condition > 70 )
+                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-smile-o" ></i>&nbsp;Fine</p>
+                @elseif($sale->book_condition > 60 )
+                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-smile-o" ></i>&nbsp;Very Good</p>
+                @elseif($sale->book_condition > 50 )
+                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-smile-o" ></i>&nbsp;Good</p>
+                @elseif($sale->book_condition >= 40 )
+                  <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-meh-o" ></i>&nbsp;Fair</p>
+                @else
+                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-frown-o" ></i>&nbsp;Poor</p>
+                @endif
+              </div>
             </blockquote>
 
             <p class="lead font-weight-bold">Payment</p>
             <hr>
             <blockquote class="blockquote text-center">
-              <p class="mb-0 font-weight-light">bank</p>
-              <p class="mb-0 font-weight-light">branch</p>
-              <p class="mb-0 font-weight-light">account num</p>
-              <p class="mb-0 font-weight-light">holder</p>
+              <p class="mb-0 font-weight-normal">{{$info[0]}}</p>
+              <p class="mb-0 font-weight-normal">{{$info[1]}} Branch</p>
+              <p class="mb-0 font-weight-normal">{{$info[2]}}</p>
+              <p class="mb-0 font-weight-normal">{{$info[3]}}</p>
             </blockquote>
         </div>
 
