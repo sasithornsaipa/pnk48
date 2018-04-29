@@ -39,4 +39,8 @@ class User extends Authenticatable
 	public function shelf(){
 		return $this->hasOne('App\Shelf', 'user_id');
 	}
+
+	public function profile(){
+		return $this->hasOne('App\Profile', 'user_id');
+	}
 }

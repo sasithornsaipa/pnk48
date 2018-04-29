@@ -14,7 +14,9 @@ class PersonalMessagesController extends Controller
      */
     public function index()
     {
-        //
+		$all_message = \App\PersonalMessage::where('reciever_id', '=', 2)->get();
+		//return $all_message;
+        return view('personal_message.index', ['messages' => $all_message]);
     }
 
     /**
@@ -44,9 +46,10 @@ class PersonalMessagesController extends Controller
      * @param  \App\PersonalMessage  $personalMessage
      * @return \Illuminate\Http\Response
      */
-    public function show(PersonalMessage $personalMessage)
+    public function show($sender)
     {
-        //
+		$all_message = \App\PersonalMessage::where('sender_id', '=', $sender)->where('reciever_id', '=', 2)->get();
+        return view('personal_message.show', ['sender' => $all_message[0]->sender, 'reciever' => $all_message[0]->reciever, 'all_message' => $all_message]);
     }
 
     /**

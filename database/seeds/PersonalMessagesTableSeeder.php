@@ -11,6 +11,7 @@ class PersonalMessagesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\PersonalMessage::class, 10)->create();
+        
     }
 }
