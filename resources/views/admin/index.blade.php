@@ -12,13 +12,10 @@
         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
             <a class="dropdown-item" data-toggle="tab" href="#users">Users List</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">New Admin</a>
+            <a class="dropdown-item" href="{{ url('admin/create') }}">New Admin</a>
         </div>
     </li>
-    {{--
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#events">Events List</a>
-    </li> --}}
+    
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Event</a>
         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
@@ -86,24 +83,26 @@
                         <th scope="col">Event Name</th>
                         <th scope="col">Mission Type</th>
                         <th scope="col">Reward</th>
-                        <th scope="col">Description</th>
+                        {{-- <th scope="col">Description</th> --}}
                         <th></th>
                     </tr>
                 </thead>
                 <tbody class="table-striped table-hover">
                     @foreach($events as $event)
                     <tr class="
-                        @if($event->reward == 'coupon')
+                        @if($event->mission_type == 'htGame')
                         table-info
-                        @else
+                        @elseif($event->mission_type == 'rcgame')
                         table-warning
+                        @elseif($event->mission_type == 'normal')
+                        table-default
                         @endif
                         ">
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $event->name }}</td>
                         <td>{{ $event->mission_type }}</td>
                         <td>{{ $event->reward }}</td>
-                        <td>{{ $event->description }}</td>
+                        {{-- <td>{{ $event->description }}</td> --}}
                         <td><a href="#" class="btn btn-success">Detail</a></td>
                     </tr>
                     @endforeach

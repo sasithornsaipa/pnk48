@@ -29,6 +29,6 @@ class UsersTableSeeder extends Seeder
         // $member->user_level = 'member';
         // $member->save();
 
-        factory(App\User::class, 50)->create();        
+        factory(App\User::class, 50)->create();
     }
 }

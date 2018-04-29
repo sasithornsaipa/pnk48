@@ -15,9 +15,16 @@ Route::get('/', function () {
     return view('home.index');
 });
 
-
 Route::get('/admin', 'AdminsController@index');
 Route::get('/admin/show/user/{user}', 'AdminsController@showUser');
+
+Route::get('/admin/create', 'AdminsController@createAdmin');
+Route::post('/admin', 'AdminsController@storeAdmin');
+
+Route::get('/admin/{user}/edit', 'AdminsController@editUser')->where('user', '[0-9]+');
+Route::put('/admin/{user}', 'AdminsController@updateUser')->where('user', '[0-9]+');
+
+// Route::delete('/admin/{user}', 'AdminsController@');
 
 // Route::get('/events/create', function () {
 //     return view('events.index');

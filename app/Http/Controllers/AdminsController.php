@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Event;
 use App\Report;
+use App\Profile;
 
 class AdminsController extends Controller
 {
@@ -27,9 +28,10 @@ class AdminsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createAdmin()
     {
-        //
+        $sex = ["male"=>"Male", "female"=>"Female"];
+        return view('admin.createAdmin', ['sex'=>$sex]);
     }
 
     /**
@@ -38,22 +40,40 @@ class AdminsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeAdmin(Request $request)
     {
-        //
+        try {
+            $admin = new User;
+            $admin->username = $request->username;
+            $admin->verified = true;
+            $admin->status = 'normal';
+            $admin->user_level = 'admin';
+            $admin->password = bcrypt($request->password);
+            $admin->email = $request->email;
+            $admin->save();
+
+            $adminProfile = new Profile;
+            $adminProfile->user_id = $admin->id;
+            $adminProfile->address = $request->address;
+            $adminProfile->birthday = $request->birthday;
+            $adminProfile->sex = $request->sex;
+            $adminProfile->coin = 0;
+            $adminProfile->fname = $request->fname;
+            $adminProfile->lname = $request->lname;
+            $adminProfile->tel = $request->tel;
+            $adminProfile->save();
+            return redirect('/admin/show/user/'.$admin->id);
+        } catch(Exception $e) {
+            return back()->withInput();
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Admin  $admin
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $admin)
-    {
-        //
-    }
-
     public function showUser(User $user)
     {
         return view('admin.showUser', ['user'=>$user]);
@@ -62,10 +82,10 @@ class AdminsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Admin  $admin
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $admin)
+    public function editUser(User $user)
     {
         //
     }
@@ -74,7 +94,7 @@ class AdminsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Admin  $admin
+     * @param  \App\User  $admin
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $admin)
@@ -85,16 +105,12 @@ class AdminsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Admin  $admin
+     * @param  \App\User  $admin
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $admin)
     {
         $admin->delete();
         redirect('/admin');
-    }
-
-    public function isAdmin() {
-        return $this->user_level=='admin';
     }
 }
