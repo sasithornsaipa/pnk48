@@ -14,6 +14,7 @@ $factory->define(App\Profile::class, function (Faker $faker) {
       'sex' => $faker->randomElement(['male', 'female']),
       'tel' => $faker->phoneNumber,
       'address' => $faker->address,
-      'coin' => $faker->numberBetween($min=0, $max= 100)
+      'coin' => $faker->numberBetween($min=0, $max= 100),
+      'image_path' => '/img/default-avatar.png',
     ];
 });

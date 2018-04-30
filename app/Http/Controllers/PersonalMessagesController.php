@@ -26,7 +26,7 @@ class PersonalMessagesController extends Controller
                 $all_message->push($record);
             }
         }
-        $all_message = $all_message->sortByDesc('created_at');
+        $all_message = $all_message->sortByDesc('time');
         return view('personal_message.index', ['messages' => $all_message->values()->all()]);
     }
 
