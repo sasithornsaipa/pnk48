@@ -41,8 +41,7 @@ Route::get('/shelfbook/create', 'ShelvesController@create');
 Route::post('/shelfbook', 'ShelvesController@store');
 Route::post('/shelfbook/addbook', 'ShelvesController@addbook');
 
-
-Route::resource('/personal_messages', 'PersonalMessagesController');
+Route::resource('/personal_messages', 'PersonalMessagesController')->middleware('auth');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
