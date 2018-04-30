@@ -22,7 +22,7 @@
     </div>
     <div class='col-md-8'>
         @foreach($messages as $message)
-        <a href="/personal_message/{{$message->sender_id}}" style='width:100%;'>
+        <a href="/personal_messages/{{$message->sender->id}}" style='width:100%;'>
             <div class='card bg-light'>
                 <div class='card-body'>
                     <div class='row'>
@@ -30,7 +30,7 @@
                             <img src="{{$message->sender->profile->image_path}}" alt="Sender's image profile." class='profile'>
                         </div>
                         <div class='col-8'>
-                            <a href="/personal_message/{{$message->sender_id}}"><h3 class='card-text'>{{$message->sender->profile->fname." ".$message->sender->profile->lname}}</h3></a>
+                            <a href="/users/{{$message->sender_id}}"><h3 class='card-text'>{{$message->sender->profile->fname." ".$message->sender->profile->lname}}</h3></a>
                             <label> {{$message->time}}<p>{{$message->message}}</p></label>
                         </div>
                     </div>

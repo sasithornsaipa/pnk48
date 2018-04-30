@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\PersonalMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -15,7 +16,7 @@ class PersonalMessagesController extends Controller
      */
     public function index()
     {
-        $all_rec = \App\PersonalMessage::where('reciever_id', '=', 2)->get();
+        $all_rec = \App\PersonalMessage::where('reciever_id', '=', \Auth::user()->id)->get();
         $all_rec = $all_rec->sortByDesc('sender_id');
         $sender_list = [];
         $all_message = collect([]);
@@ -57,20 +58,23 @@ class PersonalMessagesController extends Controller
      * @param  \App\PersonalMessage  $personalMessage
      * @return \Illuminate\Http\Response
      */
-    public function show($sender)
+    public function show($interlocutor_id)
     {
-		$all_sen = \App\PersonalMessage::where('sender_id', '=', 2)->where('reciever_id', '=', 1)->get(); 
-		$all_rec = \App\PersonalMessage::where('sender_id', '=', 1)->where('reciever_id', '=', 2)->get(); 
+        $interlocutor = User::find($interlocutor_id);
+		$all_sen = \App\PersonalMessage::where('sender_id', '=', \Auth::user()->id)->where('reciever_id', '=', $interlocutor->id)->get(); 
+		$all_rec = \App\PersonalMessage::where('sender_id', '=', $interlocutor->id)->where('reciever_id', '=', \Auth::user()->id)->get(); 
+        
         if (empty($all_rec->toArray())){
-            $all_sen = $all_sen->sortBy('created_at');
-			return view('personal_message.show', ['all_message' => $all_sen]);
+            $all_sen = $all_sen->sortBy('time');
+			return view('personal_message.show', ['all_message' => $all_sen, 'interlocutor'=>$interlocutor]);
 		}else if(empty($all_sen->toArray())){
-            $all_rec = $all_rec->sortBy('created_at');
-			return view('personal_message.show', ['all_message' => $all_rec]);
+            $all_rec = $all_rec->sortBy('time');
+			return view('personal_message.show', ['all_message' => $all_rec, 'interlocutor'=>$interlocutor]);
 		}else{
-			$all_message = array_merge($all_sen->toArray(), $all_rec->toArray());
-            $all_message = $all_message->sortBy('created_at');
-			return view('personal_message.show', ['all_message' => $all_message]);
+            $all_message = $all_rec->merge($all_sen);
+			// $all_message = array_merge($all_sen->toArray(), $all_rec->toArray());
+            $all_message = $all_message->sortBy('time');
+			return view('personal_message.show', ['all_message' => $all_message, 'interlocutor'=>$interlocutor]);
         }
 
     }
