@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 =======
 @extends('layouts.master')
->>>>>>> 82eb9b43c749387ad84216a91da499a582bc7f37
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -12,11 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<<<<<<< HEAD
     <title>PMK48</title>
-=======
-    <title>{{ config('app.name', 'Laravel') }}</title>
->>>>>>> 82eb9b43c749387ad84216a91da499a582bc7f37
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -28,7 +22,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<<<<<<< HEAD
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
@@ -81,7 +74,4 @@
         </main>
     </div>
 </body>
-=======
-
->>>>>>> 82eb9b43c749387ad84216a91da499a582bc7f37
 </html>
