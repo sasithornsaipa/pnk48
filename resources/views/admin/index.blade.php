@@ -187,7 +187,7 @@
 <script>
     let memberGenderChart = document.getElementById('memberGender').getContext('2d');
     let chart2 = new Chart(memberGenderChart, {
-        type:'pie',
+        type:'doughnut',
         data:{
             labels:['Male', 'Female'],
             datasets:[{
