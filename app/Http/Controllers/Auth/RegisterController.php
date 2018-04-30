@@ -68,6 +68,12 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'verified' => 0,
             'password' => Hash::make($data['password']),
+            // 'address' => $data['address'] . '\\' . $data['address2'] . '\\' . $data['city'] . '\\' . $data['state'] . '\\' . $data['zipcode'],
         ]);
+        // Profile::create([
+        //     'user_id' => $user->id,
+        //     'address' => $data['address'] . '\\' . $data['address2'] . '\\' . $data['city'] . '\\' . $data['state'] . '\\' . $data['zipcode'],
+        // ]);
+
     }
 }
