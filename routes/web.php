@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', 'AdminsController@index');
-Route::get('/admin/show/user/{user}', 'AdminsController@showUser');
+Route::get('/admin/{user}', 'AdminsController@showUser');
 
 Route::get('/admin/create', 'AdminsController@createAdmin');
 Route::post('/admin', 'AdminsController@storeAdmin');
