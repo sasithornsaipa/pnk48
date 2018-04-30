@@ -67,6 +67,13 @@
       background: #4CAF50;
       cursor: pointer;
   }
+  #thumbnail img{
+      max-height: 175px;
+      margin-left: 2%;
+      border: 1px solid whitesmoke;
+      border-radius: 4px;
+      padding: 3px;
+  }
 @endpush
 
 @section('content')
@@ -185,10 +192,13 @@
               <div class="mb-3">
                 <label for="image">Images</label>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="customFile" onchange="readURL(this);" name="images[]" multiple>
+                  <input type="file" class="custom-file-input" id="customFile" name="images[]" multiple>
                   <label class="custom-file-label" for="customFile">Choose file</label><br><br>
                 </div>
-                <img id="blah" class="img-fluid img-thumbnail" src="#" alt="" width="25%"/>
+                <div class="col-sm-9">
+                  <div class="" id="thumbnail"></div>
+                  <!-- <img id="blah" class="img-fluid img-thumbnail" src="#" alt="" width="25%"/> -->
+                </div>
 
                 @if($errors->has('images[]'))
                 <div class="text-danger">
@@ -298,6 +308,44 @@
               reader.readAsDataURL(input.files[0]);
           }
       }
+
+      $(function () {
+        $("#upload").on("click",function(e){
+          $("#customFile").show().click().hide();
+          e.preventDefault();
+        });
+        $("#customFile").on("change",function(e){
+          var files = this.files
+          showThumbnail(files)
+        });
+        function showThumbnail(files){
+          $("#thumbnail").html("");
+          for(var i=0;i<files.length;i++){
+            var file = files[i]
+            var imageType = /image.*/
+            if(!file.type.match(imageType)){
+              //     console.log("Not an Image");
+              continue;
+            }
+            var image = document.createElement("img");
+            var thumbnail = document.getElementById("thumbnail");
+            image.file = file;
+            thumbnail.appendChild(image)
+            var reader = new FileReader()
+            reader.onload = (function(aImg){
+              return function(e){
+                aImg.src = e.target.result;
+              };
+            }(image))
+            var ret = reader.readAsDataURL(file);
+            var canvas = document.createElement("canvas");
+            ctx = canvas.getContext("2d");
+            image.onload= function(){
+              ctx.drawImage(image,.5,.5);
+            }
+          }
+        }
+      });
 
       $('#saletype').on('change', function(e){
         console.log(e.target.value);
