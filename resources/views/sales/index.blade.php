@@ -5,22 +5,15 @@
 @endsection
 
 @push('style')
-
+  .album{
+    color: rgb(114, 49, 11, .7);
+  }
+  .my-4{
+    background-color: rgb(104, 165, 0, .125);
+  }
 @endpush
 
 @section('content')
-  <main role="main">
-
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1 class="jumbotron-heading">Album example</h1>
-      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-      <p>
-        <a href="#" class="btn btn-primary my-2">Main call to action</a>
-        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-      </p>
-    </div>
-  </section>
 
   <div class="album py-5 bg-light">
     <div class="container">
@@ -29,19 +22,45 @@
 
         @foreach($sales as $sale)
           <div class="col-md-4">
-            <div class="card mb-4 box-shadow ">
-              <div class="text-center">
-                <img class="card-img-top" src="{{$sale->images[0]->path}}" alt="Card image cap" style="max-width:200px;">
+            <div class="card mb-4  ">
+              <div class="text-center" style="margin-top: 4%;">
+                <img class="card-img-top" src="{{$sale->images[0]->path}}" alt="Card image cap" style="max-width:180px;">
               </div>
               <div class="card-body">
                 <p class="card-text">
-
+                  <blockquote>
+                    <p class="mb-0 font-weight-normal">{{ucfirst($sale->books->name)}}</p>
+                    <p class="mb-0 font-weight-normal">
+                      Author:&nbsp;&nbsp;
+                      <span class="mb-0 font-weight-light">{{ucfirst($sale->books->author)}}</span>
+                    </p>
+                    <hr>
+                    <p class="mb-0 font-weight-normal text-center">Book Condition</p>
+                    <blockquote class="blockquote text-center">
+                      <div class="condition">
+                        @if($sale->book_condition > 90 )
+                        <p class="mb-0 text-center" style="font-size: 20px;"><i class="fa fa-smile-o" ></i>&nbsp;As New</p>
+                        @elseif($sale->book_condition > 70 )
+                        <p class="mb-0 text-center" style="font-size: 20px;"><i class="fa fa-smile-o" ></i>&nbsp;Fine</p>
+                        @elseif($sale->book_condition > 60 )
+                        <p class="mb-0 text-center" style="font-size: 20px;"><i class="fa fa-smile-o" ></i>&nbsp;Very Good</p>
+                        @elseif($sale->book_condition > 50 )
+                        <p class="mb-0 text-center" style="font-size: 20px;"><i class="fa fa-smile-o" ></i>&nbsp;Good</p>
+                        @elseif($sale->book_condition >= 40 )
+                          <p class="mb-0 text-center" style="font-size: 20px;"><i class="fa fa-meh-o" ></i>&nbsp;Fair</p>
+                        @else
+                        <p class="mb-0 text-center" style="font-size: 20px;"><i class="fa fa-frown-o" ></i>&nbsp;Poor</p>
+                        @endif
+                      </div>
+                    </blockquote>
+                  </blockquote>
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">Posted by {{ucfirst($sale->seller->username)}}</small>
+                  <small class="text-muted">{{$sale->created_at->diffForHumans()}}</small>
                   <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <a class="btn btn-sm btn-outline-success" href="/sales/{{$sale->id}}" role="button">View</a>
                   </div>
-                  <small class="text-muted">9 mins</small>
                 </div>
               </div>
             </div>
@@ -51,5 +70,4 @@
     </div>
   </div>
 
-  </main>
 @endsection
