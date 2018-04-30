@@ -4,7 +4,15 @@
  
 @section('content')
 <form class="form-group" action="/admin/{{ $user->id }}" method="POST">
-    @csrf @method('PUT')
+    @csrf @method('PUT')@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <div class="container-fluid">
         <div class="card bg-light mb-3">
             <div class="card-header">Edit detail </div>
@@ -14,31 +22,31 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>First Name: </label>
-                        <input class="form-control" type="text" name="fname" value="{{ old('fname') ?? $user->profile->fname }}" />
+                        <input readonly class="form-control" type="text" name="fname" value="{{ old('fname') ?? $user->profile->fname }}" />
                     </div>
 
                     <div class="form-group col-md-6">
                         <label>Last Name: </label>
-                        <input class="form-control" type="text" name="lname" value="{{ old('lname') ?? $user->profile->lname }}" />
+                        <input readonly class="form-control" type="text" name="lname" value="{{ old('lname') ?? $user->profile->lname }}" />
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Tel: </label>
-                        <input class="form-control" type="text" name="tel" value="{{ old('tel') ?? $user->profile->tel }}" />
+                        <input readonly class="form-control" type="text" name="tel" value="{{ old('tel') ?? $user->profile->tel }}" />
                     </div>
 
                     <div class="form-group col-md-6">
                         <label>Email: </label>
-                        <input class="form-control" type="text" name="email" value="{{ old('email') ?? $user->email }}" />
+                        <input readonly class="form-control" type="text" name="email" value="{{ old('email') ?? $user->email }}" />
                     </div>
                 </div>
 
 
                 <div class="form-row">
                     <label>Address: </label>
-                    <textarea class="form-control" rows="8" type="text" name="address">{{ old('address') ?? $user->profile->address }}</textarea>
+                    <textarea readonly class="form-control" rows="8" type="text" name="address">{{ old('address') ?? $user->profile->address }}</textarea>
                 </div>
 
                 <div class="form-row">

@@ -15,16 +15,29 @@ Route::get('/', function () {
     return view('home.index');
 });
 
+// Admin Route
 Route::get('/admin', 'AdminsController@index');
-Route::get('/admin/{user}', 'AdminsController@showUser');
 
-Route::get('/admin/create', 'AdminsController@createAdmin');
-Route::post('/admin', 'AdminsController@storeAdmin');
+// Admin/User Route
+Route::get('/admin/{user}', 'AdminsController@showUser')->where('user', '[0-9]+');
+
+Route::get('/admin/admin/create', 'AdminsController@createAdmin');
+Route::post('/admin/admin/store', 'AdminsController@storeAdmin');
 
 Route::get('/admin/{user}/edit', 'AdminsController@editUser')->where('user', '[0-9]+');
 Route::put('/admin/{user}', 'AdminsController@updateUser')->where('user', '[0-9]+');
 
-// Route::delete('/admin/{user}', 'AdminsController@');
+// Admin/Event Route
+Route::get('/admin/event/{event}', 'AdminsController@showEvent')->where('event', '[0-9]+');
+
+Route::get('/admin/event/create', 'AdminsController@createEvent');
+Route::post('/admin/event/store', 'AdminsController@storeEvent');
+
+Route::get('/admin/event/{event}/edit', 'AdminsController@editEvent')->where('event', '[0-9]+');
+Route::put('/admin/event/{event}', 'AdminsController@updateEvent')->where('event', '[0-9]+');
+
+Route::delete('/admin/event/{event}', 'AdminsController@deleteEvent')->where('event', '[0-9]+');
+
 
 // Route::get('/events/create', function () {
 //     return view('events.index');

@@ -7,7 +7,7 @@
     <h1>New Admin Form</h1>
 </div>
 <hr/>
-<form class="form-group" action="/admin" method="POST">
+<form class="form-group" action="/admin/admin/store" method="POST">
     @csrf @if($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -53,7 +53,7 @@
             <div class="form-group col-md-6">
                 <label>Birthday: </label>
                 <div class="input-group date">
-                    <input type="text" name="birthday" class="form-control"><span class="input-group-addon" value="{{ old('birthday') }}" />
+                    <input type="text" name="birthday" class="form-control" value="{{ old('birthday') }}"><span class="input-group-addon" value="{{ old('birthday') }}" />
                 </div>
             </div>
 

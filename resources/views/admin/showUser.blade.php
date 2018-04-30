@@ -3,6 +3,7 @@
 @endsection
  
 @section('content')
+
 <div class="jumbotron">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -24,15 +25,14 @@
             </li>
         </ul>
         {{-- @can('update', $user) --}}
-
         <div class="form-group row">
             <form action="/admin/{{ $user->id }}" method="POST">
                 @csrf @method('DELETE')
 
                 <!-- Button trigger modal -->
                 <div class="form-group col-auto row justify-content-center"></div>
-                <a class="btn btn-success" href="{{ url('/admin/' . $user->id . '/edit') }}">Edit</a>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">DELETE this user</button>
+                <a class="btn btn-danger" href="{{ url('/admin/' . $user->id . '/edit') }}">Warn / Ban / Unban</a>
+                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">DELETE this user</button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -53,10 +53,25 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </form>
-        </div>
-        {{-- @endcan --}}
+        </div> {{-- @endcan --}}
     </div>
+    <hr/>
+    <div class="container-fluid">
+        <h3>Reported by:</h3>
+    @foreach(\App\Report::all()->where('reported_id', $user->id) as $report)
+    {{-- $report --}}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Reporter: {{ \App\Report::find($report->id)->reportor->username }}</h5>
+            <p class="card-text">reported at: {{ $report->created_at }}</p>
+            <hr/>
+            <p class="card-text">{{$report->description}}</p>
+        </div>
+    </div>
+    @endforeach
+    </div>
+    
 </div>
 @endsection
