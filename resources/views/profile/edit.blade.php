@@ -26,7 +26,7 @@ Profile Detail
     }
     
 </style>
-<form action="/profile/{{ $profile->id }}" method="post">
+<form action="/profile/{{ $profile->id }}" enctype="multipart/form-data" method="post">
 
     @csrf
     @method('PUT')
@@ -41,7 +41,23 @@ Profile Detail
 
     <div class="row">
         <div class="column left" style="padding-left: 30px;">
-            <img src="{{ empty($userprodetail->image_path)? asset('img/default-avatar.png') : asset('img/$userprodetail->image_path') }}" style="width:200px; height:200px;">
+            <img src="{{ empty($userprodetail->image_path)? asset('img/default-avatar.png') : asset('$userprodetail->image_path') }}" style="width:200px; height:200px;">
+        
+            <div class="mb-3">
+                <br>
+                <label for="image_path">Change picture</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" onchange="readURL(this);" name="images[]" multiple>
+                    <label class="custom-file-label" for="customFile">Choose file</label><br><br>
+                </div>
+                <img id="blah" class="img-fluid img-thumbnail" src="#" alt="" width="25%"/>
+
+                @if($errors->has('images[]'))
+                    <div class="text-danger">
+                        {{$errors->first('images[]')}}
+                    </div>
+                @endif
+            </div>
         </div>
 
         <div class="column right" style="padding-left: 30px;">

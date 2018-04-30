@@ -31,7 +31,7 @@ Book Detail
         <h4>ประเภทการซื้อ : retail</h4>
         <ul class="list-group">
           <li class="list-group-item">
-            <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset('img/'.$books[$book][0]->cover) }}" style="width:128px; height:164px;">
+            <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
             <span style="color: black;"> {{ $books[$book][0]->name }}</span>
           </li>
         </ul>
@@ -40,7 +40,7 @@ Book Detail
         <h4>ประเภทการซื้อ : ประมูล (bid)</h4>
         <ul class="list-group">
           <li class="list-group-item">
-            <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset('img/'.$books[$book][0]->cover) }}" style="width:128px; height:164px;">
+            <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
             
             <span >name : {{ $books[$book][0]->name }}</span>
           </li>

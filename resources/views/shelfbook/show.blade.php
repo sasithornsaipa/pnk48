@@ -16,6 +16,7 @@ Book Detail
     margin: 10px;
     padding: 10px;
   }
+  
 @endpush
 
 @section('content')
@@ -24,8 +25,8 @@ Book Detail
     <h1>Book Detail</h1>
   </div>
   <div class="row">
-    <div class="col-md-3 text-center">
-      <img src="{{ empty($book->cover)? asset('img/book.jpg') : asset('img/'.$book->cover) }}" style="width:128px; height:164px;">
+    <div class="col-md-3 text-center" style="margin-top: 50px">
+      <img src="{{ empty($book->cover)? asset('img/book.jpg') : asset($book->cover) }}" style="width:128px; height:164px;">
     </div> 
     <div class="col-md-9">
       <div class="panel-heading">
@@ -47,7 +48,10 @@ Book Detail
         </li>
       </ul>
     </div>
-    
+    <br>
+    <br>
+    <a href="/shelfbook" style="margin: auto;"><button class="btn btn-success" >BACK</button></a>
+  </div>
   </div>
 </div>
 @endsection

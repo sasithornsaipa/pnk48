@@ -99,6 +99,7 @@ class ProfilesController extends Controller
             'lname' => 'required',
             'sex' => 'required',
             'birthday' => 'required',
+            'images[]' => 'mimes:jpeg,bmp,png|max:2048'
           ]);
 
         $userprofile = $profile->user_id;
@@ -112,6 +113,17 @@ class ProfilesController extends Controller
         $profile->lname = $request->input('lname');
         $profile->sex = $request->input('sex');
         $profile->birthday = $request->input('birthday');
+
+        $input=$request->all();
+        $images=array();
+        if($files=$request->file('images')){
+            foreach($files as $file){
+                $name=$file->getClientOriginalExtension();
+                $upload = $file->move(public_path() . '/img' . '/', $request->input('username') . '.' . $name);
+                $profile->image_path = '/img' . '/'. $request->input('username') . '.' . $name;
+            }
+        }
+
         $profile->save();
 
         return redirect('/profile/' . $profile->id);

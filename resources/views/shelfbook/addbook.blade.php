@@ -33,7 +33,7 @@ Check barcode or isbn
         <h5>Book Details</h5>
         <hr>
         
-        <form action="/shelfbook" method="post">
+        <form action="/shelfbook" enctype="multipart/form-data" method="post">
             @csrf
             <!-- CSRF Cross-Site Request Forgery -->
             <!-- {{ csrf_field() }} -->
@@ -104,18 +104,15 @@ Check barcode or isbn
 
                             @if($errors->has('images[]'))
                             <div class="text-danger">
-                            {{$errors->first('images[]')}}
+                                {{$errors->first('images[]')}}
                             </div>
                             @endif
 
                         </div>
                     </div>
                 <div class="col-md-4 mb-3"></div>
-            </div>
-            
-
-            
-
+            </div>            
+          
 
             <br>
             <button class="btn btn-success" id="submitbtn" type="submit">SUBMIT</button>
@@ -130,7 +127,7 @@ Check barcode or isbn
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript
+    <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -144,6 +141,7 @@ Check barcode or isbn
       var fieldVal = $(this).val();
       // Change the node's value by removing the fake path (Chrome)
       fieldVal = fieldVal.replace("C:\\fakepath\\", "");
+      console.log(fieldVal);
       if (fieldVal != undefined || fieldVal != "") {
         $(this).next(".custom-file-label").attr('data-content', fieldVal);
         $(this).next(".custom-file-label").text(fieldVal);
