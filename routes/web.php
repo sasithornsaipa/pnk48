@@ -40,6 +40,7 @@ Route::get('/shelfbook/create', 'ShelvesController@create');
 Route::post('/shelfbook', 'ShelvesController@store');
 Route::post('/shelfbook/addbook', 'ShelvesController@addbook');
 
+Route::resource('reports', 'ReportsController');
 
 Route::resource('/personal_messages', 'PersonalMessagesController');
 Auth::routes();
