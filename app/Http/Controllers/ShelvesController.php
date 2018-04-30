@@ -17,10 +17,12 @@ class ShelvesController extends Controller
     public function index()
     {
         // Auth::user id
-        $shelfs = Shelf::all()->where('user_id', 2);
-
-        // $books = Book::all()->where('book_id', $shelfs->book_id);
-        return view('shelfbook/index', ['shelfs' => $shelfs ]);
+        $shelfs = Shelf::all()->where('user_id', \Auth::user()->id);
+        $books = [];
+        foreach ($shelfs as $book) {
+            $books[] = \App\Book::where('id', '=', $book->book_id )->get();
+        }
+        return view('shelfbook/index', ['shelfs' => $shelfs , 'books' => $books]);
     }
 
     /**
@@ -31,8 +33,7 @@ class ShelvesController extends Controller
     public function create()
     {
         // $user = User::all()->where('id',2)->pluck('id');
-        
-        return view('shelfbook.create');
+        return view('shelfbook.create', ['error' => null]);
     }
 
     /**
@@ -43,21 +44,40 @@ class ShelvesController extends Controller
      */
     public function store(Request $request)
     {
-        // $user_id = User::all()->where('id',2)->pluck('id');
-        $book = new Book;
-        $book->name = $request->input('name');
-        $book->isbn = $request->input('isbn');
-        // $book->cover = $request->input('cover');
-        $book->barcode = $request->input('barcode');
-        $book->author = $request->input('author');
-        $book->description = $request->input('description');
-        $book->save();
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'author' => 'required',
+            'description' => 'required',
+            'barcode' => 'required|min:13|max:13',
+            'isbn' => 'required|min:13|max:13',
+            'images[]' => 'mimes:jpeg,bmp,png|max:2048'
+        ]);
+        
+            $book = new Book;
+            $book->name = $request->input('name');
+            // $book->cover = $request->input('name') . '.jpg';
+            $book->author = $request->input('author');
+            $book->description = $request->input('description');
+            $book->isbn = $request->input('isbn');
+            $book->barcode = $request->input('barcode');
+            
+            $input=$request->all();
+            $images=array();
+            if($files=$request->file('images')){
+                foreach($files as $file){
+                    $name=$file->getClientOriginalExtension();
+                    $upload = $file->move(public_path() . '/img' . '/', $request->input('name') . '.' . $name);
+                    $book->cover = '/img' . '/'. $request->input('name') . '.' . $name;
+                }
+            }
+            $book->save();
 
-        $shelf = new Shelf;
-        $shelf->user_id = 2;
-        $shelf->book_id = $book->id;
-        $shelf->save();
-        return redirect('/shelfbook/');
+            $shelf = new Shelf;
+            $shelf->user_id = \Auth::user()->id;
+            $shelf->book_id = $book->id;
+            $shelf->save();
+        
+            return redirect('/shelfbook/');
 
     }
 
@@ -69,13 +89,6 @@ class ShelvesController extends Controller
      */
     public function show(Shelf $shelf)
     {
-        // $shelfs = Shelf::all()->where('user_id', 2);
-
-        $book = $shelf->book_id;
-        // $bookdetail = User::find($book);
-        // return view('shelfbook/show', ['shelf' => $shelf, 'bookdetail' => $bookdetail ]);
-        return view('shelfbook/show', ['book' => $book]);
-
     }
 
     /**
@@ -114,14 +127,36 @@ class ShelvesController extends Controller
 
     public function showBook(Book $book)
     {
-        // $shelfs = Shelf::all()->where('user_id', 2);
-        // $bookdetail = Book::find($book);
-        $bookdetail = Book::find($book);
-        // $book = $book->book_id;
-        // $bookdetail = User::find($book);
-        // return view('shelfbook/show', ['shelf' => $shelf, 'bookdetail' => $bookdetail ]);
-        return view('shelfbook/show', ['bookdetail' => $bookdetail]);
-
+        return view('shelfbook/show', ['book' => $book]);
     }
 
+    public function addbook(Request $request){
+        $validatedData = $request->validate([
+            'barcode' => 'required|min:13|max:13',
+            'isbn' => 'required|min:13|max:13'
+        ]);
+        
+        $barcode = null;
+        $isbn = null;
+        $error = null;
+
+        $barcode_in = $request->input('barcode');
+        $isbn_in = $request->input('isbn');
+      
+        $bookCheckBarcode = \App\Book::where('barcode', $isbn_in)->first();
+        $bookCheckIsbn = \App\Book::where('isbn', $isbn_in)->first();
+
+        if($bookCheckBarcode == null || $bookCheckIsbn == null){
+            $barcode = $barcode_in;
+            $isbn = $isbn_in;
+            // return view('/shelfbook/addbook', ['isbn' => $isbn, 'barcode'=>$barcode, 'error'=>$error]);
+        }
+        else{
+            $error = "You have this book in your shelf";
+            
+            // return view('/shelfbook/create', ['error' => $error]);
+        }
+        return view('/shelfbook/addbook', ['isbn' => $isbn, 'barcode'=>$barcode, 'error'=>$error]);
+       
+    }
 }

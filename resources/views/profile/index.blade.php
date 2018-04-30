@@ -1,4 +1,5 @@
 @extends('layouts.profile')
+<<<<<<< HEAD
 
 @section('page-title')
 Profile Detail
@@ -31,3 +32,5 @@ Profile Detail
 
 </div>
 @endsection
+=======
+>>>>>>> master

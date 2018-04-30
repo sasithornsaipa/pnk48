@@ -67,6 +67,13 @@
       background: #4CAF50;
       cursor: pointer;
   }
+  #thumbnail img{
+      max-height: 175px;
+      margin-left: 2%;
+      border: 1px solid whitesmoke;
+      border-radius: 4px;
+      padding: 3px;
+  }
 @endpush
 
 @section('content')
@@ -105,12 +112,12 @@
                   <label for="book_id">Book Name</label>
                   <select class="custom-select d-block w-100" name="book_id" required>
 
-                    @foreach ($shelf as $book)
-                    @if(old('$book->book_id') == $book->book_id)
-                    <option value="{{ $book->book_id }}" selected>{{ $book->book_id }}</option>
-                    @else
-                    <option value="{{ $book->book_id }}">{{ $book->book_id }}</option>
-                    @endif
+                    @foreach ($books as $book)
+                      @if(old('$book[0]->id') == $book[0]->id)
+                        <option value="{{ $book[0]->id }}" selected>{{ $book[0]->name }}</option>
+                      @else
+                        <option value="{{ $book[0]->id }}">{{ $book[0]->name }}</option>
+                      @endif
                     @endforeach;
                   </select>
 
@@ -143,7 +150,7 @@
                 </div>
 
                 <div class="col-md-4 mb-3">
-                  <label for="base_price">Price</label>
+                  <label for="base_price" id="price">Price</label>
                   <input type="text" class="form-control" name="base_price" placeholder="" value="{{old('base_price')}}" required>
 
                   @if($errors->has('base_price'))
@@ -185,10 +192,13 @@
               <div class="mb-3">
                 <label for="image">Images</label>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="customFile" onchange="readURL(this);" name="images[]" multiple>
+                  <input type="file" class="custom-file-input" id="customFile" name="images[]" multiple>
                   <label class="custom-file-label" for="customFile">Choose file</label><br><br>
                 </div>
-                <img id="blah" class="img-fluid img-thumbnail" src="#" alt="" width="25%"/>
+                <div class="col-sm-9">
+                  <div class="" id="thumbnail"></div>
+                  <!-- <img id="blah" class="img-fluid img-thumbnail" src="#" alt="" width="25%"/> -->
+                </div>
 
                 @if($errors->has('images[]'))
                 <div class="text-danger">
@@ -200,7 +210,7 @@
 
               <div class="mb-3 slidecontainer">
                 <label for="customRange1">Book Condition:&nbsp;&nbsp;</label><span id="demo"></span><br>
-                <input type="range" min="1" max="100" value="{{old('book_condition')}}" class="slider" id="myRange" name="book_condition" required>
+                <input type="range" min="0" max="100" value="{{old('book_condition')}}" class="slider" id="myRange" name="book_condition" required>
 
                 @if($errors->has('book_condition'))
                 <div class="text-danger">
@@ -299,10 +309,49 @@
           }
       }
 
+      $(function () {
+        $("#upload").on("click",function(e){
+          $("#customFile").show().click().hide();
+          e.preventDefault();
+        });
+        $("#customFile").on("change",function(e){
+          var files = this.files
+          showThumbnail(files)
+        });
+        function showThumbnail(files){
+          $("#thumbnail").html("");
+          for(var i=0;i<files.length;i++){
+            var file = files[i]
+            var imageType = /image.*/
+            if(!file.type.match(imageType)){
+              //     console.log("Not an Image");
+              continue;
+            }
+            var image = document.createElement("img");
+            var thumbnail = document.getElementById("thumbnail");
+            image.file = file;
+            thumbnail.appendChild(image)
+            var reader = new FileReader()
+            reader.onload = (function(aImg){
+              return function(e){
+                aImg.src = e.target.result;
+              };
+            }(image))
+            var ret = reader.readAsDataURL(file);
+            var canvas = document.createElement("canvas");
+            ctx = canvas.getContext("2d");
+            image.onload= function(){
+              ctx.drawImage(image,.5,.5);
+            }
+          }
+        }
+      });
+
       $('#saletype').on('change', function(e){
         console.log(e.target.value);
         if (e.target.value == 'bid') {
           $('#bid').show();
+          document.getElementById('price').innerHTML = 'Base Price';
         }else {
           $('#bid').hide();
         }

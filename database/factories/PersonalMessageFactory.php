@@ -3,14 +3,22 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\PersonalMessage::class, function (Faker $faker) {
-    $sender = \App\User::where('id', '!=', 2)->first();
-	$reciever = 2;
-	$message = $faker->word;
-	$time = 'now';
+	
+	$users = \App\User::all()->pluck('id')->toArray();
+	$sender = $faker->randomElement($users);
+	
+	while (true){
+		$reciever = $faker->randomElement($users);
+		if ($sender !== $reciever){
+			break;
+		}
+	}
+	$message = $faker->word." ".$faker->word;
+	$time = $faker->time;
 	return [
-			'sender_id' => $sender,
-			'reciever_id' => $reciever,
-			'message' => $message,
-			'time' => $time
-			];
+		'sender_id' => $sender,
+		'reciever_id' => $reciever,
+		'message' => $message,
+		'time' => $time
+	];
 }); 

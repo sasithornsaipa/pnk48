@@ -1,8 +1,50 @@
+<style>
+    .profile{
+        width:125px;
+        height:125px;
+        margin-left: 50px;
+    }
+    .header{
+        text-indent: 100px;
+    }
+    body{
+        background-color: #c9d874;
+    }
+</style>
+
 @extends('layouts.master')
 
 @section('content')
-<h1>INDEX PM</h1>
-@foreach($messages as $message)
-<a href="/personal_message/{{$message->sender_id}}">{{$message->sender_id}}</a>
-@endforeach
+<div class='jumbotron jumbotron-fluid header'>
+    <h1 class=''>Recently contact</h1>
+    <hr>
+</div>
+<div class='row'>
+    <div class='col-md-2'>
+    </div>
+    <div class='col-md-8'>
+        @foreach($messages as $message)
+        <a href="/personal_messages/{{$message->sender->id}}" style='width:100%;'>
+            <div class='card bg-light'>
+                <div class='card-body'>
+                    <div class='row'>
+                        <div class='col-4'>
+                            <img src="{{$message->sender->profile->image_path}}" alt="Sender's image profile." class='profile'>
+                        </div>
+                        <div class='col-8'>
+                            <a href="/profile/{{$message->sender_id}}"><h3 class='card-text'>{{$message->sender->profile->fname." ".$message->sender->profile->lname}}</h3></a>
+                            <label> {{$message->created_at}}<p>{{$message->message}}</p></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        @endforeach
+        
+    </div>
+    
+    <div class='col-md-2'>
+    </div>
+</div>
+
 @endsection

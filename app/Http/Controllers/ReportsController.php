@@ -35,7 +35,15 @@ class ReportsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'description' => 'required'
+        ]);
+    $report = new \App\Report;
+    $report->reportor_id = $request->reporter;
+    $report->reported_id = $request->reported;
+    $report->description = $request->description;
+    $report->save();
+    return redirect()->back()->with('message', 'REPORTED!');
     }
 
     /**

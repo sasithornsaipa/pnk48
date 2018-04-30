@@ -39,6 +39,9 @@ Route::put('/admin/event/{event}', 'AdminsController@updateEvent')->where('event
 Route::delete('/admin/event/{event}', 'AdminsController@deleteEvent')->where('event', '[0-9]+');
 
 
+Route::resource('/reports', 'ReportsController');
+
+Route::get('/admin', 'AdminsController@index');
 // Route::get('/events/create', function () {
 //     return view('events.index');
 // });
@@ -64,3 +67,26 @@ Route::resource('/personal_message', 'PersonalMessagesController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/verificationDoc/create', 'VerificationsDocController@create');
+Route::post('/profile/{profile}', 'VerificationsDocController@store');
+
+Route::get('/profile/{profile}', 'ProfilesController@edit')->where('profile', '[0-9]+');
+Route::put('/profile/{profile}', 'ProfilesController@update')->where('profile', '[0-9]+');
+Route::get('/profile/{profile}/sell', 'ProfilesController@showSell')->where('profile', '[0-9]+');
+Route::get('/profile/{profile}/buy', 'ProfilesController@showBuy')->where('profile', '[0-9]+');
+
+Route::get('/shelfbook', 'ShelvesController@index');
+Route::get('/shelfbook/{book}', 'ShelvesController@showBook')->where('book','[0-9]+');
+Route::get('/shelfbook/create', 'ShelvesController@create');
+Route::post('/shelfbook', 'ShelvesController@store');
+Route::post('/shelfbook/addbook', 'ShelvesController@addbook');
+
+Route::resource('/personal_messages', 'PersonalMessagesController')->middleware('auth');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/buying/{sale}', 'SalesController@buying')->where('sale', '[0-9]+');
+Route::put('/buying', 'SalesController@updatedb');
+Route::put('/buying/confirmpayment/{sale}', 'SalesController@confirm')->where('sale', '[0-9]+');
+Route::put('/buying/success', 'SalesController@success');

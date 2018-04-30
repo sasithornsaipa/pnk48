@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 @extends('layouts.app')
+=======
+@extends('layouts.master')
+
+@section('title')
+Login
+@endsection
+>>>>>>> master
 
 @section('content')
 <div class="container">
