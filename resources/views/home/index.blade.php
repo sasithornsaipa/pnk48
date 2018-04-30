@@ -46,12 +46,12 @@ img:hover {
 		</div>
 		<br>
 		<!--book area-->
-		<div name="book-div" style="margin:20px;">
-			<h2>BOOKs</h2>
+		<div id="book-div" style="margin:20px;">
+			<h2>BOOKs  <input id="bookInput" type="text" placeholder="Search.."></h2>
 			<hr>
 			<div class="row">
 				<div class="column">
-				<div style="display: inline-block">
+				<div class="book" style="display: inline-block">
 						<div>
 							<a href="sales/4">
 							<img src="img\123175526.jpg" alt="ป้อนคู่สู่ขวัญ">
@@ -61,8 +61,8 @@ img:hover {
 							<span>คริสโซเพรส</span>
 						</div>
 						</a>
-					</div>
-					<div style="display: inline-block">
+				</div>
+				<div class="book" style="display: inline-block">
 						<a href="sales/5">
 						<img src="img\seraph.jpg" alt="เทวทูตแห่งโลกมืด เล่ม 1">
 						<div style="text-align: center">
@@ -76,12 +76,12 @@ img:hover {
 		</div>
 		<br>
 		<!--bid area-->
-		<div name="bid-div" style="margin:20px;">
-			<h2>BIDs</h2>
+		<div id="bid-div" style="margin:20px;">
+			<h2>BIDs  <input id="bidInput" type="text" placeholder="Search.."></h2>
 			<hr>
 			<div class="row">
 				<div class="column">
-					<div style="display: inline-block">
+					<div class='bid' style="display: inline-block">
 						<div>
 							<a href="sales/2">
 							<img src="img\w-sentences.jpg" alt="Writing Sentences">
@@ -92,7 +92,7 @@ img:hover {
 						</div>
 						</a>
 					</div>
-					<div style="display: inline-block">
+					<div class='bid' style="display: inline-block">
 						<a href="sales/1">
 						<img src="img\w-paragraphs.jpg" alt="Writing Paragraphs">
 						<div style="text-align: center">
@@ -101,7 +101,7 @@ img:hover {
 						</div>
 						</a>
 					</div>
-					<div style="display: inline-block">
+					<div class='bid' style="display: inline-block">
 						<a href="sales/3">
 						<img src="img\w-reseacrh.jpg" alt="Writing Research Papers">
 						<div style="text-align: center">
@@ -139,3 +139,21 @@ img:hover {
 		</div>
 	@endif
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#bookInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#book-div .book").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+
+    $("#bidInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#bid-div .bid").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>

@@ -19,7 +19,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">PMK48</a>
       @if ( Auth::check() )
-      Hello, {{ Auth::user()->username}} : {{Auth::user()->profile->coin}} <i class="fab fa-bitcoin"></i>
+      Hello, {{ Auth::user()->username}} : {{Auth::user()->profile->coin}}  <i class="fab fa-bitcoin fa-spin" style="color: #c9d874"></i>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
@@ -46,10 +46,10 @@
             </form>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <!-- <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
       @else
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
