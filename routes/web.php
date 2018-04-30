@@ -48,4 +48,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/buying', function(){return view('buying.create');});
+Route::get('/buying/{sale}', 'SalesController@buying')->where('sale', '[0-9]+');
