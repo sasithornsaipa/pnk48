@@ -46,8 +46,9 @@
     }
     
 </style>
-
+@push('scripts')
 <script type="text/javascript" src="{{ asset('js/enter_button_controller.js') }}"></script>
+@endpush
 @extends('layouts.master')
 
 @section('content')
