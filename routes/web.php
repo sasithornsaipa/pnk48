@@ -17,9 +17,7 @@ Route::get('/', function () {
 
 
 Route::get('/admin', 'AdminsController@index');
-// Route::get('/events/create', function () {
-//     return view('events.index');
-// });
+
 
 Route::resource('/events', 'EventsController');
 Route::resource('/sales', 'SalesController');
@@ -39,11 +37,7 @@ Route::get('/shelfbook/create', 'ShelvesController@create');
 Route::post('/shelfbook', 'ShelvesController@store');
 
 
-Route::resource('/personal_message', 'PersonalMessagesController');
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::resource('/personal_messages', 'PersonalMessagesController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
