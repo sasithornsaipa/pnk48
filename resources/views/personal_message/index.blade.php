@@ -30,7 +30,7 @@
                             <img src="{{$message->sender->profile->image_path}}" alt="Sender's image profile." class='profile'>
                         </div>
                         <div class='col-8'>
-                            <a href="/users/{{$message->sender_id}}"><h3 class='card-text'>{{$message->sender->profile->fname." ".$message->sender->profile->lname}}</h3></a>
+                            <a href="/profile/{{$message->sender_id}}"><h3 class='card-text'>{{$message->sender->profile->fname." ".$message->sender->profile->lname}}</h3></a>
                             <label> {{$message->time}}<p>{{$message->message}}</p></label>
                         </div>
                     </div>

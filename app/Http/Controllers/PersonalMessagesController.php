@@ -27,7 +27,7 @@ class PersonalMessagesController extends Controller
                 $all_message->push($record);
             }
         }
-        $all_message = $all_message->sortByDesc('time');
+        $all_message = $all_message->sortByDesc('created_at');
         return view('personal_message.index', ['messages' => $all_message->values()->all()]);
     }
 
@@ -49,7 +49,7 @@ class PersonalMessagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
     }
 
     /**
@@ -65,15 +65,15 @@ class PersonalMessagesController extends Controller
 		$all_rec = \App\PersonalMessage::where('sender_id', '=', $interlocutor->id)->where('reciever_id', '=', \Auth::user()->id)->get(); 
         
         if (empty($all_rec->toArray())){
-            $all_sen = $all_sen->sortBy('time');
+            $all_sen = $all_sen->sortBy('created_at');
 			return view('personal_message.show', ['all_message' => $all_sen, 'interlocutor'=>$interlocutor]);
 		}else if(empty($all_sen->toArray())){
-            $all_rec = $all_rec->sortBy('time');
+            $all_rec = $all_rec->sortBy('created_at');
 			return view('personal_message.show', ['all_message' => $all_rec, 'interlocutor'=>$interlocutor]);
 		}else{
             $all_message = $all_rec->merge($all_sen);
 			// $all_message = array_merge($all_sen->toArray(), $all_rec->toArray());
-            $all_message = $all_message->sortBy('time');
+            $all_message = $all_message->sortBy('created_at');
 			return view('personal_message.show', ['all_message' => $all_message, 'interlocutor'=>$interlocutor]);
         }
 
