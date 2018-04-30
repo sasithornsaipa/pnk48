@@ -6,6 +6,7 @@ use App\User;
 use App\PersonalMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
 class PersonalMessagesController extends Controller
 {
@@ -49,7 +50,13 @@ class PersonalMessagesController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        $message = new \App\PersonalMessage;
+        $message->reciever_id = $request->interlocutor;
+        $message->sender_id = \Auth::user()->id;
+        $message->message = $request->message;
+        $message->time = Carbon::now();
+        $message->save();
+        return back();
     }
 
     /**
