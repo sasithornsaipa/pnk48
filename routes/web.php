@@ -41,3 +41,7 @@ Route::post('/shelfbook', 'ShelvesController@store');
 
 Route::resource('/personal_message', 'PersonalMessagesController');
 Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/buying', function(){return view('buying.create');});
