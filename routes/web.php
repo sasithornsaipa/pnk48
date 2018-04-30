@@ -39,7 +39,11 @@ Route::get('/shelfbook/create', 'ShelvesController@create');
 Route::post('/shelfbook', 'ShelvesController@store');
 
 
+<<<<<<< HEAD
 Route::resource('/personal_message', 'PersonalMessagesController');
+=======
+Route::resource('/personal_messages', 'PersonalMessagesController');
+>>>>>>> ThanadonBranch
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
