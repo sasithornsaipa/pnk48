@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class SalesController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -56,7 +60,7 @@ class SalesController extends Controller
       ]);
 
       $sale = new Sale;
-      $sale->seller_id = 2;
+      $sale->seller_id = $request->user()->id;
       $sale->book_id = $request->input('book_id');
       $sale->base_price = $request->input('base_price');
       $sale->sale_type = $request->input('sale_type');
@@ -88,9 +92,7 @@ class SalesController extends Controller
           }
       }
 
-
       return redirect('/sales/' . $sale->id);
-
     }
 
     /**
@@ -137,10 +139,8 @@ class SalesController extends Controller
     public function update(Request $request, Sale $sale)
     {
       $validatedData = $request->validate([
-        'book_id' => 'required|min:3|max:255',
         'sale_type' => 'required',
         'base_price' => 'required',
-        'total_price' => 'required',
         'bank_name' => 'required',
         'branch' => 'required',
         'account_num' => 'required',
@@ -149,7 +149,6 @@ class SalesController extends Controller
         'images[]' => 'mimes:jpeg,bmp,png|max:2048'
       ]);
 
-      $sale->seller_id = 2;
       $sale->book_id = $request->input('book_id');
       $sale->base_price = $request->input('base_price');
       $sale->sale_type = $request->input('sale_type');
@@ -211,5 +210,46 @@ class SalesController extends Controller
 
       return view('buying.create', ['sale'=>$sale, 'sale_type' => $sale_type, 'book' => $book,
                                     'profiles'=>$profiles, 'coupons'=>$coupons, 'address'=>$address]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Sale  $sale
+     * @return \Illuminate\Http\Response
+     */
+    public function updatedb(Request $request, Sale $sale)
+    {
+      $validatedData = $request->validate([
+        'total_price' => 'required',
+      ]);
+
+      $sale->buyer_id = $request->user()->id;
+      $sale->total_price = $request->input('total_price');
+      $sale->status = 'purchased';
+      $sale->save();
+      return redirect('/sales/' . $sale->id);
+    }
+
+    /**
+     * Show the form for order processing the specified resource.
+     *
+     * @param  \App\Sale  $sale
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm(Sale $sale)
+    {
+      $today = date("Y-m-d");
+      return view('buying.confirmpayment', ['sale'=>$sale, 'today'=>$today]);
+    }
+    /**
+     * Show the form for order processing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function success()
+    {
+      return view('buying.success');
     }
 }

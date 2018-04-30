@@ -213,8 +213,8 @@
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-      <form id="msform" class="needs-validation" enctype="multipart/form-data" action="/sales" method="post" novalidate>
-
+      <form id="msform" class="needs-validation" enctype="multipart/form-data" action="/buying/confirmpayment/{{$sale->id}}" method="post" novalidate>
+        @method('PUT')
         {{ csrf_field() }}
 
         <!-- progressbar -->

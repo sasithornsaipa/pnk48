@@ -46,3 +46,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/buying/{sale}', 'SalesController@buying')->where('sale', '[0-9]+');
+Route::put('/buying', 'SalesController@updatedb');
+Route::put('/buying/confirmpayment/{sale}', 'SalesController@confirm')->where('sale', '[0-9]+');
+Route::put('/buying/success', 'SalesController@success');

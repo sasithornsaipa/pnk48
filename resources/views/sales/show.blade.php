@@ -273,7 +273,7 @@
                   </div>
 
               @else
-                <form class="" enctype="multipart/form-data" action="" method="get" >
+                <form class="" enctype="multipart/form-data" action="/buying/{{$sale->id}}" method="get" >
                   <div class="text-right d-inline" >
                     <p class="lead font-weight-bold" style="margin-top:5%;">
                       {{$sale->base_price}}<i class="fab fa-bitcoin"></i>&nbsp;&nbsp;
