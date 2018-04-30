@@ -240,7 +240,7 @@
                 <form class="" enctype="multipart/form-data" action="/sales" method="post" >
                   <div class="text-right d-inline" id="forbid">
                     <p class="lead font-weight-bold" style="margin-top:5%;">
-                      Starting Price&nbsp;&nbsp;{{$sale->base_price}}<i class="fa fa-btc"></i>&nbsp;&nbsp;
+                      Starting Price&nbsp;&nbsp;{{$sale->base_price}}&nbsp;&nbsp;<i class="fab fa-bitcoin"></i>&nbsp;&nbsp;
                       <button type="submit" class="btn btn-success"><i class="fa fa-hand-o-right">&nbsp;&nbsp;JOIN the auction</i></button>
                     </p>
                   </div>
@@ -249,7 +249,7 @@
                 <form class="" enctype="multipart/form-data" action="/sales" method="post" >
                   <div class="text-right d-inline" >
                     <p class="lead font-weight-bold" style="margin-top:5%;">
-                      {{$sale->base_price}}<i class="fa fa-btc"></i>&nbsp;&nbsp;
+                      {{$sale->base_price}}<i class="fab fa-bitcoin"></i>&nbsp;&nbsp;
                       <button type="submit" class="btn btn-success"><i class="fa fa-shopping-basket">&nbsp;&nbsp;BUY</i></button>
                     </p>
                   </div>
