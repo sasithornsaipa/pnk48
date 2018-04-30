@@ -74,11 +74,11 @@ class SalesController extends Controller
 
       $input=$request->all();
       $images=array();
-      $img = new \App\Image;
-      $img->sale_id = $sale->id;
       if($files=$request->file('images')){
         $count = 0;
           foreach($files as $file){
+              $img = new \App\Image;
+              $img->sale_id = $sale->id;
               $name=$file->getClientOriginalExtension();
               $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name);
               $img->path = '/sale_images' . '/' . 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name;
@@ -165,11 +165,11 @@ class SalesController extends Controller
 
       $input=$request->all();
       $images=array();
-      $img = new \App\Image;
-      $img->sale_id = $sale->id;
       if($files=$request->file('images')){
         $count = 0;
           foreach($files as $file){
+              $img = new \App\Image;
+              $img->sale_id = $sale->id;
               $name=$file->getClientOriginalExtension();
               $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name);
               $img->path = '/sale_images' . '/' . 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name;
@@ -189,6 +189,26 @@ class SalesController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+      $sale->delete();
+      return redirect('/sales');
+    }
+
+    /**
+     * Show the form for order processing the specified resource.
+     *
+     * @param  \App\Sale  $sale
+     * @return \Illuminate\Http\Response
+     */
+    public function buying(Sale $sale)
+    {
+      $today = date("Y-m-d");
+      $book = \App\Book::where('id', '=', $sale->book_id )->get();
+      $profiles = \App\Profile::where('user_id', '=', '2' )->get();
+      $coupons =  \App\Coupon::where('exp', '>=', $today )->get();
+      $address = explode("\\", $profiles[0]->address);
+      $sale_type = ['retail', 'bid'];
+
+      return view('buying.create', ['sale'=>$sale, 'sale_type' => $sale_type, 'book' => $book,
+                                    'profiles'=>$profiles, 'coupons'=>$coupons, 'address'=>$address]);
     }
 }
