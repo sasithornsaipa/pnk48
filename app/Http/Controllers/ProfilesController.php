@@ -71,12 +71,13 @@ class ProfilesController extends Controller
     {
         $userprofile = $profile->user_id;
         $userprodetail = User::find($userprofile);
+        $vertificationDoc = \App\VerificationDoc::where('user_id', \Auth::user()->id)->first();
 
         $sex = [
             'famale' => 'famale', 
             'male' => 'male', 
         ];
-        return view('profile.edit', ['profile' => $profile, 'userprodetail' => $userprodetail, 'sex' => $sex]);
+        return view('profile.edit', ['profile' => $profile, 'userprodetail' => $userprodetail, 'sex' => $sex, 'vertificationDoc' => $vertificationDoc]);
     }
 
     /**
@@ -89,11 +90,22 @@ class ProfilesController extends Controller
     public function update(Request $request, Profile $profile)
     {
         // usernameemailpassword
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'fname' => 'required',
+            'lname' => 'required',
+            'sex' => 'required',
+            'birthday' => 'required',
+          ]);
+
         $userprofile = $profile->user_id;
         $userprodetail = User::find($userprofile);
         $userprodetail->username = $request->input('username');
         $userprodetail->email = $request->input('email');
-        $userprodetail->password = $request->input('password');
+        $userprodetail->password = $request->input(bcrypt('password'));
         $userprodetail->save();
 
         $profile->fname = $request->input('fname');
@@ -101,6 +113,7 @@ class ProfilesController extends Controller
         $profile->sex = $request->input('sex');
         $profile->birthday = $request->input('birthday');
         $profile->save();
+
         return redirect('/profile/' . $profile->id);
 
     }
@@ -118,23 +131,22 @@ class ProfilesController extends Controller
 
     public function showBuy(Profile $profile)
     {
-        $sale = \App\Sale::where('buyer_id', $profile->id)->get();
+        $sale = \App\Sale::where('buyer_id', $profile->user_id)->get();
         $books = [];
         foreach ($sale as $book) {
             $books[] = \App\Book::where('id', '=', $book->book_id )->get();
         }
-        return view('profile/buy', ['sale' => $sale, 'books' => $books]);
+        return view('profile/buy', ['sale' => $sale, 'books' => $books, 'profile'=>$profile]);
     }
     
 
     public function showSell(Profile $profile)
     {
-        $sale = \App\Sale::where('seller_id',$profile->id)->get();
+        $sale = \App\Sale::where('seller_id',$profile->user_id)->get();
         $books = [];
         foreach ($sale as $book) {
             $books[] = \App\Book::where('id', '=', $book->book_id )->get();
         }
         return view('profile/sell', ['sale' => $sale, 'books' => $books]);
     }
-    
 }

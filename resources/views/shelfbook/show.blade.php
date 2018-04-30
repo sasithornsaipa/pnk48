@@ -25,7 +25,7 @@ Book Detail
   </div>
   <div class="row">
     <div class="col-md-3 text-center">
-      <img src="{{asset('img/w-paragraphs.jpg')}}" style="width:128px; height:164px;">
+      <img src="{{ empty($book->cover)? asset('img/book.jpg') : asset('img/'.$book->cover) }}" style="width:128px; height:164px;">
     </div> 
     <div class="col-md-9">
       <div class="panel-heading">

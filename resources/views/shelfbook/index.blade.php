@@ -29,7 +29,7 @@ Shelf book
 @section('content')
 <div class="container">
     <div>
-        <h1 class="text-center">Shelves my books</h1>
+        <h1 class="text-center">My shelfbook</h1>
         <br>
     </div>
     <div class="addBook">
@@ -37,21 +37,23 @@ Shelf book
     </div>
     <div class="jumbotron jumbotron-fluid">
         <div class="row" style="text-align: center">
-            @foreach($shelfs as $shelf)
-                <div class="col-md-3">
-                    <a href="{{ url('/shelfbook/' . $shelf->book_id) }}"><img src="{{asset('img/w-paragraphs.jpg')}}" style="width:128px; height:164px;"></a>
+            @foreach($books as $book=>$value)
+                <div class="col-md-3">  
+                    <a href="{{ url('/shelfbook/' . $books[$book][0]->id) }}">
+                    <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset('img/'.$books[$book][0]->cover) }}" style="width:128px; height:164px;">
+                    </a>
+                    <hr>
                 </div>
             @endforeach
         </div>
-        <hr>
     </div>
 
     <div class="all-book">
         <div class="row" style="text-align: center">
             <div class="col-sm" name="filter-bar">
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">filter</button>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" id="search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit" >filter</button>
                 </form>
             </div>
         </div>
@@ -63,6 +65,8 @@ Shelf book
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
+                <th scope="col">Barcode</th>
+                <th scope="col">ISBN</th>
                 <th></th>
             </tr>
         </thead>
@@ -72,12 +76,20 @@ Shelf book
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $books[$book][0]->name }}</td>
                     <td>{{ $books[$book][0]->description }}</td>
-                        
-                    <td><a href="{{ url('/shelfbook/' . $shelf->book_id) }}" class="btn btn-success">Detail</a></td>
+                    <td>
+                       <img src='https://barcode.tec-it.com/barcode.ashx?data={{$books[$book][0]->barcode}}&code=ISBN13&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0' alt='Barcode Generator TEC-IT' style="width: 150px;"/>
+                    </td>
+                    <td>
+                       <img src='https://barcode.tec-it.com/barcode.ashx?data={{$books[$book][0]->isbn}}&code=ISBN13&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0' alt='Barcode Generator TEC-IT' style="width: 150px;"/>
+                    </td>
+                    <td><a href="{{ url('/shelfbook/' . $books[$book][0]->id) }}" class="btn btn-success">Detail</a></td>
                 </tr>
-                @endforeach
-            </tbody>
-        </table>
+            @endforeach
+        </tbody>
+    </table>
 
 </div>
 @endsection
+
+
+

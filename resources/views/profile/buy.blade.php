@@ -14,6 +14,9 @@ Book Detail
   .list-group-item{
     background-color: #d9d2b1;
   }
+  .white-panel{
+    background-color: white;
+  }
 </style>
 
 <div class="panel panel-default">
@@ -21,7 +24,6 @@ Book Detail
       <h2>การซื้อของฉัน</h2>
     </div>
     
-
     <div class="in-panel">
     @foreach($books as $book=>$value)
       @if(($sale[$book]->sale_type) == 'retail')
@@ -29,7 +31,7 @@ Book Detail
         <h4>ประเภทการซื้อ : retail</h4>
         <ul class="list-group">
           <li class="list-group-item">
-            <a href=""><img src="{{asset('img/book.jpg')}}" style="width:200px; height:300px;">
+            <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset('img/'.$books[$book][0]->cover) }}" style="width:128px; height:164px;">
             <span style="color: black;"> {{ $books[$book][0]->name }}</span>
           </li>
         </ul>
@@ -38,7 +40,8 @@ Book Detail
         <h4>ประเภทการซื้อ : ประมูล (bid)</h4>
         <ul class="list-group">
           <li class="list-group-item">
-            <a href=""><img src="{{asset('img/book.jpg')}}" style="width:200px; height:300px;">
+            <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset('img/'.$books[$book][0]->cover) }}" style="width:128px; height:164px;">
+            
             <span >name : {{ $books[$book][0]->name }}</span>
           </li>
         </ul>

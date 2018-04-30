@@ -17,7 +17,7 @@ class ShelvesController extends Controller
     public function index()
     {
         // Auth::user id
-        $shelfs = Shelf::all()->where('user_id', 2);
+        $shelfs = Shelf::all()->where('user_id', \Auth::user()->id);
         $books = [];
         foreach ($shelfs as $book) {
             $books[] = \App\Book::where('id', '=', $book->book_id )->get();
@@ -49,7 +49,8 @@ class ShelvesController extends Controller
             'author' => 'required',
             'description' => 'required',
             'barcode' => 'required|min:13|max:13',
-            'isbn' => 'required|min:13|max:13'
+            'isbn' => 'required|min:13|max:13',
+            'images[]' => 'mimes:jpeg,jpg,bmp,png|max:2048'
         ]);
         
             $book = new Book;
@@ -59,12 +60,24 @@ class ShelvesController extends Controller
             $book->description = $request->input('description');
             $book->isbn = $request->input('isbn');
             $book->barcode = $request->input('barcode');
+
+
+            $input=$request->all();
+            $images=array();
+            if($files=$request->file('images')){
+                foreach($files as $file){
+                    $name=$file->getClientOriginalExtension();
+                    $upload = $file->move(public_path() . '/img' . '/', $request->input('name') . '.' . $name);
+                    $book->cover = '/img' . '/'. $request->input('name') . '.' . $name;
+                }
+            }
             $book->save();
     
             $shelf = new Shelf;
-            $shelf->user_id = 2;
+            $shelf->user_id = \Auth::user()->id;
             $shelf->book_id = $book->id;
             $shelf->save();
+
         return redirect('/shelfbook/');
 
     }
@@ -123,6 +136,7 @@ class ShelvesController extends Controller
             'barcode' => 'required|min:13|max:13',
             'isbn' => 'required|min:13|max:13'
         ]);
+        
         $barcode = null;
         $isbn = null;
         $error = null;

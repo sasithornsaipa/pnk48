@@ -44,7 +44,7 @@ Add New Book
                 <div class="col-md-4 mb-3"></div>
                 <div class="col-md-4 mb-3">
                     <label>Barcode: </label>
-                    <input type="text" name="barcode" value="{{ old('barcode') }}">
+                    <input type="text" name="barcode" value="{{ old('barcode') }}" required>
                         <div class="text-danger">
                             {{ $errors->first('barcode') }}
                         </div>
@@ -57,7 +57,7 @@ Add New Book
                 <div class="col-md-4 mb-3"></div>
                 <div class="col-md-4 mb-3">
                     <label>Isbn: </label>
-                    <input type="text" name="isbn" value="{{ old('isbn') }}">
+                    <input type="text" name="isbn" value="{{ old('isbn') }}" required>
                         <div class="text-danger">
                             {{ $errors->first('isbn') }}
                         </div>

@@ -1,8 +1,9 @@
-@extends('layouts.profile')
+<!-- @extends('layouts.profile')
 
 @section('page-title')
 Profile Detail
 @endsection
+
 
 @section('content')
 <div class="panel panel-default">
@@ -35,4 +36,4 @@ Profile Detail
     </ul>
 
 </div>
-@endsection
+@endsection -->
