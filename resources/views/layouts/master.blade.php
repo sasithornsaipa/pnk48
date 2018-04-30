@@ -18,6 +18,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">PMK48</a>
       @if ( Auth::check() )
+      Hello, {{ Auth::user()->username }}
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
@@ -33,8 +34,15 @@
             <a class="nav-link" href="#">Books</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-            <form id="logout-form" style="display:none" action="/logout" method="POST"></form>
+            <a class="nav-link" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -46,10 +54,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link btn btn-outline-success my-2 my-sm-0" href="{{ route('login') }}">{{ __('Login') }}</a></a>
+            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link btn btn-outline-success my-2 my-sm-0" href="{{ route('register') }}">{{ __('Register') }}</a></a>
+            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></a>
           </li>
         </ul>
       </div>
