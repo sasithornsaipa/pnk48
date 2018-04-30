@@ -256,8 +256,8 @@
                             </div>
                             <div class="modal-body">
                               <form>
-                                <div class="form-group">
-                                  <label for="preferred-price" class="col-form-label">Preferred Price:</label>
+                                <div class="form-group text-center">
+                                  <label for="preferred-price" class="col-form-label">Preferred Price</label>
                                   <input type="text" class="form-control" id="preferred-price">
                                 </div>
                               </form>
