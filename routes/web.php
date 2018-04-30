@@ -17,9 +17,7 @@ Route::get('/', function () {
 
 
 Route::get('/admin', 'AdminsController@index');
-// Route::get('/events/create', function () {
-//     return view('events.index');
-// });
+
 
 Route::resource('/events', 'EventsController');
 Route::resource('/sales', 'SalesController');
