@@ -384,7 +384,7 @@
                         <div class="row">
                           <div class="col-sm-8 text-right" >
                             <span id="tp">{{$sale->base_price}}</span>
-                            <span>&nbsp;<i class="fab fa-bitcoin"></i></span>
+                            <span><i class="fab fa-bitcoin"></i></span>
                           </div>
                         </div>
                       </td>

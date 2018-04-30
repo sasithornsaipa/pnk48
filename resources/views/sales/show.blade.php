@@ -60,7 +60,7 @@
   }
 
   /* The Modal (background) */
-  .modal {
+  .modal #myModal{
     display: none;
     position: fixed;
     z-index: 1;
@@ -74,7 +74,7 @@
   }
 
   /* Modal Content */
-  .modal-content {
+  .modal-content #myModal{
     position: relative;
     background-color: black;
     margin: auto;
@@ -199,8 +199,8 @@
               @endphp
               @foreach($img as $i)
                 <!-- <img class="img-fluid rounded" src="{{$i->path}}" alt="preview" style="margin-bottom: 4%; width:200px;  height: auto;"> -->
-                <div class="col-sm" style="margin-right: 2%;">
-                  <img class="hover-shadow cursor img-thumbnail rounded" src="{{$i->path}}" style="width:200px; margin-right: 2%;"
+                <div class="col-sm" style="margin-right: 1%;">
+                  <img class="hover-shadow cursor img-thumbnail rounded" src="{{$i->path}}" style="max-width: 200px; margin-right: 2%;"
                        onclick="openModal();currentSlide({{$count_img}})">
                 </div>
                 @php
@@ -237,16 +237,43 @@
 
 
               @if($sale->sale_type == 'bid')
-                <form class="" enctype="multipart/form-data" action="/sales" method="post" >
                   <div class="text-right d-inline" id="forbid">
                     <p class="lead font-weight-bold" style="margin-top:5%;">
                       Starting Price&nbsp;&nbsp;{{$sale->base_price}}&nbsp;&nbsp;<i class="fab fa-bitcoin"></i>&nbsp;&nbsp;
-                      <button type="submit" class="btn btn-success"><i class="fa fa-hand-o-right">&nbsp;&nbsp;JOIN the auction</i></button>
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fas fa-gavel"></i>&nbsp;&nbsp;Bid</i>
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-gavel"></i>&nbsp;&nbsp;Bid</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form>
+                                <div class="form-group">
+                                  <label for="preferred-price" class="col-form-label">Preferred Price:</label>
+                                  <input type="text" class="form-control" id="preferred-price">
+                                </div>
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-success">Confirm</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </p>
                   </div>
-                </form>
+
               @else
-                <form class="" enctype="multipart/form-data" action="/sales" method="post" >
+                <form class="" enctype="multipart/form-data" action="" method="get" >
                   <div class="text-right d-inline" >
                     <p class="lead font-weight-bold" style="margin-top:5%;">
                       {{$sale->base_price}}<i class="fab fa-bitcoin"></i>&nbsp;&nbsp;
