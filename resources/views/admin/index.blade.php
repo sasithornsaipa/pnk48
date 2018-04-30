@@ -33,6 +33,7 @@
     <div class="tab-pane fade show active" id="dashboard">
         <div class="container-fluid">
             {{-- Graph goes here --}}
+    @include('admin.dashboard')
         </div>
     </div>
 
@@ -140,3 +141,150 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script>
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#777';
+</script>
+<script>
+    let userStatChart = document.getElementById("userStatus").getContext('2d');
+    let chart = new Chart(userStatChart, {
+        type:'doughnut', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data:{
+            labels:['Normal', 'Warn', 'Banned'],
+            datasets:[{
+                label:'Status',
+                data:[
+                    {{ \App\User::where('status', 'normal')->count() }},
+                    {{ \App\User::where('status', 'warn')->count() }},
+                    {{ \App\User::where('status', 'banned')->count() }}
+                ],
+                // backgroundColor:'green'
+                backgroundColor:['#44f429', '#f4c428', '#e85727'],
+                borderWidth:1,
+                borderColor:'#777',
+                hoverBorderWidth:3,
+                hoverBorderColor:'#000'
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            title:{
+                display:true,
+                text:'Users Status'
+            },
+            legend:{
+                position:'right'
+            },
+            layout:{}
+        }
+    });
+
+</script>
+<script>
+    let memberGenderChart = document.getElementById('memberGender').getContext('2d');
+    let chart2 = new Chart(memberGenderChart, {
+        type:'pie',
+        data:{
+            labels:['Male', 'Female'],
+            datasets:[{
+                label:'Gender',
+                data:[
+                    {{ \App\Profile::where('sex', 'male')->count() }},
+                    {{ \App\Profile::where('sex', 'female')->count() }}
+                ],
+                backgroundColor:['#27e8ba', '#d60853'],
+                borderWidth:1,
+                borderColor:'#777',
+                hoverBorderWidth:3,
+                hoverBorderColor:'#000'
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            title:{
+                display:true,
+                text:'Users Gender'
+            },
+            legend:{
+                position:'right'
+            }
+        }
+    });
+
+</script>
+<script>
+    let missionTypeChart = document.getElementById('missionType').getContext('2d');
+    let chart3 = new Chart(missionTypeChart, {
+        type:'pie',
+        data:{
+            labels:['Normal', 'RC Game', 'Head-Tail Game'],
+            datasets:[{
+                label:'Missions',
+                data:[
+                    {{ \App\Event::where('mission_type', 'normal')->count() }},
+                    {{ \App\Event::where('mission_type', 'rcgame')->count() }},
+                    {{ \App\Event::where('mission_type', 'htGame')->count() }}
+                ],
+                backgroundColor:[
+                    'tomato', 'orange', 'cyan'
+                ],
+                borderWidth:1,
+                borderColor:'#777',
+                hoverBorderWidth:3,
+                hoverBorderColor:'#000'
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            title:{
+                display:true,
+                text:'Event Type'
+            },
+            legend:{
+                position:'right'
+            }
+        }
+    });
+
+</script>
+<script>
+    let rewardTypeChart = document.getElementById('eventReward').getContext('2d');
+        let chart4 = new Chart(rewardTypeChart, {
+            type:'pie',
+            data:{
+                labels:['Coupon', 'Coin'],
+                datasets:[{
+                    label:'Rewards',
+                    data:[
+                        {{ \App\Event::where('reward', 'coupon')->count() }},
+                        {{ \App\Event::where('reward', 'coin')->count() }},
+                    ],
+                    backgroundColor:[
+                        'tomato', 'cyan'
+                    ],
+                    borderWidth:1,
+                    borderColor:'#777',
+                    hoverBorderWidth:3,
+                    hoverBorderColor:'#000'
+                }]
+            },
+            options:{
+                responsive:true,
+                maintainAspectRatio:false,
+                title:{
+                    display:true,
+                    text:'Event Reward'
+                },
+                legend:{
+                    position:'right'
+                }
+            }
+        });
+</script>
+@endpush
