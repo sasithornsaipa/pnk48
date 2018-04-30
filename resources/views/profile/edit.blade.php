@@ -33,7 +33,7 @@ Profile Detail
     <!-- CSRF Cross-Site Request Forgery -->
     <!-- {{ csrf_field() }} -->
     <div class="show-coin">
-        <img src="{{asset('img/coin.jpg')}}" style="width:20px; height:20px;">
+        <i class="fab fa-bitcoin"></i>
         {{$profile->coin}}
     </div>
 
@@ -138,7 +138,7 @@ Profile Detail
     </div>
 
     <hr class="mb-4">
-        @if($vertificationDoc == null)
+        @if($userprodetail->verified == 0)
             <a href="/verificationDoc/create"class="text-danger">Please verify your account</a>
         <br>
         @else
