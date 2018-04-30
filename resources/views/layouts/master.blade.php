@@ -35,6 +35,13 @@
             <a class="nav-link" href="sales">Books</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/profile/{{ \Auth::user()->profile->id}}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shelfbook">My Shelfbook</a>
+          </li>
+
+          <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
