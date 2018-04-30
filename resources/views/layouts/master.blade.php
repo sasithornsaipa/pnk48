@@ -19,7 +19,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">PMK48</a>
       @if ( Auth::check() )
-      Hello, {{ Auth::user()->username }}
+      Hello, {{ Auth::user()->username}} : {{Auth::user()->profile->coin}} <i class="fab fa-bitcoin"></i>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
