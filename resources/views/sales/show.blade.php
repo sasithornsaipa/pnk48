@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-  {{ucfirst($sale->books->name)}}
+
 @endsection
 
 @push('style')
@@ -60,7 +60,7 @@
   }
 
   /* The Modal (background) */
-   .modal #myModal{
+  .modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -74,7 +74,7 @@
   }
 
   /* Modal Content */
-   .modal-content {
+  .modal-content {
     position: relative;
     background-color: black;
     margin: auto;
@@ -140,13 +140,12 @@
   }
 
   /* Number text (1/3 etc) */
- .numbertext {
+  .numbertext {
     color: #f2f2f2;
-    font-size: 16px;
+    font-size: 20px;
     padding: 8px 12px;
     position: absolute;
-    top: -2%;
-    margin-left: 7%;
+    top: 0;
   }
 
   img {
@@ -187,21 +186,20 @@
     <!-- Post Content Column -->
         <div class="col-lg-8">
             <!-- Title -->
-            <h1 class="mt-4"> <i class="fa fa-bullhorn"></i> {{ucfirst($sale->books->name)}} </h1>
+            <h1 class="mt-4">{{$sale->book_id}} </h1>
             <!-- Date/Time -->
-            <p class="font-weight-light">Posted by {{ucfirst($sale->seller->username)}} on {{$created_date}}</p>
+            <p class="font-weight-light">Posted by {{$sale->seller_id}} on {{$created_date}}</p>
             <hr>
             <!-- Preview Image -->
 
-            <div class="row text-center" id="images" style="margin-left: 4%; margin-bottom: 2%;">
+            <div class="row" id="images" style="margin-left: 4%; margin-bottom: 2%;">
               @php
                 $count_img = 1;
               @endphp
               @foreach($img as $i)
                 <!-- <img class="img-fluid rounded" src="{{$i->path}}" alt="preview" style="margin-bottom: 4%; width:200px;  height: auto;"> -->
-                <div class="col-sm" style="margin-right: 1%;">
-                  <img class="hover-shadow cursor img-thumbnail rounded" src="{{$i->path}}" style="max-width: 200px; margin-right: 2%;"
-                       onclick="openModal();currentSlide({{$count_img}})">
+                <div class="column" style="margin-right: 4%;">
+                  <img src="{{$i->path}}" style="width:200px; margin-right: 4%;" onclick="openModal();currentSlide({{$count_img}})" class="hover-shadow cursor">
                 </div>
                 @php
                   $count_img++;
@@ -212,13 +210,13 @@
 
             <div id="myModal" class="modal">
               <span class="close cursor" onclick="closeModal()">&times;</span>
-              <div class="modal-content" >
+              <div class="modal-content">
                 @php
                   $count = 1;
                 @endphp
                 @foreach($img as $i)
-                  <div class="mySlides" >
-                    <div class="numbertext" >{{$count}} / {{count($img)}}</div>
+                  <div class="mySlides">
+                    <div class="numbertext">{{$count}} / {{count($img)}}</div>
                     <img src="{{$i->path}}" style="width:50%" onclick="openModal();currentSlide({{$count}})" class="hover-shadow cursor">
                   </div>
                   @php
@@ -235,97 +233,31 @@
               </div>
             </div>
 
+              <div class="text-right d-inline" >
+                <p class="lead font-weight-bold" style="margin-top:5%;">
+                  {{$sale->base_price}}<i class="fa fa-btc"></i>
+                  <button type="submit" class="btn btn-success"><i class="fa fa-shopping-basket">BUY</i></button>
+                </p>
+              </div>
 
-              @if($sale->sale_type == 'bid')
-                  <div class="text-right d-inline" id="forbid">
-                    <p class="lead font-weight-bold" style="margin-top:5%;">
-                      Starting Price&nbsp;&nbsp;{{$sale->base_price}}&nbsp;&nbsp;<i class="fab fa-bitcoin"></i>&nbsp;&nbsp;
-                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
-                        <i class="fas fa-gavel"></i>&nbsp;&nbsp;Bid</i>
-                      </button>
-
-                      <!-- Modal -->
-                      <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-gavel"></i>&nbsp;&nbsp;Bid</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <form>
-                                <div class="form-group text-center">
-                                  <label for="preferred-price" class="col-form-label">Preferred Price</label>
-                                  <input type="text" class="form-control" id="preferred-price">
-                                </div>
-                              </form>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-success">Confirm</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div> -->
-
-                    </p>
-                  </div>
-
-              @else
-                <form class="" enctype="multipart/form-data" action="/buying/{{$sale->id}}" method="get" >
-                  <div class="text-right d-inline" >
-                    <p class="lead font-weight-bold" style="margin-top:5%;">
-                      {{$sale->base_price}}<i class="fab fa-bitcoin"></i>&nbsp;&nbsp;
-                      <button type="submit" class="btn btn-success"><i class="fa fa-shopping-basket">&nbsp;&nbsp;BUY</i></button>
-                    </p>
-                  </div>
-                </form>
-              @endif
 
             <!-- Post Content -->
-            <p class="lead font-weight-bold">Book Detail</p>
-            <hr>
-            <blockquote class="blockquote text-left">
-              <p class="mb-0 font-weight-normal">{{ucfirst($sale->books->name)}}</p>
-              <p class="mb-0 font-weight-normal">
-                Author:&nbsp;&nbsp;
-                <span class="mb-0 font-weight-light">{{ucfirst($sale->books->author)}}</span>
-              </p>
-              <p class="mb-0 font-weight-normal">
-                Synopsis:&nbsp;&nbsp;
-                <span class="mb-0 font-weight-light">{{ucfirst($sale->books->description)}}</span>
-              </p><br>
-            </blockquote>
-
-            <p class="lead font-weight-bold">Book Condition</p>
+            <p class="lead font-weight-bold">Detail</p>
             <hr>
             <blockquote class="blockquote text-center">
-              <div class="condition">
-                @if($sale->book_condition > 90 )
-                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-smile-o" ></i>&nbsp;As New</p>
-                @elseif($sale->book_condition > 70 )
-                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-smile-o" ></i>&nbsp;Fine</p>
-                @elseif($sale->book_condition > 60 )
-                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-smile-o" ></i>&nbsp;Very Good</p>
-                @elseif($sale->book_condition > 50 )
-                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-smile-o" ></i>&nbsp;Good</p>
-                @elseif($sale->book_condition >= 40 )
-                  <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-meh-o" ></i>&nbsp;Fair</p>
-                @else
-                <p class="mb-0 text-center" style="font-size: 60px;"><i class="fa fa-frown-o" ></i>&nbsp;Poor</p>
-                @endif
-              </div>
+              <p class="mb-0 font-weight-normal">book name</p>
+              <p class="mb-0 font-weight-light">author</p>
+              <p class="mb-0 font-weight-light">description</p>
+              <p class="mb-0 font-weight-light">book condition</p>
             </blockquote>
 
             <p class="lead font-weight-bold">Payment</p>
             <hr>
             <blockquote class="blockquote text-center">
-              <p class="mb-0 font-weight-normal">{{$info[0]}}</p>
-              <p class="mb-0 font-weight-normal">{{$info[1]}} Branch</p>
-              <p class="mb-0 font-weight-normal">{{$info[2]}}</p>
-              <p class="mb-0 font-weight-normal">{{$info[3]}}</p>
+              <p class="mb-0 font-weight-light">bank</p>
+              <p class="mb-0 font-weight-light">branch</p>
+              <p class="mb-0 font-weight-light">account num</p>
+              <p class="mb-0 font-weight-light">holder</p>
             </blockquote>
         </div>
 

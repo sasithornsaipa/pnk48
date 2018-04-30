@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class SalesController extends Controller
 {
-
-    public function __construct(){
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +14,7 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $sales = Sale::all();
-        return view('sales.index', ['sales'=>$sales]);
+        //
     }
 
     /**
@@ -29,14 +24,10 @@ class SalesController extends Controller
      */
     public function create()
     {
-      $shelf = \App\Shelf::where('user_id', '=', \Auth::user()->id)->get();
-      $books = [];
-      foreach ($shelf as $book) {
-        $books[] = \App\Book::where('id', '=', $book->book_id )->get();
-      }
+      $shelf = \App\Shelf::where('user_id', '=', '2')->get();
       $sale_type = ['retail', 'bid'];
       $today = date("Y-m-d");
-      return view('sales.create', ['sale_type' => $sale_type, 'shelf' => $shelf, 'status' => 'processing', 'today' => $today, 'books' => $books]);
+      return view('sales.create', ['sale_type' => $sale_type, 'shelf' => $shelf, 'status' => 'processing', 'today' => $today]);
     }
 
     /**
@@ -60,7 +51,7 @@ class SalesController extends Controller
       ]);
 
       $sale = new Sale;
-      $sale->seller_id = $request->user()->id;
+      $sale->seller_id = 2;
       $sale->book_id = $request->input('book_id');
       $sale->base_price = $request->input('base_price');
       $sale->sale_type = $request->input('sale_type');
@@ -69,9 +60,9 @@ class SalesController extends Controller
         $sale->start_time = $request->input('start_time');
         $sale->end_time = $request->input('end_time');
       }
-      $sale->payment = $request->input('bank_name') . '/' .
-                       $request->input('branch') . '/' .
-                       $request->input('account_num') . '/' .
+      $sale->payment = $request->input('bank_name') . ' ' .
+                       $request->input('branch') . ' ' .
+                       $request->input('account_num') . ' ' .
                        $request->input('holder');
       $sale->book_condition = $request->input('book_condition');
 
@@ -79,20 +70,21 @@ class SalesController extends Controller
 
       $input=$request->all();
       $images=array();
+      $img = new \App\Image;
+      $img->sale_id = $sale->id;
       if($files=$request->file('images')){
         $count = 0;
           foreach($files as $file){
-              $img = new \App\Image;
-              $img->sale_id = $sale->id;
               $name=$file->getClientOriginalExtension();
-              $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name);
-              $img->path = '/sale_images' . '/' . 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name;
-              $img->save();
+              $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->seller_id . $count . '.' . $name);
+              $img->path = '/sale_images' . '/' . 'sale_images' . $sale->seller_id . $count . '.' . $name;
               $count++;
           }
       }
+      $img->save();
 
       return redirect('/sales/' . $sale->id);
+
     }
 
     /**
@@ -110,8 +102,7 @@ class SalesController extends Controller
       $d = explode('-', $dnt[0]);
       $created_date = $d[2] ." ". $m[(int)$d[1]] .", ". $d[0];
       $img = \App\Image::where('sale_id', '=', $sale->id)->get();
-      $info = explode('/', $sale->payment);
-      return view('sales.show', ['sale' => $sale, 'created_date' => $created_date, 'img'=>$img, 'info'=>$info]);
+      return view('sales.show', ['sale' => $sale, 'created_date' => $created_date, 'img'=>$img]);
     }
 
     /**
@@ -139,8 +130,10 @@ class SalesController extends Controller
     public function update(Request $request, Sale $sale)
     {
       $validatedData = $request->validate([
+        'book_id' => 'required|min:3|max:255',
         'sale_type' => 'required',
         'base_price' => 'required',
+        'total_price' => 'required',
         'bank_name' => 'required',
         'branch' => 'required',
         'account_num' => 'required',
@@ -149,6 +142,7 @@ class SalesController extends Controller
         'images[]' => 'mimes:jpeg,bmp,png|max:2048'
       ]);
 
+      $sale->seller_id = 2;
       $sale->book_id = $request->input('book_id');
       $sale->base_price = $request->input('base_price');
       $sale->sale_type = $request->input('sale_type');
@@ -165,18 +159,18 @@ class SalesController extends Controller
 
       $input=$request->all();
       $images=array();
+      $img = new \App\Image;
+      $img->sale_id = $sale->id;
       if($files=$request->file('images')){
         $count = 0;
           foreach($files as $file){
-              $img = new \App\Image;
-              $img->sale_id = $sale->id;
               $name=$file->getClientOriginalExtension();
-              $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name);
-              $img->path = '/sale_images' . '/' . 'sale_images' . $sale->id . $sale->book_id . $count . '.' . $name;
-              $img->save();
+              $upload = $file->move(public_path() . '/sale_images' . '/', 'sale_images' . $sale->seller_id . $count . '.' . $name);
+              $img->path = '/sale_images' . '/' . 'sale_images' . $sale->seller_id . $count . '.' . $name;
               $count++;
           }
       }
+      $img->save();
 
       return redirect('/sales/' . $sale->id);
     }
@@ -189,67 +183,6 @@ class SalesController extends Controller
      */
     public function destroy(Sale $sale)
     {
-      $sale->delete();
-      return redirect('/sales');
-    }
-
-    /**
-     * Show the form for order processing the specified resource.
-     *
-     * @param  \App\Sale  $sale
-     * @return \Illuminate\Http\Response
-     */
-    public function buying(Sale $sale)
-    {
-      $today = date("Y-m-d");
-      $book = \App\Book::where('id', '=', $sale->book_id )->get();
-      $profiles = \App\Profile::where('user_id', '=', '2' )->get();
-      $coupons =  \App\Coupon::where('exp', '>=', $today )->get();
-      $address = explode("\\", $profiles[0]->address);
-      $sale_type = ['retail', 'bid'];
-
-      return view('buying.create', ['sale'=>$sale, 'sale_type' => $sale_type, 'book' => $book,
-                                    'profiles'=>$profiles, 'coupons'=>$coupons, 'address'=>$address]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Sale  $sale
-     * @return \Illuminate\Http\Response
-     */
-    public function updatedb(Request $request, Sale $sale)
-    {
-      $validatedData = $request->validate([
-        'total_price' => 'required',
-      ]);
-
-      $sale->buyer_id = $request->user()->id;
-      $sale->total_price = $request->input('total_price');
-      $sale->status = 'purchased';
-      $sale->save();
-      return redirect('/sales/' . $sale->id);
-    }
-
-    /**
-     * Show the form for order processing the specified resource.
-     *
-     * @param  \App\Sale  $sale
-     * @return \Illuminate\Http\Response
-     */
-    public function confirm(Sale $sale)
-    {
-      $today = date("Y-m-d");
-      return view('buying.confirmpayment', ['sale'=>$sale, 'today'=>$today]);
-    }
-    /**
-     * Show the form for order processing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function success()
-    {
-      return view('buying.success');
+        //
     }
 }

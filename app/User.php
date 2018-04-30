@@ -42,5 +42,9 @@ class User extends Authenticatable
 
 	public function profile(){
 		return $this->hasOne('App\Profile', 'user_id');
-	}
+    }
+    
+    public function isAdmin() {
+        return $this->user_level=='admin';
+    }
 }

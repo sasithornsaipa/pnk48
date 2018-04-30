@@ -16,8 +16,8 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        // $profiles = Profile::all();
-        // return view('Profile/index', ['profiles' => $profiles]);
+        $profiles = Profile::all();
+        return view('Profile/index', ['profiles' => $profiles]);
     }
 
     /**
@@ -27,7 +27,7 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        // return view('profile.create');
+        return view('profile.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class ProfilesController extends Controller
     {
         $profile = new Profile;
 
-        $profile->user_id = \Auth::user()->id;
+        $profile->user_id = 37;
         $profile->fname = $request->input('fname');
         $profile->lname = $request->input('lname');
         $profile->save();
@@ -71,13 +71,12 @@ class ProfilesController extends Controller
     {
         $userprofile = $profile->user_id;
         $userprodetail = User::find($userprofile);
-        $vertificationDoc = \App\VerificationDoc::where('user_id', \Auth::user()->id)->first();
 
         $sex = [
-            'female' => 'female', 
+            'famale' => 'famale', 
             'male' => 'male', 
         ];
-        return view('profile.edit', ['profile' => $profile, 'userprodetail' => $userprodetail, 'sex' => $sex, 'vertificationDoc' => $vertificationDoc]);
+        return view('profile.edit', ['profile' => $profile, 'userprodetail' => $userprodetail, 'sex' => $sex]);
     }
 
     /**
@@ -90,36 +89,18 @@ class ProfilesController extends Controller
     public function update(Request $request, Profile $profile)
     {
         // usernameemailpassword
-        $validatedData = $request->validate([
-            'images[]' => 'mimes:jpeg,bmp,png|max:2048'
-          ]);
-
         $userprofile = $profile->user_id;
         $userprodetail = User::find($userprofile);
         $userprodetail->username = $request->input('username');
         $userprodetail->email = $request->input('email');
-        $userprodetail->password = bcrypt($request->input('password'));
+        $userprodetail->password = $request->input('password');
         $userprodetail->save();
 
         $profile->fname = $request->input('fname');
         $profile->lname = $request->input('lname');
         $profile->sex = $request->input('sex');
         $profile->birthday = $request->input('birthday');
-        $profile->tel = $request->input('tel');
-        $profile->address = $request->input('address');
-
-        $input=$request->all();
-        $images=array();
-        if($files=$request->file('images')){
-            foreach($files as $file){
-                $name=$file->getClientOriginalExtension();
-                $upload = $file->move(public_path() . '/img' . '/', $request->input('username') . '.' . $name);
-                $profile->image_path = '/img' . '/'. $request->input('username') . '.' . $name;
-            }
-        }
-
         $profile->save();
-
         return redirect('/profile/' . $profile->id);
 
     }
@@ -137,22 +118,11 @@ class ProfilesController extends Controller
 
     public function showBuy(Profile $profile)
     {
-        $sale = \App\Sale::where('buyer_id', $profile->user_id)->get();
-        $books = [];
-        foreach ($sale as $book) {
-            $books[] = \App\Book::where('id', '=', $book->book_id )->get();
-        }
-        return view('profile/buy', ['sale' => $sale, 'books' => $books, 'profile'=>$profile]);
+        
+        // $saledetail = Sale::all()->where('buyer_id', 2);
+        // $userprodetail = User::find($userprofile);
+        // return view('profile/buy', ['sale' => $saledetail]);
+        return view('profile/buy');
     }
     
-
-    public function showSell(Profile $profile)
-    {
-        $sale = \App\Sale::where('seller_id',$profile->user_id)->get();
-        $books = [];
-        foreach ($sale as $book) {
-            $books[] = \App\Book::where('id', '=', $book->book_id )->get();
-        }
-        return view('profile/sell', ['sale' => $sale, 'books' => $books]);
-    }
 }
