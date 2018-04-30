@@ -1,7 +1,7 @@
 @extends('layouts.master') @push('styles')
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
-    crossorigin="anonymous"> 
-@endpush 
+    crossorigin="anonymous">
+@endpush
 @section('content') {{-- Tab Header --}}
 <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -24,7 +24,7 @@
         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
             <a class="dropdown-item" data-toggle="tab" href="#events">Events List</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">New Event...</a>
+            <a class="dropdown-item" href="/sales/create">New Event...</a>
         </div>
     </li>
     <li class="nav-item">
