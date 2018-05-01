@@ -42,18 +42,11 @@ class User extends Authenticatable
 
 	public function profile(){
 		return $this->hasOne('App\Profile', 'user_id');
-<<<<<<< HEAD
+
 	}
 
   public function isAdmin()
   {
     return $this->user_level == 'admin';
   }
-=======
-    }
-    
-    public function isAdmin() {
-        return $this->user_level=='admin';
-    }
->>>>>>> a7153cc98c96511c8ddf7e152fb8b0f6fd2596a3
 }

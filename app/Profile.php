@@ -14,6 +14,12 @@ class Profile extends Model
          *
          * @var array
          */
+
+        protected $fillable = [
+             'fname', 'lname', 'birthday', 'sex', 'tel', 'address','coin'
+         ];
+
+
         protected $dates = ['deleted_at'];
 
         public function user() {
