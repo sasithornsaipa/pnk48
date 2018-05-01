@@ -85,8 +85,8 @@
                 'd-flex justify-content-start recieve'
                 @endif >
                 <div class='card'>
-                    <p class='card-header'>{{$message->created_at}}</p>
-                    <p class='card-text'>{{$message->message}}</p>
+                    <p class='card-header'>{{$message->message}}</p>
+                    <p class='card-text'>{{$message->created_at}}</p>
                 </div>
             </div>
             @endforeach
