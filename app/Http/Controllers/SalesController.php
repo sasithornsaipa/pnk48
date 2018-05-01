@@ -51,10 +51,10 @@ class SalesController extends Controller
         'book_id' => 'required',
         'sale_type' => 'required',
         'base_price' => 'required',
-        'bank_name' => 'required',
-        'branch' => 'required',
-        'account_num' => 'required',
-        'holder' => 'required',
+        // 'bank_name' => 'required',
+        // 'branch' => 'required',
+        // 'account_num' => 'required',
+        // 'holder' => 'required',
         'book_condition' => 'required',
         'images[]' => 'mimes:jpeg,bmp,png|max:2048'
       ]);
