@@ -40,7 +40,7 @@ Shelf book
             @foreach($books as $book=>$value)
                 <div class="col-md-3">  
                     <a href="{{ url('/shelfbook/' . $books[$book][0]->id) }}">
-                    <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset('img/'.$books[$book][0]->cover) }}" style="width:128px; height:164px;">
+                    <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
                     </a>
                     <hr>
                 </div>

@@ -7,6 +7,9 @@
     .header{
         text-indent: 100px;
     }
+    body{
+        background-color: #c9d874;
+    }
 </style>
 
 @extends('layouts.master')
@@ -18,7 +21,6 @@
 </div>
 <div class='row'>
     <div class='col-md-2'>
-        <p>left col</p>
     </div>
     <div class='col-md-8'>
         @foreach($messages as $message)
@@ -31,7 +33,7 @@
                         </div>
                         <div class='col-8'>
                             <a href="/profile/{{$message->sender_id}}"><h3 class='card-text'>{{$message->sender->profile->fname." ".$message->sender->profile->lname}}</h3></a>
-                            <label> {{$message->time}}<p>{{$message->message}}</p></label>
+                            <label> {{$message->created_at}}<p>{{$message->message}}</p></label>
                         </div>
                     </div>
                 </div>
@@ -42,7 +44,6 @@
     </div>
     
     <div class='col-md-2'>
-        <p>right col</p>
     </div>
 </div>
 

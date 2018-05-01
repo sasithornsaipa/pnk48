@@ -46,8 +46,9 @@
     }
     
 </style>
-
+@push('scripts')
 <script type="text/javascript" src="{{ asset('js/enter_button_controller.js') }}"></script>
+@endpush
 @extends('layouts.master')
 
 @section('content')
@@ -68,6 +69,7 @@
         </div>
     </div>
     <div class='col-md-6'>
+        <h3>Chat box</h3>
         <div class='box border rounded border-info'>
             @foreach($all_message as $message)
             {{-- <p class=@if($message->sender->id == \Auth::user()->id)
@@ -89,10 +91,10 @@
             </div>
             @endforeach
         </div>
-        <form action="PersonalMessagesController@store" method="post">
+        <form action="{{route('personal_messages.store', ['interlocutor' => $interlocutor])}}" method="post">
             {{ csrf_field() }}
             <div class='form-control'>
-                <textarea name="chat-message" id="chat-message" cols="70" rows="5" class='' draggable="false"></textarea>
+                <textarea name="message" id="message" cols="70" rows="5" class='' draggable="false"></textarea>
                 <button type="submit" class='btn btn-submit'>Send</button>
             </div>
             

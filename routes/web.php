@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('home.index');
 });
 
+Route::resource('/reports', 'ReportsController');
 
 Route::get('/admin', 'AdminsController@index');
 // Route::get('/events/create', function () {
@@ -26,10 +27,11 @@ Route::resource('/sales', 'SalesController');
 
 Route::resource('/index', 'HomesController');
 
+Route::get('/verificationDoc/create', 'VerificationsDocController@create');
+Route::post('/profile/{profile}', 'VerificationsDocController@store');
 
 Route::get('/profile/{profile}', 'ProfilesController@edit')->where('profile', '[0-9]+');
 Route::put('/profile/{profile}', 'ProfilesController@update')->where('profile', '[0-9]+');
-
 Route::get('/profile/{profile}/sell', 'ProfilesController@showSell')->where('profile', '[0-9]+');
 Route::get('/profile/{profile}/buy', 'ProfilesController@showBuy')->where('profile', '[0-9]+');
 
@@ -39,8 +41,7 @@ Route::get('/shelfbook/create', 'ShelvesController@create');
 Route::post('/shelfbook', 'ShelvesController@store');
 Route::post('/shelfbook/addbook', 'ShelvesController@addbook');
 
-
-Route::resource('/personal_messages', 'PersonalMessagesController');
+Route::resource('/personal_messages', 'PersonalMessagesController')->middleware('auth');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

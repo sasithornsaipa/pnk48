@@ -50,18 +50,17 @@ class ShelvesController extends Controller
             'description' => 'required',
             'barcode' => 'required|min:13|max:13',
             'isbn' => 'required|min:13|max:13',
-            'images[]' => 'mimes:jpeg,jpg,bmp,png|max:2048'
+            'images[]' => 'mimes:jpeg,bmp,png|max:2048'
         ]);
         
             $book = new Book;
             $book->name = $request->input('name');
-            // $book->cover = $request->input('cover');
+            // $book->cover = $request->input('name') . '.jpg';
             $book->author = $request->input('author');
             $book->description = $request->input('description');
             $book->isbn = $request->input('isbn');
             $book->barcode = $request->input('barcode');
-
-
+            
             $input=$request->all();
             $images=array();
             if($files=$request->file('images')){
@@ -72,13 +71,13 @@ class ShelvesController extends Controller
                 }
             }
             $book->save();
-    
+
             $shelf = new Shelf;
             $shelf->user_id = \Auth::user()->id;
             $shelf->book_id = $book->id;
             $shelf->save();
-
-        return redirect('/shelfbook/');
+        
+            return redirect('/shelfbook/');
 
     }
 
