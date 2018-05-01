@@ -91,14 +91,6 @@ class ProfilesController extends Controller
     {
         // usernameemailpassword
         $validatedData = $request->validate([
-            'id' => 'required',
-            'username' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'fname' => 'required',
-            'lname' => 'required',
-            'sex' => 'required',
-            'birthday' => 'required',
             'images[]' => 'mimes:jpeg,bmp,png|max:2048'
           ]);
 
@@ -113,6 +105,8 @@ class ProfilesController extends Controller
         $profile->lname = $request->input('lname');
         $profile->sex = $request->input('sex');
         $profile->birthday = $request->input('birthday');
+        $profile->tel = $request->input('tel');
+        $profile->address = $request->input('address');
 
         $input=$request->all();
         $images=array();
