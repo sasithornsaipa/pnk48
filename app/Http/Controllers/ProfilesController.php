@@ -99,9 +99,6 @@ class ProfilesController extends Controller
 
         $userprofile = $profile->user_id;
         $userprodetail = User::find($userprofile);
-        $userprodetail->username = $request->input('username');
-        $userprodetail->email = $request->input('email');
-        $userprodetail->password = bcrypt($request->input('password'));
         $userprodetail->save();
 
         $profile->fname = $request->input('fname');
@@ -116,14 +113,14 @@ class ProfilesController extends Controller
         if($files=$request->file('images')){
             foreach($files as $file){
                 $name=$file->getClientOriginalExtension();
-                $upload = $file->move(public_path() . '/img' . '/', $request->input('username') . '.' . $name);
-                $profile->image_path = '/img' . '/'. $request->input('username') . '.' . $name;
+                $upload = $file->move(public_path() . '/img' . '/', $userprodetail->username . '.' . $name);
+                $profile->image_path = '/img' . '/'. $userprodetail->username . '.' . $name;
             }
         }
 
         $profile->save();
 
-        return redirect('/profile/' . $profile->id);
+        return redirect('/profile/edit');
 
     }
 

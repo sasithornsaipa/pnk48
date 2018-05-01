@@ -21,6 +21,8 @@ Route::get('/admin', 'AdminsController@index');
 // Admin/User Route
 Route::get('/admin/{user}', 'AdminsController@showUser')->where('user', '[0-9]+');
 
+
+
 Route::get('/admin/admin/create', 'AdminsController@createAdmin');
 Route::post('/admin/admin/store', 'AdminsController@storeAdmin');
 

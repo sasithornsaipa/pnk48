@@ -26,26 +26,49 @@ Book Detail
   </div>
 
   <div class="in-panel">
+    <?php $countRetail = 0; $countBid = 0;?>
     @foreach($books as $book=>$value)
       @if(($sale[$book]->sale_type) == 'retail')
-        <br>
-        <h4>Sale Type : retail</h4>
+        <?php 
+          $countRetail++; 
+          if($countRetail == 1){ ?>
+            <h4>Sale Type : retail</h4>
+            <br>
+        <?php } ?>
+        
         <ul class="list-group">
           <li class="list-group-item">
-
-            <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
-            <!-- <img src="{{asset('img/book.jpg')}}" style="width:200px; height:300px;"> -->
-            <span style="color: black;"> {{ $books[$book][0]->name }}</span>
+            <div class="row">
+              <div class="col-md-4">
+                <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
+              </div>
+              <div class="col-md-8">
+                <span style="color: black;">Name:     {{ $books[$book][0]->name }}</span><br>
+                <span style="color: black;">Status:   {{ $sale[0]->status }}</span>
+              </div>
+            </div>
           </li>
         </ul>
       @else
         <br>
-        <h4>Sale Type : ประมูล (bid)</h4>
+        <?php 
+          $countBid++; 
+          if($countBid == 1){ ?>
+            <h4>Sale Type : ประมูล (bid)</h4>
+            <br>
+        <?php } ?>
+        
         <ul class="list-group">
           <li class="list-group-item">
-            <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
-
-            <span >name : {{ $books[$book][0]->name }}</span>
+            <div class="row">
+              <div class="col-md-4">
+                <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
+              </div>
+              <div class="col-md-8">
+                <span style="color: black;">Name:     {{ $books[$book][0]->name }}</span><br>
+                <span style="color: black;">Status:   {{ $sale[0]->status }}</span>
+              </div>
+            </div>
           </li>
         </ul>
       @endif
