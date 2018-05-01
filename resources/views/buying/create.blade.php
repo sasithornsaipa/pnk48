@@ -213,7 +213,7 @@
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-      <form id="msform" class="needs-validation" enctype="multipart/form-data" action="/buying/confirmpayment/{{$sale->id}}" method="post" novalidate>
+      <form id="msform" class="needs-validation" enctype="multipart/form-data" action="/buying/{{$sale->id}}" method="post" novalidate>
         @method('PUT')
         {{ csrf_field() }}
 
@@ -270,6 +270,7 @@
                       <div class="col-md-2"></div>
                       <div class="col-md-5 text-right" >
                         <span id="total_price">{{$sale->base_price}}</span>
+                        <input type="hidden" name="total_price" value="{{$sale->base_price}}" id="price">
                         <span >&nbsp;&nbsp;Coin</span>
                       </div>
                     </div>
@@ -482,6 +483,7 @@
         document.getElementById("total_price").innerHTML = parseInt(total) - ((parseInt(c.discount)/100) * parseInt(total));
         document.getElementById("detail").innerHTML = 'discount '+ c.discount +'%';
         document.getElementById("use").disabled = true;
+        document.getElementById("price").value = parseInt(total) - ((parseInt(c.discount)/100) * parseInt(total));
         break;
       }else{
         document.getElementById("detail").innerHTML = 'Wrong Code';

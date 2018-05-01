@@ -11,7 +11,7 @@ body{
 @endpush
 
 @section('content')
-
+    
     <div class="container" style="margin-top: 11%;">
     <div class="row text-center">
       <div class="col-md-4"></div>
@@ -22,7 +22,7 @@ body{
         <!--/.icon-->
         <h1>Success!</h1>
         <p>Thank You for your order.</p>
-        <a role="button" class="btn btn-sm btn-outline-success" href="/sales">Ok</a>
+        <a role="button" class="btn btn-sm btn-outline-success" href="/sales">OK</a>
       </div>
       <div class="col-md-4"></div>
       <!--/.success-->

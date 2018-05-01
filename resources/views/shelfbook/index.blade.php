@@ -23,7 +23,7 @@ Shelf book
   input{
       width: 100%;
   }
-  
+
 @endpush
 
 @section('content')
@@ -38,7 +38,7 @@ Shelf book
     <div class="jumbotron jumbotron-fluid">
         <div class="row" style="text-align: center">
             @foreach($books as $book=>$value)
-                <div class="col-md-3">  
+                <div class="col-md-3">
                     <a href="{{ url('/shelfbook/' . $books[$book][0]->id) }}">
                     <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
                     </a>
@@ -50,12 +50,12 @@ Shelf book
 
     <div class="all-book">
         <div class="row" style="text-align: center">
-            <div class="col-sm" name="filter-bar">
+            <!-- <div class="col-sm" name="filter-bar">
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" id="search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit" >filter</button>
                 </form>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -80,7 +80,7 @@ Shelf book
                        <img src='https://barcode.tec-it.com/barcode.ashx?data={{$books[$book][0]->barcode}}&code=ISBN13&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0' alt='Barcode Generator TEC-IT' style="width: 150px;"/>
                     </td>
                     <td>
-                       <img src='https://barcode.tec-it.com/barcode.ashx?data={{$books[$book][0]->isbn}}&code=ISBN13&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0' alt='Barcode Generator TEC-IT' style="width: 150px;"/>
+                       {{$books[$book][0]->isbn}}
                     </td>
                     <td><a href="{{ url('/shelfbook/' . $books[$book][0]->id) }}" class="btn btn-success">Detail</a></td>
                 </tr>
@@ -90,6 +90,3 @@ Shelf book
 
 </div>
 @endsection
-
-
-

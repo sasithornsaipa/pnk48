@@ -45,6 +45,7 @@ Profile Detail
     @endif
 
 </div>
+@if(Auth::user()->id == $userprodetail->id)
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -72,31 +73,16 @@ Profile Detail
         </div>
     </div>
 </div>
-<form action="/profile/{{ $profile->id }}" enctype="multipart/form-data" method="post">
+@endif
 
     @csrf
-    @method('PUT')
     <div class="row">
         <div class="column left" style="padding-left: 30px;">
             <img src="{{ empty($profile->image_path)? asset('img/default-avatar.png') : asset($profile->image_path) }}" style="width:200px; height:200px;">
             <p>[ <i class="fa fa-user-circle"></i>
            {{ $userprodetail->user_level }} ]</p>
 
-            <div class="mb-3">
-                <br>
-                <label for="image_path">Change picture</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customFile" onchange="readURL(this);" name="images[]" multiple>
-                    <label class="custom-file-label" for="customFile">Choose file</label><br><br>
-                </div>
-                <img id="blah" class="img-fluid img-thumbnail" src="#" alt="" width="25%"/>
-
-                @if($errors->has('images[]'))
-                <div class="text-danger">
-                    {{$errors->first('images[]')}}
-                </div>
-                @endif
-            </div>
+           
         </div>
 
         <div class="column right" style="padding-left: 30px;">
@@ -145,7 +131,7 @@ Profile Detail
                     <label>Firstname: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="fname" value="{{ old('fname') ?? $profile->fname }}" required>
+                    <input type="text" name="fname" value="{{ old('fname') ?? $profile->fname }}" disabled>
                     @if($errors->has('fname'))
                     <div class="text-danger">
                         {{$errors->first('fname')}}
@@ -157,7 +143,7 @@ Profile Detail
                     <label>Lastname: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="lname" value="{{ old('lname') ?? $profile->lname }}" required>
+                    <input type="text" name="lname" value="{{ old('lname') ?? $profile->lname }}" disabled>
                     @if($errors->has('lname'))
                     <div class="text-danger">
                         {{$errors->first('lname')}}
@@ -184,7 +170,7 @@ Profile Detail
                     <label>Birthday: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="date" name="birthday" value="{{ old('birthday') ?? $profile->birthday }}" required>
+                    <input type="date" name="birthday" value="{{ old('birthday') ?? $profile->birthday }}" disabled>
                     @if($errors->has('birthday'))
                     <div class="text-danger">
                         {{$errors->first('birthday')}}
@@ -196,7 +182,7 @@ Profile Detail
                     <label>Tel: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="tel" value="{{ old('tel') ?? $profile->tel }}" required>
+                    <input type="text" name="tel" value="{{ old('tel') ?? $profile->tel }}" disabled>
                     @if($errors->has('tel'))
                     <div class="text-danger">
                         {{$errors->first('tel')}}
@@ -208,7 +194,7 @@ Profile Detail
                     <label>Address: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="address" value="{{ old('address') ?? $profile->address }}" required>
+                    <input type="text" name="address" value="{{ old('address') ?? $profile->address }}" disabled>
                     @if($errors->has('address'))
                     <div class="text-danger">
                         {{$errors->first('address')}}
@@ -220,50 +206,7 @@ Profile Detail
         </div>
     </div>
 
-    <hr class="mb-4">
-    @if($userprodetail->verified == 0)
-    <a href="/verificationDoc/create"class="text-danger">Please verify your account</a>
-    <br>
-    @else
-    @endif
-
+   
 
     <br>
     <button class="btn btn-success btn-lg btn-block" type="submit">Submit</button>
-</form>
-
-
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../../../dist/js/bootstrap.min.js"></script>
-    <script src="../../../../assets/js/vendor/holder.min.js"></script>
-    <script>
-
-        $("input[type=file]").change(function () {
-            var fieldVal = $(this).val();
-            // Change the node's value by removing the fake path (Chrome)
-            fieldVal = fieldVal.replace("C:\\fakepath\\", "");
-            if (fieldVal != undefined || fieldVal != "") {
-                $(this).next(".custom-file-label").attr('data-content', fieldVal);
-                $(this).next(".custom-file-label").text(fieldVal);
-            }
-        });
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#blah')
-                    .attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-    </script>
-
-    @endsection

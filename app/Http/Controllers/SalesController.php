@@ -221,15 +221,18 @@ class SalesController extends Controller
      */
     public function updatedb(Request $request, Sale $sale)
     {
-      $validatedData = $request->validate([
-        'total_price' => 'required',
-      ]);
-
+      // return $request->input('total_price');
       $sale->buyer_id = $request->user()->id;
       $sale->total_price = $request->input('total_price');
       $sale->status = 'purchased';
       $sale->save();
-      return redirect('/sales/' . $sale->id);
+      $buyer = \App\Profile::where('user_id', '=', $request->user()->id )->get();
+      $buyer[0]->coin = $buyer[0]->coin - $request->input('total_price');
+      $buyer[0]->save();
+      $seller = \App\Profile::where('user_id', '=', $sale->seller_id )->get();
+      $seller[0]->coin = $seller[0]->coin - $request->input('total_price');
+      $seller[0]->save();
+      return redirect('/buying/success');
     }
 
     /**
