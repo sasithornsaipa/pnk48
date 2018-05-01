@@ -80,7 +80,9 @@ Profile Detail
     <div class="row">
         <div class="column left" style="padding-left: 30px;">
             <img src="{{ empty($profile->image_path)? asset('img/default-avatar.png') : asset($profile->image_path) }}" style="width:200px; height:200px;">
-            
+            <p>[ <i class="fa fa-user-circle"></i> 
+           {{ $userprodetail->user_level }} ]</p>
+
             <div class="mb-3">
                 <br>
                 <label for="image_path">Change picture</label>
@@ -105,7 +107,7 @@ Profile Detail
                     <label>Username: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="username" value="{{ old('username') ?? $userprodetail->username }}" required>
+                    <input type="text" name="username" value="{{ old('username') ?? $userprodetail->username }}" disabled>
                     @if($errors->has('username'))
                     <div class="text-danger">
                         {{$errors->first('username')}}
@@ -117,7 +119,7 @@ Profile Detail
                     <label>Email: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="email" value="{{ old('email') ?? $userprodetail->email }}" required>
+                    <input type="text" name="email" value="{{ old('email') ?? $userprodetail->email }}" disabled>
                     @if($errors->has('email'))
                     <div class="text-danger">
                         {{ $errors->first('email') }}
