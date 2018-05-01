@@ -22,17 +22,17 @@ Book Detail
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h2>การขายของฉัน</h2>
+    <h2>Sales</h2>
   </div>
-    
+
   <div class="in-panel">
     @foreach($books as $book=>$value)
       @if(($sale[$book]->sale_type) == 'retail')
         <br>
-        <h4>ประเภทการซื้อ : retail</h4>
+        <h4>Sale Type : retail</h4>
         <ul class="list-group">
           <li class="list-group-item">
-          
+
             <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
             <!-- <img src="{{asset('img/book.jpg')}}" style="width:200px; height:300px;"> -->
             <span style="color: black;"> {{ $books[$book][0]->name }}</span>
@@ -40,11 +40,11 @@ Book Detail
         </ul>
       @else
         <br>
-        <h4>ประเภทการซื้อ : ประมูล (bid)</h4>
+        <h4>Sale Type : ประมูล (bid)</h4>
         <ul class="list-group">
           <li class="list-group-item">
             <img src="{{ empty($books[$book][0]->cover)? asset('img/book.jpg') : asset($books[$book][0]->cover) }}" style="width:128px; height:164px;">
-            
+
             <span >name : {{ $books[$book][0]->name }}</span>
           </li>
         </ul>
@@ -52,6 +52,6 @@ Book Detail
       @endforeach
     </div>
   </div>
-  
+
 
 @endsection

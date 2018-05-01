@@ -80,13 +80,9 @@ Profile Detail
     @method('PUT')
     <div class="row">
         <div class="column left" style="padding-left: 30px;">
-<<<<<<< HEAD
-            <img src="{{ empty($userprodetail->image_path)? asset('img/default-avatar.png') : asset('$userprodetail->image_path') }}" style="width:200px; height:200px;">
-=======
             <img src="{{ empty($profile->image_path)? asset('img/default-avatar.png') : asset($profile->image_path) }}" style="width:200px; height:200px;">
-            <p>[ <i class="fa fa-user-circle"></i> 
+            <p>[ <i class="fa fa-user-circle"></i>
            {{ $userprodetail->user_level }} ]</p>
->>>>>>> 398f0a0d7cd9c08955dfb6d76c9ffc0ceaee719c
 
             <div class="mb-3">
                 <br>
@@ -132,7 +128,7 @@ Profile Detail
                     @endif
                 </div>
 
-                <div class="col-md-2 mb-3">
+                <!-- <div class="col-md-2 mb-3">
                     <label>Password: </label>
                 </div>
                 <div class="col-md-10 mb-3">
@@ -142,15 +138,11 @@ Profile Detail
                         {{ $errors->first('password') }}
                     </div>
                     @endif
-                </div>
-<<<<<<< HEAD
+                </div> -->
 
-=======
-                
 
 
                 <hr>
->>>>>>> 398f0a0d7cd9c08955dfb6d76c9ffc0ceaee719c
                 <div class="col-md-2 mb-3">
                     <label>Firstname: </label>
                 </div>

@@ -24,7 +24,7 @@
       <h1 class="mt-4"> <i class="fas fa-shopping-bag"></i> Retail </h1><hr>
         <div class="row">
           @foreach($sales as $sale)
-            @if($sale->sale_type == 'retail')
+            @if(($sale->sale_type == 'retail') and ($sale->status == 'processing'))
               <div class="col-md-4">
                 <div class="card mb-4  ">
                   <div class="text-center" style="margin-top: 4%;">
@@ -76,7 +76,7 @@
       <h1 class="mt-4"> <i class="fas fa-gavel"></i> Bid </h1><hr>
         <div class="row">
           @foreach($sales as $sale)
-            @if($sale->sale_type == 'bid')
+            @if(($sale->sale_type == 'bid') and ($sale->status == 'processing'))
               <div class="col-md-4">
                 <div class="card mb-4  ">
                   <div class="text-center" style="margin-top: 4%;">

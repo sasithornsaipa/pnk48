@@ -7,7 +7,7 @@
         }
         body{
             background-color: #d9d2b1;
-            
+
         }
         /* Create two unequal columns that floats next to each other */
         .column {
@@ -41,7 +41,7 @@
             border-radius: 10px;
         } */
     </style>
-@endpush  
+@endpush
 
 
 @section('content')
@@ -52,10 +52,10 @@
                     <a href="/profile/{{ \Auth::user()->profile->id}}"><span class="col 3" style="font-weight: bold">My profile</span></a>
                 </li>
                 <li class="list-group-item white-panel">
-                    <a href="/profile/{{ \Auth::user()->profile->id}}/buy"><span class="col 3" style="font-weight: bold">ประวัติการซื้อของฉัน</span></a>
+                    <a href="/profile/{{ \Auth::user()->profile->id}}/buy"><span class="col 3" style="font-weight: bold">Purchased History</span></a>
                 </li>
                 <li class="list-group-item white-panel">
-                    <a href="/profile/{{ \Auth::user()->profile->id}}/sell"><span class="col 3" style="font-weight: bold">ประวัติการขายของฉัน</span></a>
+                    <a href="/profile/{{ \Auth::user()->profile->id}}/sell"><span class="col 3" style="font-weight: bold">Sales History</span></a>
                 </li>
             </ul>
         </div>
