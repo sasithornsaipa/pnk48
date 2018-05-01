@@ -132,8 +132,8 @@ class ShelvesController extends Controller
 
     public function addbook(Request $request){
         $validatedData = $request->validate([
-            'barcode' => 'required|min:13|max:13',
-            'isbn' => 'required|min:13|max:13'
+            'barcode' => 'required|min:13|max:13|unique:books,barcode',
+            'isbn' => 'required|min:13|max:13|unique:books,isbn'
         ]);
         
         $barcode = null;

@@ -38,16 +38,28 @@ Add New Book
         </div>
         @endif
 
+
+
         <form action="/shelfbook/addbook" method="post">
             @csrf
+
+
+            @if($errors->has('barcode') && $errors->has('isbn') )
+                <div class="text-danger">
+                   You have already this book.
+                </div>
+            @endif
+            
             <div class="row text-left">
                 <div class="col-md-4 mb-3"></div>
                 <div class="col-md-4 mb-3">
                     <label>Barcode: </label>
-                    <input type="text" name="barcode" value="{{ old('barcode') }}" required>
+                    <input type="text" name="barcode" value="{{ old('barcode') }}">
+                        
                         <div class="text-danger">
                             {{ $errors->first('barcode') }}
                         </div>
+                        
                     <br>
                 </div>
                 <div class="col-md-4 mb-3"></div>
@@ -57,7 +69,7 @@ Add New Book
                 <div class="col-md-4 mb-3"></div>
                 <div class="col-md-4 mb-3">
                     <label>Isbn: </label>
-                    <input type="text" name="isbn" value="{{ old('isbn') }}" required>
+                    <input type="text" name="isbn" value="{{ old('isbn') }}">
                         <div class="text-danger">
                             {{ $errors->first('isbn') }}
                         </div>
