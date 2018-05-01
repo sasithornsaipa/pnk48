@@ -45,11 +45,6 @@ Profile Detail
     @endif
     
 </div>
-<<<<<<< HEAD
-
-=======
-@if(Auth::user()->id == $userprodetail->id)
->>>>>>> 7a1982c97fcf74b0e2e0ba26f2b3b30e87445f87
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -77,11 +72,6 @@ Profile Detail
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-
-=======
-@endif
->>>>>>> 7a1982c97fcf74b0e2e0ba26f2b3b30e87445f87
 <form action="/profile/{{ $profile->id }}" enctype="multipart/form-data" method="post">
     
     @csrf
