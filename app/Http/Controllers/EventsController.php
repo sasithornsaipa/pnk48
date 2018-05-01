@@ -70,7 +70,9 @@ class EventsController extends Controller
       }
 
       $event->save();
-
+      if (\Auth::user()->user_level == 'admin') {
+        return redirect('/admin');
+      }
       return redirect('/events/' . $event->id);
     }
 
