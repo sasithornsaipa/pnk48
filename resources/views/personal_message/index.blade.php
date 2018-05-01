@@ -29,10 +29,10 @@
                 <div class='card-body'>
                     <div class='row'>
                         <div class='col-4'>
-                            <img src="{{$message->sender->profile->image_path}}" alt="Sender's image profile." class='profile'>
+                            <img src="{{$message->sender->profile['image_path']}}" alt="Sender's image profile." class='profile'>
                         </div>
                         <div class='col-8'>
-                            <a href="/profile/{{$message->sender_id}}"><h3 class='card-text'>{{$message->sender->profile->fname." ".$message->sender->profile->lname}}</h3></a>
+                            <a href="/profile/{{$message->sender_id}}"><h3 class='card-text'>{{$message->sender->profile['fname']." ".$message->sender->profile['lname']}}</h3></a>
                             <label> {{$message->created_at}}<p>{{$message->message}}</p></label>
                         </div>
                     </div>
