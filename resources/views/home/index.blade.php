@@ -29,10 +29,10 @@ img:hover {
 			</ol>
 			<div class="carousel-inner" style="height:400px">
 				<div class="carousel-item active">
-				<a href="events/1"><img class="d-block w-100" src="img/event1.png" alt="First slide"></a>
+				<a href="/events/1"><img class="d-block w-100" src="img/event1.png" alt="First slide"></a>
 				</div>
 				<div class="carousel-item">
-				<a href="events/2"><img class="d-block w-100" src="img/event2.png" alt="Second slide" ></a>
+				<a href="/events/2"><img class="d-block w-100" src="img/event2.png" alt="Second slide" ></a>
 				</div>
 			</div>
 			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -53,7 +53,7 @@ img:hover {
 				<div class="column">
 				<div class="book" style="display: inline-block">
 						<div>
-							<a href="sales/4">
+							<a href="/sales/4">
 							<img src="img\123175526.jpg" alt="ป้อนคู่สู่ขวัญ">
 						</div>
 						<div style="text-align: center">
@@ -63,7 +63,7 @@ img:hover {
 						</a>
 				</div>
 				<div class="book" style="display: inline-block">
-						<a href="sales/5">
+						<a href="/sales/5">
 						<img src="img\seraph.jpg" alt="เทวทูตแห่งโลกมืด เล่ม 1">
 						<div style="text-align: center">
 							<span>เทวทูตแห่งโลกมืด เล่ม 1</span><br>
@@ -83,7 +83,7 @@ img:hover {
 				<div class="column">
 					<div class='bid' style="display: inline-block">
 						<div>
-							<a href="sales/2">
+							<a href="/sales/2">
 							<img src="img\w-sentences.jpg" alt="Writing Sentences">
 						</div>
 						<div style="text-align: center">
@@ -93,7 +93,7 @@ img:hover {
 						</a>
 					</div>
 					<div class='bid' style="display: inline-block">
-						<a href="sales/1">
+						<a href="/sales/1">
 						<img src="img\w-paragraphs.jpg" alt="Writing Paragraphs">
 						<div style="text-align: center">
 							<span>Writing Paragraphs</span><br>
@@ -102,7 +102,7 @@ img:hover {
 						</a>
 					</div>
 					<div class='bid' style="display: inline-block">
-						<a href="sales/3">
+						<a href="/sales/3">
 						<img src="img\w-reseacrh.jpg" alt="Writing Research Papers">
 						<div style="text-align: center">
 							<span>Writing Research Papers</span><br>

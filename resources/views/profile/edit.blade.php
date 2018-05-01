@@ -24,7 +24,7 @@ Profile Detail
     .show-coin{
         float: right;
     }
-    
+
 </style>
 
 <div class="show-coin">
@@ -32,9 +32,10 @@ Profile Detail
     {{$profile->coin}}
 </div>
 <div class='row'>
-    
+
     <h1>My Profile</h1>
-    @if(Auth::user())
+    @if(Auth::user()->id != $userprodetail->id)
+
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever={{$userprodetail->username}}>Report</button>
     @if(session()->has('message'))
     <div class="alert alert-success">
@@ -42,7 +43,7 @@ Profile Detail
     </div>
     @endif
     @endif
-    
+
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -56,7 +57,7 @@ Profile Detail
             <form action="{{route('reports.store', ['reporter' => Auth::user(), 'reported' => $userprodetail])}}" method="post">
                 {{ csrf_field() }}
                 <div class="modal-body">
-                    
+
                     <div class="form-group">
                         <label for="description" class="col-form-label">Description:</label>
                         <input type="text" class="form-control" id="description" name='description'>
@@ -66,19 +67,19 @@ Profile Detail
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-                
+
             </form>
         </div>
     </div>
 </div>
 <form action="/profile/{{ $profile->id }}" enctype="multipart/form-data" method="post">
-    
+
     @csrf
-    @method('PUT')  
+    @method('PUT')
     <div class="row">
         <div class="column left" style="padding-left: 30px;">
             <img src="{{ empty($userprodetail->image_path)? asset('img/default-avatar.png') : asset('$userprodetail->image_path') }}" style="width:200px; height:200px;">
-            
+
             <div class="mb-3">
                 <br>
                 <label for="image_path">Change picture</label>
@@ -87,7 +88,7 @@ Profile Detail
                     <label class="custom-file-label" for="customFile">Choose file</label><br><br>
                 </div>
                 <img id="blah" class="img-fluid img-thumbnail" src="#" alt="" width="25%"/>
-                
+
                 @if($errors->has('images[]'))
                 <div class="text-danger">
                     {{$errors->first('images[]')}}
@@ -95,9 +96,9 @@ Profile Detail
                 @endif
             </div>
         </div>
-        
+
         <div class="column right" style="padding-left: 30px;">
-            
+
             <div class="row">
                 <div class="col-md-2 mb-3">
                     <label>Username: </label>
@@ -110,7 +111,7 @@ Profile Detail
                     </div>
                     @endif
                 </div>
-                
+
                 <div class="col-md-2 mb-3">
                     <label>Email: </label>
                 </div>
@@ -122,7 +123,7 @@ Profile Detail
                     </div>
                     @endif
                 </div>
-                
+
                 <div class="col-md-2 mb-3">
                     <label>Password: </label>
                 </div>
@@ -134,7 +135,7 @@ Profile Detail
                     </div>
                     @endif
                 </div>
-                
+
                 <div class="col-md-2 mb-3">
                     <label>Firstname: </label>
                 </div>
@@ -144,9 +145,9 @@ Profile Detail
                     <div class="text-danger">
                         {{$errors->first('fname')}}
                     </div>
-                    @endif  
+                    @endif
                 </div>
-                
+
                 <div class="col-md-2 mb-3">
                     <label>Lastname: </label>
                 </div>
@@ -156,9 +157,9 @@ Profile Detail
                     <div class="text-danger">
                         {{$errors->first('lname')}}
                     </div>
-                    @endif 
+                    @endif
                 </div>
-                
+
                 <div class="col-md-2 mb-3">
                     <label>Sex: </label>
                 </div>
@@ -173,7 +174,7 @@ Profile Detail
                         @endforeach
                     </select>
                 </div>
-                
+
                 <div class="col-md-2 mb-3">
                     <label>Birthday: </label>
                 </div>
@@ -188,15 +189,15 @@ Profile Detail
             </div>
         </div>
     </div>
-    
+
     <hr class="mb-4">
     @if($userprodetail->verified == 0)
     <a href="/verificationDoc/create"class="text-danger">Please verify your account</a>
     <br>
     @else
     @endif
-    
-    
+
+
     <br>
     <button class="btn btn-success btn-lg btn-block" type="submit">Submit</button>
 </form>
@@ -211,7 +212,7 @@ Profile Detail
     <script src="../../../../dist/js/bootstrap.min.js"></script>
     <script src="../../../../assets/js/vendor/holder.min.js"></script>
     <script>
-        
+
         $("input[type=file]").change(function () {
             var fieldVal = $(this).val();
             // Change the node's value by removing the fake path (Chrome)
@@ -221,7 +222,7 @@ Profile Detail
                 $(this).next(".custom-file-label").text(fieldVal);
             }
         });
-        
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -232,7 +233,7 @@ Profile Detail
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        
+
     </script>
-    
+
     @endsection

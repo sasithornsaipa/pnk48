@@ -220,7 +220,7 @@
 
               </div>
 
-              <hr class="mb-4">
+              <!-- <hr class="mb-4">
               <h4 class="mb-3">Payment</h4>
 
               <div class="row">
@@ -267,7 +267,7 @@
                   @endif
                 </div>
 
-              </div>
+              </div> -->
 
               <hr class="mb-4">
               <button class="btn btn-success btn-lg btn-block" id="submitbtn" type="submit">SUBMIT</button>
