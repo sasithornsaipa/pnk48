@@ -103,7 +103,7 @@
     <div class='col-md-3'>
         <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
             <img src={{Auth::user()->profile->image_path}} alt="Profile picture" class='card-img-top'>
-            <div class="card-header"><a href='/profile/{{Auth::user()->id}}'>Full profile</a></div>
+            <div class="card-header"><a href='/profile/edit'>Full profile</a></div>
             <div class="card-body">
                 <h5 class="card-title">{{Auth::user()->username}}</h5>
                 <p class="card-text">{{"First name: ".Auth::user()->profile->fname}}</p>

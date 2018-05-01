@@ -58,7 +58,8 @@ class ProfilesController extends Controller
     {
         $userprofile = $profile->user_id;
         $userprodetail = User::find($userprofile);
-        return view('profile/show', ['profile' => $profile, 'userprodetail' => $userprodetail]);
+        // return "show page";
+        return view('profile.show', ['profile' => $profile, 'userprodetail' => $userprodetail]);
     }
 
     /**
@@ -67,9 +68,10 @@ class ProfilesController extends Controller
      * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profile $profile)
+    public function edit()
     {
-        $userprofile = $profile->user_id;
+        $userprofile = \Auth::user()->profile->user_id;
+        $profile = \Auth::user()->profile;
         $userprodetail = User::find($userprofile);
         $vertificationDoc = \App\VerificationDoc::where('user_id', \Auth::user()->id)->first();
 
@@ -77,6 +79,7 @@ class ProfilesController extends Controller
             'female' => 'female', 
             'male' => 'male', 
         ];
+        // return "edit page";
         return view('profile.edit', ['profile' => $profile, 'userprodetail' => $userprodetail, 'sex' => $sex, 'vertificationDoc' => $vertificationDoc]);
     }
 

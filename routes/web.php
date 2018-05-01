@@ -51,7 +51,8 @@ Route::resource('/index', 'HomesController');
 Route::get('/verificationDoc/create', 'VerificationsDocController@create');
 Route::post('/profile/{profile}', 'VerificationsDocController@store');
 
-Route::get('/profile/{profile}', 'ProfilesController@edit')->where('profile', '[0-9]+');
+Route::get('/profile/{profile}', 'ProfilesController@show')->where('profile', '[0-9]+');
+Route::get('/profile/edit', 'ProfilesController@edit')->where('profile', '[0-9]+');
 Route::put('/profile/{profile}', 'ProfilesController@update')->where('profile', '[0-9]+');
 Route::get('/profile/{profile}/sell', 'ProfilesController@showSell')->where('profile', '[0-9]+');
 Route::get('/profile/{profile}/buy', 'ProfilesController@showBuy')->where('profile', '[0-9]+');
