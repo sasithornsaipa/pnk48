@@ -188,7 +188,20 @@ class AdminsController extends Controller
     }
 
     public function updateEvent(Event $event, Request $request) {
-
+        $validated = $request->validate([
+            'name'=>'required',
+            'description'=>'required',
+            'start_time'=>'required|date|after_or_equal:today',
+            'end_time'=>'required|date|after_or_equal:start_time'
+        ]);
+        $event->name = $request->input('name');
+        $event->description = $request->input('description');
+        $event->reward = $request->input('reward');
+        $event->start_time = $request->input('start_time');
+        $event->end_time = $request->input('end_time');
+        $event->mission_type = $request->input('mission_type');
+        $event->save();
+        return redirect('/admin/event/'.$event->id);
     }
 
     public function deleteEvent(Event $event) {

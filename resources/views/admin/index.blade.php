@@ -1,8 +1,6 @@
-@extends('layouts.master') @push('styles')
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
-    crossorigin="anonymous">
-@endpush
+@extends('layouts.master')
 @section('content') {{-- Tab Header --}}
+@if(Auth::check() and Auth::user()->isAdmin())
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#dashboard">Dashboard</a>
@@ -140,6 +138,9 @@
         </div>
     </div>
 </div>
+@else
+<script>window.location = "/";</script>
+@endif
 @endsection
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>

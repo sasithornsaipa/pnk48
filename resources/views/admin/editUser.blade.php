@@ -3,6 +3,7 @@
 @endsection
  
 @section('content')
+@if(Auth::check() and Auth::user()->isAdmin())
 <form class="form-group" action="/admin/{{ $user->id }}" method="POST">
     @csrf @method('PUT')@if($errors->any())
     <div class="alert alert-danger">
@@ -15,7 +16,7 @@
     @endif
     <div class="container-fluid">
         <div class="card bg-light mb-3">
-            <div class="card-header">Edit detail </div>
+            <div class="card-header"><a data-toggle="tooltip" title="Back to Home" href="{{ url('/admin') }}"><i class="fas fa-arrow-circle-left"></i></a>Edit detail </div>
             <div class="card-body">
                 <h4 class="card-title">{{ $user->username }}</h4>
                 <input class="form-control" type="hidden" name="user_id" value="{{ old('user_id') ?? $user->id }}" />
@@ -68,4 +69,5 @@
         <button type="reset" class="btn btn-outline-danger">Reset</button>
     </div>
 </form>
+@endif
 @endsection

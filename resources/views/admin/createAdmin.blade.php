@@ -3,8 +3,9 @@
 @endsection
  
 @section('content')
+@if(Auth::check() and Auth::user()->isAdmin())
 <div>
-    <h1>New Admin Form</h1>
+    <h1><a data-toggle="tooltip" title="Back to Home" href="{{ url('/admin') }}"><i class="fas fa-arrow-circle-left"></i></a>New Admin Form</h1>
 </div>
 <hr/>
 <form class="form-group" action="/admin/admin/store" method="POST">
@@ -97,6 +98,7 @@
             <button type="reset" class="btn btn-danger btn-lg">Reset</button>
     </div>
 </form>
+@endif
 @endsection
 
 @push('scripts')
