@@ -65,6 +65,10 @@ img:hover {
                         Author:&nbsp;&nbsp;
                         <span class="mb-0 font-weight-light">{{ucfirst($sale->books->author)}}</span>
                       </p>
+                      <p class="mb-0 font-weight-normal">
+                        Price:&nbsp;&nbsp;
+                        <span class="mb-0 font-weight-light">{{ucfirst($sale->base_price)}}</span>
+                      </p>
                     </blockquote>
                   </p>
                   <div class="d-flex justify-content-between align-items-center">
