@@ -60,7 +60,7 @@
   }
 
   /* The Modal (background) */
-  .modal #myModal{
+   .modal #myModal{
     display: none;
     position: fixed;
     z-index: 1;
@@ -74,7 +74,7 @@
   }
 
   /* Modal Content */
-  .modal-content #myModal{
+   .modal-content {
     position: relative;
     background-color: black;
     margin: auto;
@@ -140,7 +140,7 @@
   }
 
   /* Number text (1/3 etc) */
-  .numbertext {
+ .numbertext {
     color: #f2f2f2;
     font-size: 16px;
     padding: 8px 12px;
@@ -212,13 +212,13 @@
 
             <div id="myModal" class="modal">
               <span class="close cursor" onclick="closeModal()">&times;</span>
-              <div class="modal-content">
+              <div class="modal-content" >
                 @php
                   $count = 1;
                 @endphp
                 @foreach($img as $i)
-                  <div class="mySlides">
-                    <div class="numbertext">{{$count}} / {{count($img)}}</div>
+                  <div class="mySlides" >
+                    <div class="numbertext" >{{$count}} / {{count($img)}}</div>
                     <img src="{{$i->path}}" style="width:50%" onclick="openModal();currentSlide({{$count}})" class="hover-shadow cursor">
                   </div>
                   @php
@@ -245,7 +245,7 @@
                       </button>
 
                       <!-- Modal -->
-                      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -268,7 +268,8 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
+
                     </p>
                   </div>
 

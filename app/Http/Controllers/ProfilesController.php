@@ -74,7 +74,7 @@ class ProfilesController extends Controller
         $vertificationDoc = \App\VerificationDoc::where('user_id', \Auth::user()->id)->first();
 
         $sex = [
-            'famale' => 'famale', 
+            'female' => 'female', 
             'male' => 'male', 
         ];
         return view('profile.edit', ['profile' => $profile, 'userprodetail' => $userprodetail, 'sex' => $sex, 'vertificationDoc' => $vertificationDoc]);
@@ -91,14 +91,6 @@ class ProfilesController extends Controller
     {
         // usernameemailpassword
         $validatedData = $request->validate([
-            'id' => 'required',
-            'username' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'fname' => 'required',
-            'lname' => 'required',
-            'sex' => 'required',
-            'birthday' => 'required',
             'images[]' => 'mimes:jpeg,bmp,png|max:2048'
           ]);
 
@@ -106,13 +98,15 @@ class ProfilesController extends Controller
         $userprodetail = User::find($userprofile);
         $userprodetail->username = $request->input('username');
         $userprodetail->email = $request->input('email');
-        $userprodetail->password = $request->input(bcrypt('password'));
+        $userprodetail->password = bcrypt($request->input('password'));
         $userprodetail->save();
 
         $profile->fname = $request->input('fname');
         $profile->lname = $request->input('lname');
         $profile->sex = $request->input('sex');
         $profile->birthday = $request->input('birthday');
+        $profile->tel = $request->input('tel');
+        $profile->address = $request->input('address');
 
         $input=$request->all();
         $images=array();

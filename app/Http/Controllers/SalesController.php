@@ -29,7 +29,7 @@ class SalesController extends Controller
      */
     public function create()
     {
-      $shelf = \App\Shelf::where('user_id', '=', '2')->get();
+      $shelf = \App\Shelf::where('user_id', '=', \Auth::user()->id)->get();
       $books = [];
       foreach ($shelf as $book) {
         $books[] = \App\Book::where('id', '=', $book->book_id )->get();

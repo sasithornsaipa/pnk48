@@ -17,7 +17,10 @@
 
   <div class="album py-5 bg-light">
     <div class="container">
-
+      <div class="row text-right">
+        <div class="col-md-10"></div>
+        <div class="col-md-2"><a class="btn btn-sm btn-outline-success" href="/sales/create" role="button">Create Sales</a></div>
+      </div>
       <h1 class="mt-4"> <i class="fas fa-shopping-bag"></i> Retail </h1><hr>
         <div class="row">
           @foreach($sales as $sale)

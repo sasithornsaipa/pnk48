@@ -45,7 +45,11 @@ Profile Detail
     @endif
     
 </div>
+<<<<<<< HEAD
 
+=======
+@if(Auth::user()->id == $userprodetail->id)
+>>>>>>> 7a1982c97fcf74b0e2e0ba26f2b3b30e87445f87
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -73,15 +77,21 @@ Profile Detail
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 
+=======
+@endif
+>>>>>>> 7a1982c97fcf74b0e2e0ba26f2b3b30e87445f87
 <form action="/profile/{{ $profile->id }}" enctype="multipart/form-data" method="post">
     
     @csrf
     @method('PUT')  
     <div class="row">
         <div class="column left" style="padding-left: 30px;">
-            <img src="{{ empty($userprodetail->image_path)? asset('img/default-avatar.png') : asset('$userprodetail->image_path') }}" style="width:200px; height:200px;">
-            
+            <img src="{{ empty($profile->image_path)? asset('img/default-avatar.png') : asset($profile->image_path) }}" style="width:200px; height:200px;">
+            <p>[ <i class="fa fa-user-circle"></i> 
+           {{ $userprodetail->user_level }} ]</p>
+
             <div class="mb-3">
                 <br>
                 <label for="image_path">Change picture</label>
@@ -106,7 +116,7 @@ Profile Detail
                     <label>Username: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="username" value="{{ old('username') ?? $userprodetail->username }}">
+                    <input type="text" name="username" value="{{ old('username') ?? $userprodetail->username }}" disabled>
                     @if($errors->has('username'))
                     <div class="text-danger">
                         {{$errors->first('username')}}
@@ -118,7 +128,7 @@ Profile Detail
                     <label>Email: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="email" value="{{ old('email') ?? $userprodetail->email }}">
+                    <input type="text" name="email" value="{{ old('email') ?? $userprodetail->email }}" disabled>
                     @if($errors->has('email'))
                     <div class="text-danger">
                         {{ $errors->first('email') }}
@@ -130,7 +140,7 @@ Profile Detail
                     <label>Password: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="password" name="password" value="{{ old('password') ?? $userprodetail->password }}">
+                    <input type="password" name="password" value="{{ old('password') ?? $userprodetail->password }}" required>
                     @if($errors->has('password'))
                     <div class="text-danger">
                         {{ $errors->first('password') }}
@@ -138,11 +148,14 @@ Profile Detail
                     @endif
                 </div>
                 
+
+
+                <hr>
                 <div class="col-md-2 mb-3">
                     <label>Firstname: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="fname" value="{{ old('fname') ?? $profile->fname }}">
+                    <input type="text" name="fname" value="{{ old('fname') ?? $profile->fname }}" required>
                     @if($errors->has('fname'))
                     <div class="text-danger">
                         {{$errors->first('fname')}}
@@ -154,7 +167,7 @@ Profile Detail
                     <label>Lastname: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="text" name="lname" value="{{ old('lname') ?? $profile->lname }}">
+                    <input type="text" name="lname" value="{{ old('lname') ?? $profile->lname }}" required>
                     @if($errors->has('lname'))
                     <div class="text-danger">
                         {{$errors->first('lname')}}
@@ -181,13 +194,38 @@ Profile Detail
                     <label>Birthday: </label>
                 </div>
                 <div class="col-md-10 mb-3">
-                    <input type="date" name="birthday" value="{{ old('birthday') ?? $profile->birthday }}">
+                    <input type="date" name="birthday" value="{{ old('birthday') ?? $profile->birthday }}" required>
                     @if($errors->has('birthday'))
                     <div class="text-danger">
                         {{$errors->first('birthday')}}
                     </div>
                     @endif
                 </div>
+
+                <div class="col-md-2 mb-3">
+                    <label>Tel: </label>
+                </div>
+                <div class="col-md-10 mb-3">
+                    <input type="text" name="tel" value="{{ old('tel') ?? $profile->tel }}" required>
+                    @if($errors->has('tel'))
+                    <div class="text-danger">
+                        {{$errors->first('tel')}}
+                    </div>
+                    @endif
+                </div>
+
+                <div class="col-md-2 mb-3">
+                    <label>Address: </label>
+                </div>
+                <div class="col-md-10 mb-3">
+                    <input type="text" name="address" value="{{ old('address') ?? $profile->address }}" required>
+                    @if($errors->has('address'))
+                    <div class="text-danger">
+                        {{$errors->first('address')}}
+                    </div>
+                    @endif
+                </div>
+
             </div>
         </div>
     </div>
