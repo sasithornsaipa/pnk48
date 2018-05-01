@@ -3,6 +3,7 @@
 @endsection
  
 @section('content')
+@if(Auth::check() and Auth::user()->isAdmin())
 <form class="form-group" action="/admin/event/{{ $event->id }}" method="POST">
     @csrf @method('PUT')@if($errors->any())
     <div class="alert alert-danger">
@@ -15,7 +16,7 @@
     @endif
     <div class="container-fluid">
         <div class="card bg-light mb-3">
-            <div class="card-header">Edit detail </div>
+            <div class="card-header"><a data-toggle="tooltip" title="Back to Home" href="{{ url('/admin') }}"><i class="fas fa-arrow-circle-left"></i></a>Edit detail </div>
             <div class="card-body">
                 <h4 class="card-title">{{ $event->name }}</h4>
                 <hr/>
@@ -62,7 +63,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Mission Type: </label>
-                        <select class="form-control" name="reward">
+                        <select class="form-control" name="mission_type">
                         @foreach($mission_type as $key=>$value)
                         @if(old('mission_type') == $key)
                         <option value="{{ $key }}" selected>{{ $value }}</option>
@@ -80,6 +81,7 @@
         <button type="reset" class="btn btn-outline-danger">Reset</button>
     </div>
 </form>
+@endif
 @endsection
 @push('scripts')
 <script type="text/javascript">

@@ -3,13 +3,12 @@
 @endsection
  
 @section('content')
+@if(Auth::check() and Auth::user()->isAdmin())
 <div class="container-fluid">
     <div class="jumbotron">
         <div class="card">
-            <img class="card-img-top" src="" alt="Event image">
-            <hr/>
             <div class="card-body">
-                <h5 class="card-title">{{ $event->name }}</h5>
+                <h5 class="card-title"><a data-toggle="tooltip" title="Back to Home" href="{{ url('/admin') }}"><i class="fas fa-arrow-circle-left"></i></a>{{ $event->name }}</h5>
                 <hr/>
                 <label>Description: </label>
                 <p class="card-text">{{ $event->description }}</p>
@@ -44,4 +43,5 @@
     </div>
 
 </div>
+@endif
 @endsection

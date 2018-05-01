@@ -3,6 +3,7 @@
 @endsection
  
 @section('content')
+@if(Auth::check() and Auth::user()->isAdmin())
 <div>
     <h1>New Event Form</h1>
 </div>
@@ -83,6 +84,7 @@
         <button type="reset" class="btn btn-danger btn-lg">Reset</button>
     </div>
 </form>
+@endif
 @endsection
 @push('scripts')
 <script type="text/javascript">
