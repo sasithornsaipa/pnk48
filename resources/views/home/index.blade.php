@@ -47,13 +47,44 @@ img:hover {
 		<br>
 		<!--book area-->
 		<div id="book-div" style="margin:20px;">
-			<h2>BOOKs  <input id="bookInput" type="text" placeholder="Search.."></h2>
+			<h2>RETAIL  <input id="bookInput" type="text" placeholder="Search.."></h2>
 			<hr>
-			<div class="row">
+      <div class="row">
+        @foreach($books as $sale)
+          @if(($sale->sale_type == 'retail') and ($sale->status == 'processing'))
+            <div class="col-md-4">
+              <div class="card mb-4  ">
+                <div class="text-center" style="margin-top: 4%;">
+                  <img class="card-img-top" src="{{$sale->images[0]->path}}" alt="Card image cap" style="max-width:180px;">
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    <blockquote>
+                      <p class="mb-0 font-weight-normal">{{ucfirst($sale->books->name)}}</p>
+                      <p class="mb-0 font-weight-normal">
+                        Author:&nbsp;&nbsp;
+                        <span class="mb-0 font-weight-light">{{ucfirst($sale->books->author)}}</span>
+                      </p>
+                    </blockquote>
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">Posted by {{ucfirst($sale->seller->username)}}</small>
+                    <small class="text-muted">{{$sale->created_at->diffForHumans()}}</small>
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-success" href="/books/{{$sale->id}}" role="button">View</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endif
+        @endforeach
+      </div>
+			<!-- <div class="row">
 				<div class="column">
 				<div class="book" style="display: inline-block">
 						<div>
-							<a href="/sales/4">
+							<a href="/books/4">
 							<img src="img\123175526.jpg" alt="ป้อนคู่สู่ขวัญ">
 						</div>
 						<div style="text-align: center">
@@ -63,7 +94,7 @@ img:hover {
 						</a>
 				</div>
 				<div class="book" style="display: inline-block">
-						<a href="/sales/5">
+						<a href="/books/5">
 						<img src="img\seraph.jpg" alt="เทวทูตแห่งโลกมืด เล่ม 1">
 						<div style="text-align: center">
 							<span>เทวทูตแห่งโลกมืด เล่ม 1</span><br>
@@ -72,18 +103,48 @@ img:hover {
 						</a>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<br>
 		<!--bid area-->
 		<div id="bid-div" style="margin:20px;">
-			<h2>BIDs  <input id="bidInput" type="text" placeholder="Search.."></h2>
+			<h2>BID  <input id="bidInput" type="text" placeholder="Search.."></h2>
 			<hr>
-			<div class="row">
-				<div class="column">
+        <div class="row">
+          @foreach($books as $sale)
+            @if(($sale->sale_type == 'bid') and ($sale->status == 'processing'))
+              <div class="col-md-4">
+                <div class="card mb-4  ">
+                  <div class="text-center" style="margin-top: 4%;">
+                    <img class="card-img-top" src="{{$sale->images[0]->path}}" alt="Card image cap" style="max-width:180px;">
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      <blockquote>
+                        <p class="mb-0 font-weight-normal">{{ucfirst($sale->books->name)}}</p>
+                        <p class="mb-0 font-weight-normal">
+                          Author:&nbsp;&nbsp;
+                          <span class="mb-0 font-weight-light">{{ucfirst($sale->books->author)}}</span>
+                        </p>
+                      </blockquote>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <small class="text-muted">Posted by {{ucfirst($sale->seller->username)}}</small>
+                      <small class="text-muted">{{$sale->created_at->diffForHumans()}}</small>
+                      <div class="btn-group">
+                        <a class="btn btn-sm btn-outline-success" href="/books/{{$sale->id}}" role="button">View</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endif
+          @endforeach
+        </div>
+				<!-- <div class="column">
 					<div class='bid' style="display: inline-block">
 						<div>
-							<a href="/sales/2">
+							<a href="/books/2">
 							<img src="img\w-sentences.jpg" alt="Writing Sentences">
 						</div>
 						<div style="text-align: center">
@@ -93,7 +154,7 @@ img:hover {
 						</a>
 					</div>
 					<div class='bid' style="display: inline-block">
-						<a href="/sales/1">
+						<a href="/books/1">
 						<img src="img\w-paragraphs.jpg" alt="Writing Paragraphs">
 						<div style="text-align: center">
 							<span>Writing Paragraphs</span><br>
@@ -102,7 +163,7 @@ img:hover {
 						</a>
 					</div>
 					<div class='bid' style="display: inline-block">
-						<a href="/sales/3">
+						<a href="/books/3">
 						<img src="img\w-reseacrh.jpg" alt="Writing Research Papers">
 						<div style="text-align: center">
 							<span>Writing Research Papers</span><br>
@@ -111,8 +172,7 @@ img:hover {
 						</a>
 					</div>
 				</div>
-			</div>
-		</div>
+			</div> -->
 	@else
 	<!-- not login -->
 		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
