@@ -64,6 +64,10 @@ img:hover {
                         Author:&nbsp;&nbsp;
                         <span class="mb-0 font-weight-light">{{ucfirst($sale->books->author)}}</span>
                       </p>
+                      <p class="mb-0 font-weight-normal">
++                        Price:&nbsp;&nbsp;
++                        <span class="mb-0 font-weight-light">{{ucfirst($sale->base_price)}}</span>
++                     </p>
                     </blockquote>
                   </p>
                   <div class="d-flex justify-content-between align-items-center">
@@ -79,30 +83,6 @@ img:hover {
           @endif
         @endforeach
       </div>
-			<!-- <div class="row">
-				<div class="column">
-				<div class="book" style="display: inline-block">
-						<div>
-							<a href="/books/4">
-							<img src="img\123175526.jpg" alt="ป้อนคู่สู่ขวัญ">
-						</div>
-						<div style="text-align: center">
-							<span>ป้อนคู่สู่ขวัญ</span><br>
-							<span>คริสโซเพรส</span>
-						</div>
-						</a>
-				</div>
-				<div class="book" style="display: inline-block">
-						<a href="/books/5">
-						<img src="img\seraph.jpg" alt="เทวทูตแห่งโลกมืด เล่ม 1">
-						<div style="text-align: center">
-							<span>เทวทูตแห่งโลกมืด เล่ม 1</span><br>
-							<span>Takaya Kagami</span>
-						</div>
-						</a>
-					</div>
-				</div>
-			</div> -->
 		</div>
 		<br>
 		<!--bid area-->
@@ -140,38 +120,6 @@ img:hover {
             @endif
           @endforeach
         </div>
-				<!-- <div class="column">
-					<div class='bid' style="display: inline-block">
-						<div>
-							<a href="/books/2">
-							<img src="img\w-sentences.jpg" alt="Writing Sentences">
-						</div>
-						<div style="text-align: center">
-							<span>Writing Sentences</span><br>
-							<span>Dorothy E. Zemach<span>
-						</div>
-						</a>
-					</div>
-					<div class='bid' style="display: inline-block">
-						<a href="/books/1">
-						<img src="img\w-paragraphs.jpg" alt="Writing Paragraphs">
-						<div style="text-align: center">
-							<span>Writing Paragraphs</span><br>
-							<span>Dorothy E. Zemach</span>
-						</div>
-						</a>
-					</div>
-					<div class='bid' style="display: inline-block">
-						<a href="/books/3">
-						<img src="img\w-reseacrh.jpg" alt="Writing Research Papers">
-						<div style="text-align: center">
-							<span>Writing Research Papers</span><br>
-							<span>Dorothy E. Zemach</span>
-						</div>
-						</a>
-					</div>
-				</div>
-			</div> -->
 	@else
 	<!-- not login -->
 		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
