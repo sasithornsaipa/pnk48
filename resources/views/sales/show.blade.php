@@ -319,14 +319,14 @@
               </div>
             </blockquote>
 
-            <p class="lead font-weight-bold">Payment</p>
+            <!-- <p class="lead font-weight-bold">Payment</p>
             <hr>
             <blockquote class="blockquote text-center">
               <p class="mb-0 font-weight-normal">{{$info[0]}}</p>
               <p class="mb-0 font-weight-normal">{{$info[1]}} Branch</p>
               <p class="mb-0 font-weight-normal">{{$info[2]}}</p>
               <p class="mb-0 font-weight-normal">{{$info[3]}}</p>
-            </blockquote>
+            </blockquote> -->
         </div>
 
     </div>
