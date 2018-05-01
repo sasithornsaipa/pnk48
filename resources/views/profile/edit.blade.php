@@ -34,7 +34,8 @@ Profile Detail
 <div class='row'>
     
     <h1>My Profile</h1>
-    @if(Auth::user())
+    @if(Auth::user()->id != $userprodetail->id)
+
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever={{$userprodetail->username}}>Report</button>
     @if(session()->has('message'))
     <div class="alert alert-success">
@@ -44,6 +45,7 @@ Profile Detail
     @endif
     
 </div>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -71,6 +73,7 @@ Profile Detail
         </div>
     </div>
 </div>
+
 <form action="/profile/{{ $profile->id }}" enctype="multipart/form-data" method="post">
     
     @csrf
