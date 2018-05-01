@@ -4,7 +4,6 @@
 img {
     border: 1px solid #ddd; /* Gray border */
     border-radius: 4px;  /* Rounded border */
-	margin: 10px;
     padding: 5px; /* Some padding */
     width: 150px; /* Set a small width */
 }
@@ -27,8 +26,8 @@ img:hover {
 				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 			</ol>
-			<div class="carousel-inner" style="height:400px">
-				<div class="carousel-item active">
+			<div class="carousel-inner" style="height:75%">
+				<div class="carousel-item active
 				<a href="/events/1"><img class="d-block w-100" src="img/event1.png" alt="First slide"></a>
 				</div>
 				<div class="carousel-item">
@@ -180,7 +179,7 @@ img:hover {
 				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 			</ol>
-			<div class="carousel-inner" style="height:400px">
+			<div class="carousel-inner" style="height:75%">
 				<div class="carousel-item active">
 				<img class="d-block w-100" src="img/event1.png" href="events/1" alt="First slide">
 				</div>
