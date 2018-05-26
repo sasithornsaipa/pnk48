@@ -1,60 +1,46 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## การติดตั้ง
+1. clone โปรเจค https://github.com/sasithornsaipa/pnk48.git
+2. ติดตั้ง vendor ด้วยคำสั่ง composer install และ composer update ที่ root directory ของโปรเจค
+3. Start mysql server แล้วสร้าง database และแก้ไขรายละเอียดของ database ในไฟล์ .env
+4. สั่ง php artisan migrate และ php artisan db:seed เพื่อสร้างตารางและข้อมูลใน database ที่ root directory
+5. สั่ง php artisan serve ที่ root directory เพื่อเริ่มใช้งาน
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## การใช้งาน
+#### สมัครสมาชิกเพื่อใช้งานเว็บไซต์
+1. เลือก register ที่มุมบนขวา
+2. กรอกข้อมูลที่จำเป็นแล้วกดปุ่มRegister
 
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# pnk48
+#### ส่วนการใช้งานเว็บไซต์ของ user ทั่วไป
+1. Login เข้าใช้งานด้วย username และ password ของเรา
+###### ส่วนการใช้งานการส่งข้อความ
+- เข้าไปที่เมนู Personal Message
+- เลือกผู้ใช้ที่เคยส่งข้อความหากันเพื่อเริ่มต้นสนทนา
+###### ส่วนการเพิ่มหนังสือ
+- เข้าไปที่เมนู My shelfbook
+- เลือก add a book
+- ใส่รหัส barcode และเลข ISBN เพื่อเพิ่มหนังสือ
+- จากข้อ 3 ระบบจะให้ผู้ใช้กรอกข้อมูลของหนังสือเองหากไม่สามารถเพิ่มหนังสือผ่าน barcode หรือ ISBN ได้
+###### ส่วนการขายหนังสือ
+	1. เข้าไปที่เมนู Books
+	2. เลือก create sales
+	3. กรอกข้อมูลที่จำเป็นในแต่ละช่องและกด Submit
+#### ส่วนการใช้งาน Admin
+	1. การเข้าหน้า admin ต้องกรอก url โดยตรง เช่น localhost:8080/admin หรือ (กรณีใช้ laragon) pnk48.test/admin และการเข้าถึงสามารถเข้าโดยผู้ใช้ที่มีสิทธิ์เป็น admin เท่านั้น
+	2. tab dashboard ของ admin ประกอบด้วยกราฟสถิติต่างๆ สามารถ filter ชนิดของข้อมูลได้ด้วยการกดกล่องสี่เหลี่ยมทางขวาขวาของ graph
+	3. tab user สามารถที่จะดูรายชื่อ user ได้ รวมถึงการสร้าง user ใหม่ได้ แต่การสร้างใหม่นี้ เป็นการสร้าง user ระดับ admin
+		3.1การสร้าง admin ใหม่ให้กดที่ tab user
+		3.2 กดที่ New Admin
+		3.3 กรอกรายละเอียดทั้งหมดภายในฟอร์ม
+		3.4 เมื่อกดยืนยันแล้ว จะมีการ redirect มาที่หน้ารายละเอียดของ user สามารถกลับไปหน้าแรกด้วยการกดลูกศรสีฟ้าทางซ้ายมือด้านบน
+	4. หน้ารายละเอียดของ user แต่ละคนจะมีการแสดงตัวบุคคล(รูปภาพ) และรายละเอียดทางขวามือ admin สามารถทำการตักเตือน/แบน/ปลดแบนผู้ใช้ได้ทั้งหมด ยกเว้น admin ด้วยกันเอง นอกจากนี้ยังมีการแสดงผลสำหรับผู้ที่ถูก report จะมีรายการ reporter พร้อมทั้งรายละเอียดด้วย
+		4.1 ขั้นตอนการตักเตือน/แบน/ปลดแบน ให้ทำการกดปุ่ม Warn/Ban/Unban
+		4.2 จะมีหน้าฟอร์มซึ่ง field ทั้งหมดจะถูกล็อค ยกเว้นสถานะของผู้ใช้ เพื่อให้ admin ทราบว่าคนที่จะกดตักเตือน/แบน/ปลดแบนนี้คือใคร ให้มั่นใจว่าไม่ผิดคน
+		4.3 ให้เลือกสถานะของ user ได้จาก dropdown menu
+		4.4 กด submit เพื่อยืนยันการเปลี่ยนแปลงสถานะ
+		4.5 เมื่อกด submit แล้วหน้าเว็บจะถูก redirect กลับมาที่รายละเอียดของ user
+	5. tab event สามารถที่จะดู event ที่มีทั้งหมด รวมถึงการสร้าง event ได้
+		5.1 วิธีการสร้าง event คือกดที่ tab Event
+		5.2 กดที่ New Event…
+		5.3 กรอกรายละเอียดของ event ภายในแบบฟอร์มให้ครบถ้วน
+		5.4 กด Submit
+	6. tab Report เป็นหน้าที่รวม report ที่เกิดขึ้นทั้งหมด
